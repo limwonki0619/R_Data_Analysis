@@ -1,7 +1,11 @@
-"# R_data_analysis" 
+## R-Lecture
 
-�ڵ��� �� �߿��� �� �� ����
+### 교재 : 더 많이 R라뷰 (R을 활용한 데이터 분석 입문편)
+#### 저자 : 서진수 (도서출판 더알음)
 
-1. Indentation
+### R 데이터 분석에 대한 강좌
 
-2. Comment
+코딩할 때 중요한 것 두 가지
+
+   1. Indentation
+   2. Comment
