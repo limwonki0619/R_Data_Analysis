@@ -28,4 +28,14 @@ testfile2 <- rbind(testfile, data.frame(순위=30,
 
 subset(testfile, 점수<45 | 성취율>0.80)
 subset(testfile, 조!=3 & 환산점수 < 75)
+subset(testfile, 조==4 & 성취율>=0.8 | 등급=='B' & 점수 <= 10)
 
+testfile3 <- NULL
+testfile4 <- NULL
+testfile3 <- testfile2[1:40,]; testfile3
+testfile4 <- testfile2[40:nrow(testfile2),]; testfile4
+
+rbind_test <- rbind(testfile3,testfile4); rbind_test
+cbind_test <- cbind(testfile3,testfile4); cbind_test     # 행의 개수가 다르면 cbind 불가
+
+testfile[seq(nrow(testfile),round(nrow(testfile)/2)),]
