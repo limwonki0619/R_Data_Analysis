@@ -79,7 +79,7 @@ write.csv(Fruits,"Fruits_sql2.csv", quote = T, row.names = F)               # qu
 fruits_2 <- read.csv.sql("Fruits_sql.csv",
                          sql = "SELECT * FROM file WHERE year = 2008")      # 해당 파일에서 year = 2008인 데이터만 가져오기
 
-Fruits[which(Fruits$Year==2008),]                                           # which() 함수는 논리값의 참 값을 위치를 알 수 있음 
+Fruits[which(Fruits$Year==2008),]                                           # which() 함수는 논리값의 참값 위치를 알 수 있음 
 
 # 7.1.7 excel 파일 가져오기 - readxl() --------------------------------------------------------------------------------------
 
