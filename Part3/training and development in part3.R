@@ -60,7 +60,7 @@ library(stringr)
 
 data2[which(nchar(data2[,2])==3),2] <- paste0(0,data2[which(nchar(data2[,2])==3),2]); data2
 data2$새로운시간 <- paste(str_sub(data2[,2],1,2),
-                          str_sub(data2[,2],3,4), sep=":"); data2$시간 <- NULL; data2
+                         str_sub(data2[,2],3,4), sep=":"); data2$시간 <- NULL; data2
 
 # 연습문제 1
 
