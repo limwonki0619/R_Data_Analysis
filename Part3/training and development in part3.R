@@ -81,8 +81,122 @@ aggregate(하차~노선번호,data2,sum)
 # 연습문제 3
 str(airquality)
 aggregate(Ozone ~ Month, airquality, mean) 
-
+install.packages("reshape")
 install.packages("reshape2")
 library(reshape2)
+library(reshape)  # cast() 함수는 reshape 패키지에
+
 melt_air <- melt(airquality, id=c("Month","Day"),na.rm=T); str(melt_air)
-aggregate(value~Day,melt_air,mean0)
+aggregate(value~Day,melt_air,mean)
+aggregate(value~variable+Month,melt_air,median)
+cast(melt_air, Day ~ Month ~variable, mean, na.rm=T)
+
+# 변수다루기 dplyr packages -------------------------------------------------------------------
+install.packages("dplyr")
+library(dplyr)
+library(googleVis)
+
+attach(Fruits)
+Fruits_2 <- filter(Fruits, Expenses > 80); Fruits_2
+Fruits_3 <- filter(Fruits, Expenses > 90 & Sales > 90); Fruits_3
+Fruits_4 <- filter(Fruits, Expenses > 90 | Sales > 80); Fruits_4
+Fruits_5 <- filter(Fruits, Expenses == 79 | Expenses == 91); Fruits_5
+Fruits_6 <- select(Fruits[,1:4], -Location) ; Fruits_6
+
+Fruits %>% group_by(Fruit) %>% summarise(average = sum(Sales, na.rm=T))
+Fruits %>% group_by(Fruit) %>% summarise(Sales = sum(Sales),
+                                         Profit = sum(Profit))
+
+# 조건문 -------------------------------------------------------------------------------------------
+
+f_plus <- function(x) {
+  if(x>0) {return(x)}
+  else {return(-x)} 
+  }
+
+f_plus(-3)
+
+mf1 <- function(x) { 
+  if (x > 0) { x <- x^2
+  return(x)}
+  else {x <- x*0 
+  return(x)}
+}
+mf1(-3)
+
+mf2 <- function(x){
+  if (x>0) {x <- x*2 
+  return(x)}
+    else if (x == 0) {x <- x*0 
+    return(x)}
+      else {x <- x*2
+      return(x)}
+}
+
+mf2(-3)
+mf2(0)
+mf2(3)
+
+no <- seq(1:10); no
+ifelse(no%%2==0,"짝수","홀수")
+
+# 연습문제 
+
+# 1.
+myf1 <- function(x){
+  if(x>0){
+    return(1)}
+  else{ 
+  return(0)}
+  }
+
+myf1(6)
+myf1(4)
+
+# 2.
+myf2 <- function(x){
+  if(x>=0){
+    return(1) }
+  else{
+    return(0) }
+}
+myf2(-3)
+
+myf3 <- function(a,b){
+  if(a>b){
+  return(a-b) }
+    else{
+    return(b-a)}
+}
+
+myf3(3,4)
+myf3(4,3)
+
+myf4 <- function(x){
+  if(x<0){return(0)}
+  else if(x>=1 & x <=5){return(1)}
+  else {return(10)}
+}
+
+myf4(5)
+myf4(-1)
+myf4(7)
+
+myf5 <- function(x){
+  if(x=='Y'|x=='y'){return("yes")}
+  else{return("Not Yes")}
+}
+
+myf5("y")
+var1 <- readLines("채소.txt")
+
+
+x <- 0
+while(x<5){x <- x+1;
+if(var1[x]=="버섯") next; print(var1[x]);
+}
+
+for(i in seq(10,30,10)){
+  print(paste0(i,"번 학생 손드세요"))
+}
+# ------------------------------------------------------------------------------
