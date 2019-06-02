@@ -150,9 +150,6 @@ myf1 <- function(x){
   return(0)}
   }
 
-myf1(6)
-myf1(4)
-
 # 2.
 myf2 <- function(x){
   if(x>=0){
@@ -160,7 +157,6 @@ myf2 <- function(x){
   else{
     return(0) }
 }
-myf2(-3)
 
 myf3 <- function(a,b){
   if(a>b){
@@ -169,18 +165,12 @@ myf3 <- function(a,b){
     return(b-a)}
 }
 
-myf3(3,4)
-myf3(4,3)
-
 myf4 <- function(x){
   if(x<0){return(0)}
   else if(x>=1 & x <=5){return(1)}
   else {return(10)}
 }
 
-myf4(5)
-myf4(-1)
-myf4(7)
 
 myf5 <- function(x){
   if(x=='Y'|x=='y'){return("yes")}
