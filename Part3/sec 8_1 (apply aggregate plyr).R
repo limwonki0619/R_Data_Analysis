@@ -148,7 +148,7 @@ length(Fruits)         # 데이터 프레임은 변수(열)의 개수를 세어�
 install.packages("plyr")
 library(plyr)
 
-#                 출력형테  array   data frame    list   nothing
+#                 출력형  array   data frame    list   nothing
 #       입력형태
 #        array              aaply      adply     alply     a_ply
 #     data frame            daply      ddply*    dlply*    d_ply
