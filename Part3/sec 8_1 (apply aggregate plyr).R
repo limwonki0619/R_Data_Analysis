@@ -4,7 +4,7 @@ setwd("D:/limworkspace/R_lecture/Part3")
 getwd()
 
 #--------------------------------------------------------------#
-#------------------ section 8 : 다양한 함수 -------------------#
+#--------- section 8 : 데이터를 다루는 다양한 함수 ------------#
 #--------------------------------------------------------------#
 
 # 8.1 많이 사용되는 기본 함수들 ------------------------------------------------------------------------------------------
@@ -24,8 +24,8 @@ sum(vec1)
 var(vec1)                                     # 표본분산 : 제곱합 / n-1 
 sd(vec1)                          
 
-# 8.1.2 aggregate (함계, 총계) 함수 ---------------------------------------------------------------------------------------
-
+# 8.1.2 aggregate (함계, 총계) 함수 *** -----------------------------------------------------------------------------------
+install.packages("googleVis")
 library(googleVis)
 
 # aggregate( 계산이 될 열 ~ 기준이 될 열 , 데이터, 함수 )
@@ -37,9 +37,19 @@ aggregate(Profit ~ Year, Fruits, mean)
 aggregate(Sales ~ Fruit+Location, Fruits, max) # 추가조건은 +를 사용
 
 
-Fruits2 <- Fruits[which(Fruits$Date >= '2013-01-01' & Fruits$Date <= '2016-01-01')]
+Fruits2 <- Fruits[which(Fruits$Date >= '2011-01-01' & Fruits$Date <= '2014-01-01'),]
 aggregate(Sales ~ Location, Fruits2, sum)
+aggregate(Sales ~ Location, subset(Fruits, Date >= '2011-01-01' & Date <= '2014-01-01'), sum)
+
+Fruits[4:5,3] <- "West"
+Fruits[3,3] <-"East"
+
+aggregate(Sales ~ Location+Fruit, Fruits, sum)
 class(Fruits$Date)
+
+attach(Fruits)
+tapply(Sales,subset(Date>='2011-01-01'),sum)  # tapply는 subset 불가
+detach(Fruits)
 
 # 8.1.3 apply 함수 - Matrix 상대하기---------------------------------------------------------------------------------------
 
@@ -69,7 +79,7 @@ sapply(c(Fruits[,c(4,5)]),max)                 # vector 형태로 출력
 # tapply : Factor 형태의 데이터를 처리하는 apply 계열의 함수 
 
 attach(Fruits)                                 # tapply를 사용하기 전 attach 명령이 반드시 필요함 
-tapply(Sales, Fruit, sum)
+tapply(Sales, Fruit, sum)                      # attach 함수로 dataset에 접근 
 tapply(Sales, Year, sum)
 
 # mapply : Vector나 list  형태로 데이터들이 있을 때 data frame 처럼 연산을 해주는 함수
@@ -133,4 +143,25 @@ sweep(mat1,2,a)        # sweep(데이터, 방향, 요소)
 b <- c(1:5); length(b) # length 요소의 개수를 세어줌
 length(Fruits)         # 데이터 프레임은 변수(열)의 개수를 세어줌 
 
+# 8.1.8 plyr packages - apply 함수에 기반해 데이터와 출력변수를 배열로 치환하여 처리하는 패키지 ----------------------------
 
+install.packages("plyr")
+library(plyr)
+
+#                 출력형테  array   data frame    list   nothing
+#       입력형태
+#        array              aaply      adply     alply     a_ply
+#     data frame            daply      ddply*    dlply*    d_ply
+#        list               laply      ldply*    llply     l_ply
+#    n replicates           raply      rdply     rlply     r_ply
+# function arguments        maply      mdply     mlply     m_ply
+
+# * : 자주쓰이는 함수들 
+
+# ex)
+airquality # 데이터
+str(airquality)
+
+ddply(airquality,"Month",summarise,mean=mean(Temp)) # summarise : 새로운 데이터 프레임에 결과값 산출
+ddply(airquality,"Month",transform,mean=mean(Temp)) # transform : 결과겂을 기존 데이터에 새로운 컬럼으로 추가
+ddply(subset(airquality,Ozone >= 30),"Month",summarise, mean = mean(Temp)) # 조건식 추가 가능 
