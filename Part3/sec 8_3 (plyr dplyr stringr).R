@@ -105,7 +105,7 @@ data1 %>%
 
 data1 %>% 
   group_by(팀) %>%
-  mutate(OPS = 출루율 + 장타율) %>%                                      # 여러개의 변수에 함수를 적용할 때 사용 
+  mutate(OPS = 출루율 + 장타율) %>%                                      # summarise_each : 여러개의 변수에 함수를 적용할 때 사용 
   summarise_each(funs(mean), 장타율, 출루율, 타율, OPS) %>%              # summarise_each(funs(함수), 변수들)
   arrange(desc(OPS))                                                     # deprecated 오류는 앞으로 기능을 변경할 것을 암시
 
@@ -132,11 +132,19 @@ Fruits_5 <- filter(Fruits, Expenses %in% c(79,91)); Fruits_5
 Fruits_5 <- filter(Fruits, Expenses == 79 | Expenses == 91); Fruits_5
 
 Fruits_6 <- select(Fruits[,1:4], -Location); Fruits_6
-Fruits_7 <- Fruits %>% group_by(Fruit) %>% summarise(average = sum(Sales, na.rm = T)); Fruits_7
-Fruits_8 <- Fruits %>% group_by(Fruit) %>% summarise(Sales = sum(Sales),
-                                                     Profit = sum(Profit)); Fruits_8
 
-Fruits_8 <- Fruits %>% group_by(Fruit) %>% summarise_each(list(sum),Sales,Profit); Fruits_8
+Fruits_7 <- Fruits %>% 
+            group_by(Fruit) %>% 
+            summarise(average = sum(Sales, na.rm = T)); Fruits_7
+
+Fruits_8 <- Fruits %>% 
+            group_by(Fruit) %>% 
+            summarise(Sales = sum(Sales),
+                      Profit = sum(Profit)); Fruits_8
+
+Fruits_8 <- Fruits %>% 
+            group_by(Fruit) %>% 
+            summarise_each(list(sum),Sales,Profit); Fruits_8
                                                   
 rm(list=ls())
 
@@ -158,7 +166,7 @@ mtest <- melt(fruits, id = c('year','name'),
 
 # dcast(melt된 데이터, 기준컬럼 ~ 대상컬럼, 적용함수)
 dcast(mtest, year+name ~ 변수명)                                          # dcast(data, 기준컬럼 ~ 대상컬럼, 적용함수)                  
-dcast(mtest, name~변수명, sum)
+dcast(mtest, name~변수명, mean, subset=.(name=='berry'))
 dcast(mtest, name~변수명, sum, subset=.(name=='apple'))                   # subset 옵션으로 특정 변수만 출력 가능 
 
 # 8.8 데이터 핸들링 - stringr packages ****** ---------------------------------------------------------------------------------------------------
@@ -215,12 +223,15 @@ str_replace_all('apple','p','*')                                           # app
 # 8.8.8 str_split(문자열, '기준으로 나눌 문자) - 특정 문자를 기준으로 문자열을 나눠줌 -----------------------------------------------------------
 fruits_string2 <- str_c('apple','/','orange','/','banana')
 str_split(fruits_string2, '/')                                             # fruits_string2를 /를 기준으로 분리 // 결과값은 list로 출력
+str_split_fixed(fruits_string2,'/',3)[,2]                                  # '/'을 기준으로 문자열을 지정된 자리수로 분리 // 뒤에 인덱싱으로 분리된 문자열 선택 가능 
+str_split_fixed(fruits_string2,'/',3)[,1]
 
 # 8.8.9 str_sub(문자열, start, end) - 문자열에서 지정된 길이 만큼의 문자를 잘라내줌 -------------------------------------------------------------
 # substr함수와 같은 기능 
 
 fruits_string2
 str_sub(fruits_string2, start=1, end=3)
+str_sub(fruits_string2,1,3)                                                # start, end 없이도 가능 
 str_sub(fruits_string2, -5)                                                # 뒤에서 다섯번 째 부터 문자열을 잘라냄 
 
 # 8.8.10 str_trim() - 문자열의 가장 앞, 뒤의 공백을 제거해줌 ------------------------------------------------------------------------------------
