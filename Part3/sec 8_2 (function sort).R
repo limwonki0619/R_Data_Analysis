@@ -100,4 +100,6 @@ BBgame(10)
 
 # 8.4 데이터 정렬하기 - sort ----------------------------------------------------------------------------------------------
 
-sort(seq(1,30,by=5), decreasing = T)    # 디폴트 : 오름차순,  decreasing = T 옵션 : 내림차순 정렬 
+sort1 <- Fruits$Sales; sort1
+sort(sor1)                      # 디폴트 : 오름차순 
+sort(sor1, decreasing = T)      # decreasing = T 옵션 : 내림차순 정렬 
