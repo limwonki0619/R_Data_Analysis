@@ -239,3 +239,10 @@ str_sub(fruits_string2, -5)                                                # 뒤
 str_trim(' apple banana berry       ')
 str_trim('\t apple banana berry')
 str_trim('       apple     bananan   berry  \n   ')
+
+# 8.8.11 원하는 행 추출하기 *** ---------------------------------------------------------------
+
+data2[nchar(data2$시간)==3,2] <- paste0(0,data2[nchar(data2$시간)==3,2]); data2  # 1번 방법
+
+data2$새로운시간 <- paste(str_sub(data2[,2],1,2),
+                     str_sub(data2[,2],3,4), sep=":"); data2$시간 <- NULL; data2 # 2번 방법
