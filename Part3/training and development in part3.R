@@ -58,6 +58,8 @@ subset(data2, 승차 >= 350000 & 하차 <= 500000)
 install.packages("stringr")
 library(stringr)
 
+# 원하는 행 추출하기 *** ---------------------------------------------------------------
+
 data2[nchar(data2$시간)==3,2] <- paste0(0,data2[nchar(data2$시간)==3,2]); data2
 
 
