@@ -44,10 +44,10 @@ cat(list(1,2,3,4,5))               # error
 
 # 4.1 숫자형(numeric)과 주요 산술연산자 ----------------------------------------------------
 
-print(5/2)
+print(5/2)              # / 나누기
 print(5%/%2)            # %/% 나눗셈의 몫을 구한다.
 print(5%%2)             # %%  나눗셈의 나머지를 구한다. 
-print(5^2)
+print(5^2)              # 2제곱 
 
 100000+100000           # 2e+05 = 2*(10^5)
 1 / 1000000             # 1e-06 = 1*(10^(-6))
@@ -223,7 +223,7 @@ date.dfm <- data.frame(year = c(2012:2014),
 date.dfm$date <- make_date(year = date.dfm$year,
                            month = date.dfm$month,
                            day = date.dfm$day); date.dfm; class(date.dfm$date)
-
+# R 연습문제 풀어보기 https://github.com/psygrammer/bayesianR/blob/master/part1/ch04/ex04_Rbasic.md
 
 
 
