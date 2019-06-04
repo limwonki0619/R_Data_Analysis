@@ -35,9 +35,9 @@ getwd()
 # 도구 -> 환경설정(d2coding) -> 작업용 database 생성 ->
 
 # 작업용 database 생성 
-#  create database ezen
-#    default character set utf8
-#    default collate utf8_general_ci;
+  create database ezen
+    default character set utf8
+    default collate utf8_general_ci;
 
 # 테이블 생성 
 USE ezen;  # 사용할 데이터베이스 지정 
@@ -301,25 +301,62 @@ SELECT gg._id, gg.NAME, s.title     # Inner join
   
   
   
-# 연습문제
 
-# 1.
+# 연습문제 - mysql실습 
 
+# 1. 2009년도에 데뷔한 걸그룹 정보는?
 SELECT * FROM girl_group WHERE debut BETWEEN '2009-01-01' AND '2009-12-31';
-                        #WHERE debut LIKE '2009%';
-# 2.
 
-SELECT gg._id, gg.NAME, gg.debut, s.title
-FROM girl_group AS gg 
-LEFT OUTER JOIN song AS s
-ON s._id = gg.hit_song_id
-WHERE debut BETWEEN '2009-01-01' AND '2009-12-31';
-#HWERE debut LIKE '2009%'  
+
+# 2. 2009년에 데뷔한 걸그룹의 히트송은?
+SELECT gg._id, gg.NAME AS '걸그룹이름', gg.debut AS '데뷔일', s.title AS '제목'
+  FROM girl_group AS gg 
+  LEFT OUTER JOIN song AS s
+  ON s._id = gg.hit_song_id
+  WHERE debut BETWEEN '2009-01-01' AND '2009-12-31';
+  #where debut like '2009%'
+
+# 3. 대륙별로 국가숫자, GNP합, GNP 평균은
+SELECT  Continent, COUNT(*), sum(GNP), avg(GNP) FROM country 
+  GROUP BY Continent;
+
+# 4. 아시아 대륙에서 인구가 가장 많은 도시 10개를 내림차순으로 보여라 (대륙명, 국가명, 도시명, 인구수)
+SELECT country.continent, country.NAME, city.district, city.population
+  FROM country 
+  INNER JOIN city
+  ON country.CODE = city.CountryCode
+  WHERE country.continent='Asia'
+  ORDER BY city.population DESC LIMIT 10;
+
+# 5. 전 세계에서 인구가 가장 많은 10개 도시에서 사용하는 공식언어는? (도시명, 인구수, 언어명)
+SELECT c.NAME AS '도시명', c.population AS '인구수', cl.LANGUAGE AS '언어명'
+  FROM city AS c 
+  INNER JOIN countrylanguage AS cl
+  ON c.CountryCode = cl.CountryCode
+  WHERE cl.IsOfficial=true
+  ORDER BY c.Population DESC limit 10;
 
 # 참고 : mysql data type : http://www.incodom.kr/DB_-_%EB%8D%B0%EC%9D%B4%ED%84%B0_%ED%83%80%EC%9E%85/MYSQL
 
+  
+# 테이블 export / import 
+
+USE ezen;
+SELECT * FROM song;
+SELECT * FROM girl_group;
 
 
+SHOW VARIABLES LIKE "secure_file_priv";
+SELECT * FROM girl_group INTO OUTFILE
+  'C:/ProgramData/MySQL/MySQL Server 5.7/Uploads/girl_group.csv'
+  FIELDS TERMINATED BY ','    # 구분자를 ,로 설정 -> csv파일 
+  LINES TERMINATED BY '\r\n'; # 
+
+SHOW VARIABLES LIKE "secure_file_priv";
+SELECT * FROM song INTO OUTFILE
+  'C:/ProgramData/MySQL/MySQL Server 5.7/Uploads/song2.csv'
+  FIELDS TERMINATED BY ','
+  LINES TERMINATED BY '\r\n';
 
 
 

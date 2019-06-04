@@ -1,0 +1,327 @@
+﻿USE ezen;
+CREATE TABLE if NOT EXISTS address_book (
+    NO INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    NAME VARCHAR(10) NOT NULL,
+    tel VARCHAR(14),
+    nickname VARCHAR(20) DEFAULT '별명',
+    PRIMARY KEY(NO)
+) AUTO_INCREMENT=10001 DEFAULT CHARSET=UTF8;
+
+USE ezen;
+DESC address_book;
+
+CREATE TABLE tmp (
+ id INT PRIMARY KEY,
+ NAME VARCHAR(10)
+ );
+ 
+DROP TABLE tmp;
+
+RENAME TABLE address_book TO addr_book;
+SHOW TABLES;
+
+ALTER TABLE addr_book ADD gender CHAR(2) NOT NULL;
+DESC addr_book;
+
+ALTER TABLE addr_book ADD email VARCHAR(20) NOT NULL AFTER tel;
+DESC addr_book;
+
+ALTER TABLE addr_book drop nickname;
+DESC addr_book;
+
+ALTER TABLE addr_book CHANGE NO adid INT(8);
+DESC addr_book;
+
+ALTER TABLE addr_book CHANGE adid adid INT UNSIGNED NOt NULL auto_increment;
+DESC addr_book;
+
+ALTER TABLE addr_book MODIFY gender CHAR(2) AFTER NAME;
+DESC addr_book;
+
+
+
+USE world;
+SELECT * FROM city;
+SELECT * FROM city WHERE countrycode like 'KOR';
+
+SELECT * FROM city WHERE district LIKE 'kyonggi';
+SELECT * FROM city WHERE district LIKE 'kyonggi' AND population > 500000;
+SELECT DISTINCT DISTRICT FROM city WHERE countrycode='KOR';
+
+DESC ezen.addr_book; /* database name.table name*/
+
+SELECT * FROM city WHERE district LIKE 'Taejon' OR 
+	district LIKE 'chungchongbuk' OR district LIKE 'chungchongnam';
+
+SELECT * FROM city WHERE countrycode LIKE 'kor' and population > 1000000
+AND ID%2 = 1;
+
+SELECT DISTRICT FROM city WHERE countrycode='KOR';
+SELECT DISTRICT FROM city;
+
+
+SELECT * FROM city WHERE countrycode='KOR' AND population BETWEEN 1000000 AND 2000000;
+SELECT * FROM city WHERE countrycode='KOR' AND NAME LIKE 'tae%';
+
+SELECT * FROM city WHERE district LIKE 'kyonggi' ORDER BY NAME;
+SELECT * FROM city WHERE district LIKE 'kyonggi' ORDER BY population DESC;
+
+SELECT * FROM city WHERE countrycode='KOR' ORDER BY district;
+SELECT * FROM city WHERE countrycode='KOR' ORDER BY district, population desc;
+
+SELECT MAX(population) FROM city WHERE countrycode='kor';
+SELECT min(population) FROM city WHERE countrycode='kor';
+SELECT avg(population) FROM city WHERE countrycode='kor';
+SELECT sum(population) FROM city WHERE countrycode='kor';
+
+SELECT sum(population), max(population), avg(population),
+	sum(population) FROM city WHERE countrycode='kor';
+
+
+SELECT GROUP_CONCAT(NAME) FROM city WHERE district='chungchongnam';
+SELECT GROUP_CONCAT(DISTINCT district) FROM city WHERE countrycode='kor';
+
+SELECT district, COUNT(*) FROM city WHERE countrycode='kor';
+SELECT district, COUNT(*) FROM city WHERE countrycode='kor' GROUP BY district;
+
+select district, count(*) from city where countrycode='kor'
+	group by district having count(*)=6;
+SELECT district, COUNT(*) FROM city WHERE countrycode='kor'
+	GROUP BY district HAVING COUNT(*)=6;
+
+SELECT district, COUNT(*) FROM city WHERE countrycode='kor'
+	GROUP BY district HAVING COUNT(*)>=6;
+	
+SELECT district, COUNT(*) FROM city WHERE countrycode='kor'
+	GROUP BY district HAVING COUNT(*)>=6 ORDER BY COUNT(*) desc;
+
+SELECT countrycode, COUNT(*) FROM city 
+	GROUP BY countrycode HAVING COUNT(*) >=50;
+
+SELECT countrycode, COUNT(*) FROM city  
+	GROUP BY countrycode HAVING COUNT(*) >=50 
+	ORDER BY COUNT(*) desc;
+	
+SELECT city.NAME, city.Population, country.NAME FROM city
+	INNER JOIN country ON city.CountryCode = country.CODE;
+	
+SELECT city.NAME, city.Population, country.NAME FROM city
+	INNER JOIN country ON city.CountryCode = country.CODE
+	WHERE city.countrycode='kor';
+	
+SELECT city.NAME, city.Population, country.NAME FROM city
+	INNER JOIN country ON city.CountryCode = country.CODE
+	WHERE city.population > 7000000
+	ORDER BY city.Population desc;
+	
+SELECT city.NAME, city.Population, country.NAME FROM city
+	INNER JOIN country ON city.CountryCode = country.CODE
+	WHERE city.population > 7000000
+	ORDER BY city.Population desc
+	LIMIT 5;
+	
+	
+	
+USE ezen;
+CREATE TABLE if NOT EXISTS eagles (
+    BACKNO INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    NAME VARCHAR(10) NOT NULL,
+    tel VARCHAR(14),
+    nickname VARCHAR(20) DEFAULT '별명',
+    PRIMARY KEY(NO)
+) AUTO_INCREMENT=10001 DEFAULT CHARSET=UTF8;
+	
+USE ezen;
+CREATE TABLE eagles (
+	backNo INT UNSIGNED NOT NULL PRIMARY KEY, 
+	NAME VARCHAR(10) NOT NULL,
+	POSITION VARCHAR(4) NOT NULL,
+	highschool VARCHAR(10),
+	hand VARCHAR(10) 
+	) DEFAULT CHARSET=UTF8;
+
+DESC eagles;
+
+
+INSERT INTO	eagles VALUES (37,'노시환','내야수','경남고','우투우타'),
+			 					  (46,'송은범','투수','동산고','우투우타'),
+			 					  (48,'채드밸','투수','S.Doyle','좌투우타'),
+			 					  (44,'서폴드','투수','Bellmont','우투우타'),
+			 					  (53,'김민우','투수','용마고','우투우타'),
+			 					  (17,'김범수','투수','북일고','좌투좌타'),
+			 					  (50,'이성열','내야수','순천효천고','우투좌타'),
+			 					  (43,'정은원','내야수','인천고','우투좌타'),
+			 					  (27,'변우혁','내야수','북일고','우투우타'),
+			 					  (30,'호잉','외야수','-','우투좌타');
+SELECT * FROM eagles; 
+
+UPDATE eagles SET highschool='hoying' WHERE backNo=30;
+UPDATE eagles SET POSITION='외야수' WHERE backNo=50;
+SELECT * FROM eagles; 
+
+DELETE FROM eagles WHERE backNo=30 OR backNo=44; 
+SELECT * FROM eagles; 
+
+
+
+CREATE VIEW pitcher AS SELECT * FROM eagles
+	WHERE POSITION LIKE '투수';
+SELECT * FROM pitcher;	
+
+CREATE VIEW outfielder AS SELECT * FROM eagles
+	WHERE POSITION LIKE '외야수';
+SELECT * FROM outfielder;	
+
+CREATE VIEW infielder AS SELECT * FROM eagles
+	WHERE POSITION LIKE '내야수';
+SELECT * FROM infielder;
+	
+DROP VIEW infielder;
+
+
+CREATE VIEW infielder 
+	AS SELECT  backNo, NAME, highschool, hand FROM eagles
+	WHERE POSITION LIKE '내야수';
+
+SELECT * FROM infielder;
+
+ALTER TABLE eagles ADD birthday DATE;
+DESC eagles;
+
+
+UPDATE eagles SET birthday ='1995-10-03' WHERE backNo=30;
+UPDATE eagles SET birthday ='2000-03-18' WHERE backNo=17;
+UPDATE eagles SET birthday ='2000-12-03' WHERE backNo=37;
+UPDATE eagles SET birthday ='2000-01-17' WHERE backNo=43;
+UPDATE eagles SET birthday ='1984-03-17' WHERE backNo=46;    
+UPDATE eagles SET birthday ='1989-05-18' WHERE backNo=48;
+UPDATE eagles SET birthday ='1989-05-18' WHERE backNo=50;
+UPDATE eagles SET birthday ='1989-05-18' WHERE backNo=53;    
+UPDATE eagles SET birthday ='2000-06-19' WHERE backNo=27;  
+SELECT * FROM eagles;
+
+SELECT NOW(), CURDATE(), CURTIME();
+SELECT * FROM eagles ORDER BY birthday;
+SELECT NAME, DATE_FORMAT(birthday, "%y%m%d") FROM eagles ORDER BY birthday;
+SELECT NAME, DATE_FORMAT(birthday, "%Y%M%D") FROM eagles ORDER BY birthday;
+
+USE ezen;
+CREATE TABLE girl_group (
+	_id INT PRIMARY KEY AUTO_INCREMENT,
+	NAME VARCHAR(32) NOT NULL,
+	debut DATE NOT NULL,
+	hit_song_id int
+	) DEFAULT CHARSET=UTF8;
+	
+CREATE TABLE song (
+	_id INT PRIMARY KEY AUTO_INCREMENT,
+   title VARCHAR(32) NOT NULL,
+	lyrics VARCHAR(32)
+	) DEFAULT CHARSET=UTF8;
+
+INSERT INTO song VALUES (101, 'Tell Me', 'tell me tell me tetetete tel me');
+INSERT INTO song (title, lyrics) 
+	VALUES ('Gee', 'GEE GEE GEE GEE GEE BABY BABY'),
+			 ('미스터', '이름이 뭐야 미스터'),
+			 ('Abracadabra', '이러다 미쳐 내가 여리여리'),
+			 ('8282', 'Give me a call baby baby'),
+			 ('기대해', '기대해'),
+			 ('I Don\`t care', '다른 여자들의 다리를'),
+			 ('Bad Girl Good Girl', '앞에선 한 마디 말도'),
+			 ('피노키오', '뉴에삐오'),
+			 ('별빛달빛', '너는 내 별빛 내 마음의 별빛'), 
+			 ('A', 'A 워오우 워오우워 우우우'),
+	       ('나혼자', '나 혼자 밥을 먹고 나 혼자 영화 보고'), 
+			 ('LUV', '설레이나요 '),
+	       ('짧은치마', '짧은 치마를 입고 내가 길을 걸으면'),
+	       ('위아래', '위 아래 위위 아래'), 
+			 ('Dumb Dumb' , '너 땜에 하루종일');
+			 
+INSERT INTO girl_group (NAME, debut, hit_song_id) 
+	VALUES ('원더걸스', '2007-02-10', 101),
+		  	 ('소녀시대', '2007-08-02', 102), 
+			 ('카라', '2009-07-30', 103),
+			 ('브라운아이드걸스', '2008-01-17', 104), 
+			 ('다비치', '2009-02-27', 105),
+	       ('2NE1', '2009-07-08', 107), 
+			 ('f(x)', '2011-04-20', 109),
+			 ('시크릿', '2011-01-06', 110), 
+			 ('레인보우', '2010-08-12', 111);
+			 
+INSERT INTO girl_group (name, debut) 
+	VALUES  ('애프터 스쿨', '2009-11-25'), 
+			  ('포미닛', '2009-08-28');
+			  
+SELECT gg._id, gg.NAME, s.title     # Inner join
+	FROM girl_group AS gg            # aliasing
+	INNER JOIN song AS s 
+	ON s._id = gg.hit_song_id;
+
+SELECT gg._id, gg.NAME, s.title
+	FROM girl_group AS gg
+	LEFT outer JOIN song AS s           # LEFT JOIN song AS s
+	ON s._id = gg.hit_song_id;
+	
+SELECT s._id, s.title, gg.name 
+	FROM girl_group AS gg 
+	RIGHT OUTER JOIN song AS s 	     # RIGHT JOIN song AS s 
+	ON s._id = gg.hit_song_id;
+
+# 연습문제
+
+# 1.
+
+SELECT * FROM girl_group WHERE debut BETWEEN '2009-01-01' AND '2009-12-31';
+
+# 2.
+
+SELECT gg._id, gg.NAME AS '걸그룹이름', gg.debut AS '데뷔일', s.title AS '제목'
+	FROM girl_group AS gg 
+	LEFT OUTER JOIN song AS s
+	ON s._id = gg.hit_song_id
+	WHERE debut BETWEEN '2009-01-01' AND '2009-12-31';
+   #where debut like '2009%'
+
+# 3.
+SELECT  Continent, COUNT(*), sum(GNP), avg(GNP) FROM country 
+	GROUP BY Continent;
+	
+# 4.
+
+SELECT country.continent, country.NAME, city.district, city.population
+	FROM country 
+	INNER JOIN city
+	ON country.CODE = city.CountryCode
+	WHERE country.continent='Asia'
+	ORDER BY city.population DESC LIMIT 10;
+	
+# 5. 
+SELECT c.NAME AS '도시명', c.population AS '인구수', cl.LANGUAGE AS '언어명'
+		 FROM city AS c 
+		 INNER JOIN countrylanguage AS cl
+		 ON c.CountryCode = cl.CountryCode
+		 WHERE cl.IsOfficial=true
+		 ORDER BY c.Population DESC limit 10;
+		 
+		 
+SHOW VARIABLES LIKE "secure_file_priv";
+
+USE ezen;
+SELECT * FROM song;
+SELECT * FROM girl_group;
+
+
+SHOW VARIABLES LIKE "secure_file_priv";
+SELECT * FROM girl_group INTO OUTFILE
+	'C:/ProgramData/MySQL/MySQL Server 5.7/Uploads/girl_group.csv'
+	FIELDS TERMINATED BY ','    # 구분자를 ,로 설정 -> csv파일 
+	LINES TERMINATED BY '\r\n'; # 
+	
+	TRUNCATE song;
+	
+SHOW VARIABLES LIKE "secure_file_priv";
+SELECT * FROM song INTO OUTFILE
+	'C:/ProgramData/MySQL/MySQL Server 5.7/Uploads/song2.csv'
+	FIELDS TERMINATED BY ','
+	LINES TERMINATED BY '\r\n';
+
