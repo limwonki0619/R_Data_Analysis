@@ -16,7 +16,7 @@ while (number < 5) {
 }
 
 number <- 0
-while (number < 5) {
+while (number < 4) {
   print(number)
   if (number == 3) {
     break 
@@ -24,7 +24,7 @@ while (number < 5) {
     number <- number + 1                
 }
 
-number <- -1
+number <- -1                # 10이하의 짝수를 나타내라
 while (number < 10) {
   number <- number + 1
   if (number %% 2 == 1) {
@@ -34,7 +34,7 @@ while (number < 10) {
   }
 }
 
-number <- 0
+number <- 0 # 10의 약수를 구하라 
 while(number < 10) {
   number <- number + 1
   if( 10%%number == 0) { 
@@ -51,8 +51,8 @@ for (i in 1:10) {
 }
 
 sum <- 0
-for (i in 1:100) { # 1~100까지 모두 더하기
-  sum <- sum + i
+for (i in 1:3) { # 1~100까지 모두 더하기
+  sum <- sum + i 
 }
 print(sum)
 
@@ -84,7 +84,7 @@ multiple(1000, 4)
 
 text <- readLines("채소.txt")
 x <- 0
-while (x < 5) {
+while (x < 5) { # 3번째 라인만 넘어가고 나머지 출력 
   x <- x+1
   if (x==3) { 
     next
@@ -92,6 +92,17 @@ while (x < 5) {
     print(text[x]) 
   }
 }
+
+x <- 0
+while(x<5){
+  x <- x+1
+  if(text[x]=="버섯") {
+    next 
+  } else {
+    print(text[x]) 
+  }
+}
+
 
 # Nested for - loop 
 while (T) {
@@ -125,21 +136,140 @@ for (i in seq(10,30,10)) {
 } 
 
 text <- NULL
-for (i in 1:3) {
+for (i in 1:10) {
   text[i] <- paste0(i*10,'번 학생 손드세요')
   print(text[i])
 } 
 
+text
+
 # for 연습문제 2 - 구구단
 for (i in 2:9){
+  print(paste(i,"단"))
   for (j in 1:9) {
     print(paste(i,"x",j,"=",i*j))
   }
 }
 
-# for 연습문제 3 - diamond 그리기
-# Nested for - loop 
+# for 연습문제 3 - Nested for - loop 
 
+
+#
+##
+###
+####
+##### 그리기
+
+for (i in 1:5) {
+  line <- ''
+  for (k in 1:i) {
+    line <- paste0(line, '#')  
+  }
+  print(line)
+}
+
+#####
+####
+###
+##
+# 그리기
+
+for (i in 5:1) {
+  line <- ''
+  for (k in 1:i) {
+    line <- paste0(line, '#')  
+  }
+  print(line)
+}
+
+
+#####
+ ####
+  ###
+   ##
+    # 그리기
+for (i in 1:5) {
+  line <- ''
+  if (i != 1) {
+    for (k in 1:(i-1)) {
+      line <- paste0(line, ' ')
+    }
+  }
+  for (k in i:5) {
+    line <- paste0(line, '#')
+  }
+  print(line)
+}
+
+   #
+  ###
+ #####
+#######
+ #####
+  ###
+   #
+
+while (T) { # 마름모 모양 
+  for (i in 1:4) {
+    line <- ''
+    if( i != 4) {
+      for (k in 1:(4-i)) { 
+        line <- paste0(line, " ")
+      }
+    }
+    for (l in 1:(i*2-1)) {
+      line <- paste0(line, "#")
+    }
+    print(line)
+  }
+  for (i in 3:1) {
+    line <- ''
+    for (k in 1:(4-i)) {
+      line <- paste0(line, " ")
+    }
+    for (k in 1:(i*2-1)) {
+      line <- paste0(line, "#")
+    }
+    print(line)
+  }
+  break
+}
+
+#######
+ #####
+  ###
+   #
+  ###
+ #####
+########
+
+while (T) { # 모래시계 모양
+  for (i in 4:1) {
+    line <- ''
+    if( i != 4) {
+      for (k in 1:(4-i)) { 
+        line <- paste0(line, " ")
+      }
+    }
+    for (l in 1:(i*2-1)) {
+      line <- paste0(line, "#")
+    }
+    print(line)
+  }
+  for (i in 2:4) {
+    line <- ''
+    if (i != 4) {
+      for (k in 1:(4-i)) {
+        line <- paste0(line, " ")
+      }
+    }
+    for (k in 1:(i*2-1)) {
+      line <- paste0(line, "#")
+    }
+    print(line)
+  }
+  break
+}
 
 # for 연습문제 4 - 약수 구하는 함수
 getDenominator <- function(x) {
