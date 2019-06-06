@@ -1,3 +1,4 @@
+# R에서 별찍기 !!
 # Nested for - loop 해보기
 
 #
@@ -92,7 +93,7 @@ for (k in c(i,3:6)) {
 }
 
 
-#          i    b개 (i:3)  #   1:(i*2-1)
+#          i    b수 (i:3)  #수 1:(i*2-1)
                   
    #       1    3개 (1:3)  1개 1:(i*2-1) 1  
   ###      2    2개 (2:3)  3개 1:(i*2-1) 3
@@ -129,6 +130,145 @@ while(T){
   break
 }
 
+                            # i   b수(i:9)  #수 1:(i*2+1)  
+length(1:21)                     
+#####################         10  0 (i!=10) 21개          
+ ###################           9  1 9:9     19개
+  #################            8  2 8:9     17개
+   ###############
+    #############
+     ###########
+      #########
+       #######
+        #####
+         ###                   1  9 i:9      3개         
+          #                    0             1개   
+
+         ###                   1  9 i:9      3개
+        #####                  2  8          5개 1:(i*2+1)
+       #######
+      #########
+     ###########
+    #############
+   ###############
+  #################
+ ###################
+#####################         10  0 (i!=10)  21개
+
+while (T) {
+  for (i in 10:0) {
+   line <- ''
+   if (i != 10){
+     for (k in i:9) {
+       line <- paste0(line, ' ')
+     }  
+   } 
+   for (k in 1:(i*2+1)) {
+     line <- paste0(line, "#")
+   }
+   print(line)
+  }
+  for (i in 1:10) {
+    line <- ''
+    if (i != 10) {
+      for (k in i:9) {
+        line <- paste0(line, ' ')
+      }
+    }
+    for (k in 1:(i*2+1)) {
+      line <- paste0(line, '#')
+    }
+    print(line)
+  }
+  break
+}
+
+     #         #
+    ###       ###
+   #####     ##### 
+  #######   #######
+ ######### #########
+
+#####################              
+ ###################         
+  #################           
+   ###############
+    #############
+     ###########
+      #########
+       #######
+        #####
+         ###                      
+          # 
 
 
+#  i    b      #           b            #
+#  1    5(i:5) 1 1:(i*2-1) 9(i*2-1):9  1 1:(i*2-1)
+#  2    4      3           7            3
+#  3    3      5           5            5
+#  4    2      7           3            7 
+#  5    1      9           1            9
 
+while (T) {
+  for (i in 1:5) {
+    line <- ''
+    for (k in i:5) {
+      line <- paste0(line, " ")
+    }
+    for (k in 1:(i*2-1)) {
+      line <- paste0(line, "#")
+    }
+    for (k in (i*2-1):9) {
+      line <- paste0(line, " ")
+    }
+    for (k in 1:(i*2-1)) {
+      line <- paste0(line, "#")
+    }
+    print(line)
+  }
+  for (i in 10:0) {
+    line <- ''
+    if (i != 10){
+      for (k in i:9) {
+        line <- paste0(line, ' ')
+      }  
+    } 
+    for (k in 1:(i*2+1)) {
+      line <- paste0(line, "#")
+    }
+    print(line)
+  }
+  break
+}
+
+while (T) {
+  for (i in 1:5) {
+    line <- ''
+    for (k in i:5) {
+      line <- paste0(line, " ")
+    }
+    for (k in 1:(i*2-1)) {
+      line <- paste0(line, "#")
+    }
+    for (k in (i*2-1):9) {
+      line <- paste0(line, " ")
+    }
+    for (k in 1:(i*2-1)) {
+      line <- paste0(line, "#")
+    }
+    print(line)
+  }
+  for (i in 0:10) {
+    line <- ''
+      if (i != 10) {
+        for (k in i:9) {
+        line <- paste0(line, ' ')
+        }
+      }
+      for (k in 1:(i*2+1)) {
+        line <- paste0(line, '#')
+      }
+  print(line)
+  }
+  break
+}
