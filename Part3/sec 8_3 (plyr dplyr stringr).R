@@ -240,7 +240,13 @@ str_trim(' apple banana berry       ')
 str_trim('\t apple banana berry')
 str_trim('       apple     bananan   berry  \n   ')
 
-# 8.8.11 원하는 행 추출하기 *** ---------------------------------------------------------------
+# 8.8.11 str_match(data, pattern) - 문자의 패턴이 매치하는 자리를 출력해줌 ----------------------------------------------------------------------
+fruits_string <- c('apple','Apple','banana','pineapple')
+
+str_detect(fruits_string, 'A')                                             # 대문자 A가 있는 단어 찾기 (논리값으로 출력)
+str_match(fruits_string, 'A')                                              # 대문자 A가 있는 단어 찾기 (매칭되는 위치의 값만 출력)
+
+# 8.8.12 원하는 행 추출하기 *** -----------------------------------------------------------------------------------------------------------------
 
 data2[nchar(data2$시간)==3,2] <- paste0(0,data2[nchar(data2$시간)==3,2]); data2  # 1번 방법
 
