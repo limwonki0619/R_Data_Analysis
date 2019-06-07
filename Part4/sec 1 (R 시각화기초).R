@@ -5,8 +5,8 @@ setwd("D:/limworkspace/R_lecture/Part4/graph")
 getwd()
 
 #--------------------------------------------------------------#
-#------------------------- Part 4 시각화 ----------------------#
-#------------------ Section 1 : 시각화 기본 -------------------#
+#------------------------- Part 4 시각화 -----------------------#
+#------------------ Section 1 : 시각화 기본 --------------------#
 #--------------------------------------------------------------#
 
 # 1. 시각화 기초함수 ---------------------------------------------------------------------------------------------
@@ -142,15 +142,15 @@ legend(4.15, 9.5, c("v1","v2","v3"),
 
 x <- matrix(c(5,4,3,2), nrow=2)
 par(mfrow=c(3,3))
-barplot(x, beside=T, names=c(5,3), col=c("MediumTurquoise","Coral"))  # 막대값 각각 그래프 생성
-barplot(x, beside=F, names=c(5,3), col=c("DeepSkyblue","salmon"))  # 막대값을 중첩해서 생성 
-barplot(x, horiz=T, names=c(5,3), col=c("Orchid","MediumSpringGreen"))  # 막대값 각각 그래프 생성
-barplot(x, horiz=F, names=c(5,3), col=c("LightSkyBlue","Pink1"))  # 막대값 각각 그래프 생성
-barplot(x, horiz=F, names=c(5,3), col=c("IndianRed2","PaleGreen2"))  # 막대값 각각 그래프 생성
-barplot(x, horiz=F, names=c(5,3), col=c("Plum","LightGoldenrod1"))  # 막대값 각각 그래프 생성
-barplot(x, horiz=F, names=c(5,3), col=c("Sienna","OliveDrab"))  # 막대값 각각 그래프 생성
-barplot(x, horiz=F, names=c(5,3), col=c("CadetBlue2","Mediumpurple1"))  # 막대값 각각 그래프 생성
-barplot(x, horiz=F, names=c(5,3), col=c("PaleVioletRed1","Gray40"))  # 막대값 각각 그래프 생성
+barplot(x, beside=T, names=c(5,3), col=c("MediumTurquoise","Coral"))    # 막대값 각각 그래프 생성
+barplot(x, beside=F, names=c(5,3), col=c("DeepSkyblue","salmon"))       # 막대값을 중첩해서 생성 
+barplot(x, horiz=T, names=c(5,3), col=c("Orchid","MediumSpringGreen"))  # 색상 변경   
+barplot(x, horiz=F, names=c(5,3), col=c("LightSkyBlue","Pink1"))        
+barplot(x, horiz=F, names=c(5,3), col=c("IndianRed2","PaleGreen2"))     
+barplot(x, horiz=F, names=c(5,3), col=c("Plum","LightGoldenrod1"))      
+barplot(x, horiz=F, names=c(5,3), col=c("Sienna","OliveDrab"))  
+barplot(x, horiz=F, names=c(5,3), col=c("CadetBlue2","Mediumpurple1"))  
+barplot(x, horiz=F, names=c(5,3), col=c("PaleVioletRed1","Gray40"))  
 
 par(mfrow=c(1,1))
 
@@ -186,7 +186,7 @@ qty; t(qty) # 전치행렬!!
 peach <- c(180,200,250,198,170)
 colors <- c()
 
-for (i in 1:length(peach)) {
+for (i in 1:length(peach)) { # for문으로 색상 지정 
   if(peach[i] >= 200) {
     colors <- c(colors, "red")
   }
@@ -325,6 +325,7 @@ plot(g, layout=layout.fruchterman.reingold,
 # vertex.label.color    점 레이블 색상
 
 # 1.7 d3Network -----------------------------------------------------------------------------------------------------------
+
 install.packages("devtools")
 library(devtools)
 install.packages("d3Network")
@@ -362,7 +363,7 @@ gubun <- str_sub(gubun1, start=1, end=1)
 colors <- c()
 sizes <- c()
 shape <- c()
-for (i in 1:length(gubun)) {
+for (i in 1:length(gubun)) { # for문으로 색상, 크기, 모양 지정 
   if(gubun[i]=="S") {
     colors <- c(colors, "PaleVioletRed1")
     sizes <- c(sizes, 4)
@@ -385,9 +386,10 @@ plot(g, layout = layout.auto,
 virus1 <- read.csv("data/메르스전염현황.csv", header =T)
 d3SimpleNetwork(virus1, width=1200, height = 900, file ="D:/limworkspace/R_lecture/Part4/mers.html" )
 
-# http://cafe.naver.com/theareum/243
+# 참고카페 : http://cafe.naver.com/theareum/243
 
 # 1.8 treemap - 기준값의 면적을 보여줌 --------------------------------------------------------------------------------------
+
 install.packages("treemap")
 library(treemap)
 
@@ -418,6 +420,7 @@ color <- c("black","red","green","blue","cyan","violet")
 pie(value, labels = lab, col=color, radius = 0.1, cex = 0.6)
 
 # 1.10 radarchart 함수로 비교 분석하기 ---------------------------------------------------------------------------------------
+
 install.packages("fmsb")
 library(fmsb)
 
@@ -449,7 +452,8 @@ radarchart(data2, axistype = 3, pty=32, plty=1, axislabcol="grey40", na.itp=FALS
 radarchart(data2, axistype = 0, plwd=1:5, pcol=1, title = "네번째 타입")
 
 par(mfrow=c(1,1))
-# 1.11 저 수준 작도 함수 (기존에 그려진 그래프에 추가적인 선이나 설명을 넣는 그래프)
+
+# 1.11 저 수준 작도 함수 (기존에 그려진 그래프에 추가적인 선이나 설명을 넣는 그래프) --------------------------
 
 # 점           points
 # 직선         lines, segments, abline
@@ -475,7 +479,7 @@ rect(1,6,3,8)
 arrows(1,1,5,5)
 
 
-# 연습문제 1. 품종별 산점도 
+# 연습문제 1. 품종별로 iris데이터에서 꽃받침 넓이와 길이 및 꽃잎의 넓이와 길이를 산점도로 나태내라   
 summary(iris)
 str(iris)
 library(dplyr) 
@@ -505,7 +509,7 @@ iris %>% filter(Species=="virginica") %>%
          select(Petal.Length, Petal.Width) %>% 
          plot(pch=16, cex=1.5, col="Coral", main = "virginica - Petal")
 
-# 2. 품종별 평균치 barplot 그리기 
+# 2. 품종별 꽃받침의 평균 길이와 넓이 및 꽃잎의 평균 길이와 넓이를 바 차트로 나타내라
 par(mfrow=c(1,2))
 str(iris)
 colors <- c("MediumTurquoise","Coral","LightGoldenrod1","DeepSkyblue")
@@ -528,7 +532,7 @@ legend("topright", names(iris[,1:4]), cex=0.7, fill=colors)
 
 ?legend
 
-# 3. boxplot 12개 그리기 
+# 3. 품종별 꽃받침의 넓이와 길이 및 꽃잎의 넓이와 길이를 상자그림으로 
 
 library(reshape)
 par(mfrow=c(1,3))
