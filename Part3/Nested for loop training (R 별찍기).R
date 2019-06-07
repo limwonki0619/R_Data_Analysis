@@ -1,4 +1,4 @@
-# R에서 별찍기 !!
+uioj# R에서 별찍기 !!
 # Nested for - loop 해보기
 
 #
