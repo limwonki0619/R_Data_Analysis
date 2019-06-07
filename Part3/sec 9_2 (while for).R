@@ -285,3 +285,5 @@ getDenominator <- function(x) {
 getDenominator(854)
 
 
+
+
