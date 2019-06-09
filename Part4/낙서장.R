@@ -8,6 +8,13 @@ boxplot(iris$Sepal.Length~iris$Species)
 # IQR(Inter-Quartile Range)
 # 참고 : https://m.blog.naver.com/PostView.nhn?blogId=2000051148&logNo=221157875274&proxyReferer=https%3A%2F%2Fwww.google.com%2F
 
-iris %>% select(Sepal.Length, Species) %>% filter(Species =="setosa") %>% 
-         summarise(Sepal.Length_median = median(Sepal.Length)) %>% 
-         filter(Sepal.Length >= Sepal.Length_median)
+setosa <- iris %>% filter(Species=="setosa") %>% select(-Species)
+boxplot(setosa)$stats
+for (i in 1:4) {
+  setosa[,i] <- ifelse(setosa[,i] < boxplot(setosa[,i])$stats[i] | setosa[,i] > boxplot(setosa[,i])$stats[i], NA, setosa[,i])
+}
+
+setosa[,3] < boxplot(setosa[,3])$stats[3]
+
+
+boxplot(setosa[,1])$stats[1,1]
