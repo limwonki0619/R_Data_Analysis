@@ -11,10 +11,7 @@ boxplot(iris$Sepal.Length~iris$Species)
 setosa <- iris %>% filter(Species=="setosa") %>% select(-Species)
 boxplot(setosa)$stats
 for (i in 1:4) {
-  setosa[,i] <- ifelse(setosa[,i] < boxplot(setosa[,i])$stats[i] | setosa[,i] > boxplot(setosa[,i])$stats[i], NA, setosa[,i])
+  setosa[,i] <- ifelse(setosa[,i] < boxplot(setosa[,i])$stats[1] | setosa[,i] > boxplot(setosa[,i])$stats[5], NA, setosa[,i])
 }
+boxplot(setosa, na.rm=T, main = "이상치 제거 setosa")
 
-setosa[,3] < boxplot(setosa[,3])$stats[3]
-
-
-boxplot(setosa[,1])$stats[1,1]
