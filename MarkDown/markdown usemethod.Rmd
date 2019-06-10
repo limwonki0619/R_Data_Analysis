@@ -9,8 +9,11 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-<br>
-  [코드 출처](https://heropy.blog/2017/09/30/markdown): Heropy Tech's MarkDown 사용법 총정리 <br><br><br>
+  <br>
+    
+  [코드 출처](https://heropy.blog/2017/09/30/markdown): Heropy Tech's MarkDown 사용법 총정리 <br>
+  [참고자료](https://sergeswin.com/1013)  <br>
+  [Markdown-guide](https://about.gitlab.com/handbook/product/technical-writing/markdown-guide/) <br><br><br>  
   
 ### **마크다운의 장점**
 ***
@@ -37,7 +40,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ### **제목(Header)**
 ***
 
- `<h1>`부터 `<h6>`까지 제목을 표현할 수 있습니다.
+ `<h1>`부터 `<h6>`까지 제목을 표현할 수 있다
  
 ```
 # 제목 1
@@ -51,7 +54,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### **강조 (Emphasis)**
 ***
- 각각 `<em>`, `<strong>`, `<del>`태그로 변환됩니다. <br>
+ 각각 `<em>`, `<strong>`, `<del>`태그로 변환된다. <br>
 ```
  이탤릭체는 *별표*를 사용하세요.
  두껍게는 **별표 2개**를 사용하세요
@@ -60,19 +63,19 @@ knitr::opts_chunk$set(echo = TRUE)
  <u>밑줄</u>은 `<u></u>`를 사용하세요.
  HTML에서 <hr>태그로 표현되는 수평선은 마크다운에서는 *** 또는 --- 또는 ___ 로 표현됩니다. 
 ```
- 이탤릭체는 *별표*를 사용하세요. <br>
- 두껍게는 **별표 2개**를 사용하세요. <br>
- 두꺼운 이탤릭체는 ***별표 3개***를 사용하세요. <br>
- 취소선은 ~~물결표시"~"~~를 사용하세요. <br>
- <u>밑줄</u>은 `<u></u>`를 사용하세요. <br><br><br>
+ 이탤릭체는 *별표*를 사용 <br>
+ 두껍게는 **별표 2개**를 사용 <br>
+ 두꺼운 이탤릭체는 ***별표 3개***를 사용 <br>
+ 취소선은 ~~물결표시"~"~~를 사용 <br>
+ <u>밑줄</u>은 `<u></u>`를 사용 <br><br><br>
  
 ### **수평선(Horizontal Rule)**
 ***
- HTML에서 `<hr>`태그로 표현되는 수평선은 마크다운에서는 `***`로 표현됩니다. <br><br><br>
+ HTML에서 `<hr>`태그로 표현되는 수평선은 마크다운에서는 `***`로 표현된다. <br><br><br>
  
 ### **목록(List)** 
 ***
-  `<ol>`,`<ul>`목록 태그로 변환됩니다.<br>
+  `<ol>`,`<ul>`목록 태그로 변환된다.<br>
 ```  
   1. 순서가 필요한 목록 
   
@@ -124,7 +127,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### **링크(Link)**
 ***
-  `<a>`로 변환됩니다. 
+  `<a>`로 변환된다. 
 
   ```
   [GOOGLE](https://google.com) 
@@ -140,7 +143,7 @@ knitr::opts_chunk$set(echo = TRUE)
   
   [NAVER](https://naver.com) <br>
 
-  다음과 같이 문서 내 일반 URL이나 꺽쇠 괄호(`< >`, Angle Brackets)안의 URL은 자동으로 링크를 사용합니다.<br>
+  다음과 같이 문서 내 일반 URL이나 꺽쇠 괄호(`< >`, Angle Brackets)안의 URL은 자동으로 링크를 사용한다.<br>
   
   구글 홈페이지: https://google.com <br>
   
@@ -148,9 +151,9 @@ knitr::opts_chunk$set(echo = TRUE)
   
 ### **이미지(Images)**
 ***
-  `<img>`로 변환됩니다. <br>
+  `<img>`로 변환된다. <br>
   
-  링크와 비슷하지만 앞에 `!`가 붙습니다. <br><br>
+  링크와 비슷하지만 앞에 `!`가 붙는다. <br><br>
 
   ![불쇼 사진](http://www.gstatic.com/webp/gallery/5.jpg "링크 설명(title)을 작성하세요.") <br>
   
@@ -172,23 +175,23 @@ knitr::opts_chunk$set(echo = TRUE)
 
   `<pre>`, `<code>`로 변환됩니다. <br>
   
-  숫자 1번키 왼쪽에 있는 `'`(Grave)를 입력하세요. <br><br><br>
+  숫자 1번키 왼쪽에 있는 `'`(Grave)를 통해 감싼다. <br><br><br>
   
   
 #### **인라인(Inline) 코드 강조**
 ***
 ```
-  `background`혹은 `background-image` 속성으로 요소에 배경 이미지를 삽입할 수 있습니다.
+  `background`혹은 `background-image` 속성으로 요소에 배경 이미지를 삽입할 수 있다. 
 ```  
 
-  `background`혹은 `background-image` 속성으로 요소에 배경 이미지를 삽입할 수 있습니다. 
+  `background`혹은 `background-image` 속성으로 요소에 배경 이미지를 삽입할 수 있다. 
   <br><br><br>
   
 
 #### **블록(Block) 코드 강조**
 ***
 
-  `'`(Grave)를 3번 이상 입력하고 코드 종류도 적습니다. <br><br>
+  `'`(Grave)를 3번 이상 입력하고 코드 종류를 적은 후 감싼다. <br><br>
 
   
 ```html
@@ -222,15 +225,15 @@ print s
 No language indicated, so no syntax highlighting. 
 But let's throw in a tag.
 ```
-<br><br><br>
+ <br><br><br>
 
 ### **표(Table)** 
 ***
 
-`<table>`태그로 변환됩니다. <br>
-  헤더 셀을 구분할 때 3개 이상의 `-`(hyphen/dash) 기호가 필요합니다. <br>
-  헤더 셀을 구분하면서 `:`(Colons) 기호로 셀(열/칸) 안에 내용을 정렬할 수 있습니다. <br>
-  가장 좌측과 가장 우측에 있는 `|`(vertical bar) 기호는 생력가능 합니다. <br><br>
+`<table>`태그로 변환된다. <br>
+  헤더 셀을 구분할 때 3개 이상의 `-`(hyphen/dash) 기호가 필요하다. <br>
+  헤더 셀을 구분하면서 `:`(Colons) 기호로 셀(열/칸) 안에 내용을 정렬할 수 있다. <br>
+  가장 좌측과 가장 우측에 있는 `|`(vertical bar) 기호는 생략이 가능하다. <br><br>
 
 ```
 값 | 의미 | 기본값
@@ -253,7 +256,7 @@ But let's throw in a tag.
 ### **인용문(BlockQuote)**
 ***
 
-  `<blockquote>`태그로 변환됩니다. <br>
+  `<blockquote>`태그로 변환된다. <br>
 
 ```  
   인용문(blockQuote)
@@ -288,39 +291,32 @@ But let's throw in a tag.
 
 ## **R 에서 코드 실행결과 다루기**
 ***
-#### *실행코드와 결과 보여주기*
+#### **실행코드와 결과 보여주기**
 ```{r}
 summary(iris)
 ```
 
   <br>
   
-#### *실행코드 없이 결과만 보여주기 {r, echo=FALSE}*
+#### **실행코드 없이 결과만 보여주기 {r, echo=FALSE}**  
 ```{r, echo=FALSE}
 summary(iris)
 ```
 
   <br>
   
-#### *결과 없이 코드드만 보여주기 {r, eval=FALSE}*
+#### **결과 없이 코드드만 보여주기 {r, eval=FALSE}**  
 ```{r, eval=FALSE}
 summary(iris)
 ```
 
   <br>
   
-#### **테이플 출력 (Table Output) : 'asis" 옵션 주의**
-```{r, results='asis'}
-knitr::kable(mtcars)
-```
-
-  <br>
-  
-#### **asis를 쓰면 테두리없이 결과 출력 / 안쓰면 테두리 씌여서 출력**
+#### **테이블(Table) 출력 : 'asis' 옵션 // TURE = 테두리 없이 출력**    
 ```{r}
 summary(iris)
 ```
-  <br>
+  <br>  
   
 ```{r, results='asis'}
 summary(iris)
