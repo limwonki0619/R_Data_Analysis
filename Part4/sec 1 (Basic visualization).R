@@ -484,30 +484,38 @@ summary(iris)
 str(iris)
 library(dplyr) 
 
-par(mfrow=c(2,3))
+# 산점도를 그릴 때 중요한 건 비교가능하게 scale 설정하기 *****
+
+par(mfrow=c(3,2))
 iris %>% filter(Species=="setosa") %>% 
          select(Sepal.Length, Sepal.Width) %>% 
-         plot(pch=16, cex=1.5, col="Plum", main = "Setosa - Sepal")
+         plot(pch=16, col="Plum", main = "Setosa - Sepal", 
+              xlim = c(4, 8.1), ylim = c(1.9, 4.5))
 
 iris %>% filter(Species=="setosa") %>% 
          select(Petal.Length, Petal.Width) %>% 
-         plot(pch=16, cex=1.5, col="MediumTurquoise", main = "Setosa - Petal")
+         plot(pch=16, col="MediumTurquoise", main = "Setosa - Petal",
+              xlim = c(0.8, 7), ylim = c(0, 2.6))
+
+iris %>% filter(Species=="versicolor") %>% 
+         select(Sepal.Length, Sepal.Width) %>% 
+         plot(pch=16, col="Sienna", main = "versicolor - Sepal",
+              xlim = c(4, 8.1), ylim = c(1.9, 4.5))
 
 iris %>% filter(Species=="versicolor") %>% 
          select(Petal.Length, Petal.Width) %>% 
-         plot(pch=16, cex=1.5, col="Sienna", main = "versicolor - Sepal")
+         plot(pch=16, col="LightGoldenrod1", main = "versicolor - Petal",
+              xlim = c(0.8, 7), ylim = c(0, 2.6))
 
-iris %>% filter(Species=="versicolor") %>% 
-         select(Petal.Length, Petal.Width) %>% 
-         plot(pch=16, cex=1.5, col="LightGoldenrod1", main = "versicolor - Petal")
+iris %>% filter(Species=="virginica") %>% 
+         select(Sepal.Length, Sepal.Width) %>% 
+         plot(pch=16, col="Gray40", main = "virginica - Sepal",
+              xlim = c(4, 8.1), ylim = c(1.9, 4.5))
 
 iris %>% filter(Species=="virginica") %>% 
          select(Petal.Length, Petal.Width) %>% 
-         plot(pch=16, cex=1.5, col="Gray40", main = "virginica - Sepal")
-
-iris %>% filter(Species=="virginica") %>% 
-         select(Petal.Length, Petal.Width) %>% 
-         plot(pch=16, cex=1.5, col="Coral", main = "virginica - Petal")
+         plot(pch=16, col="Coral", main = "virginica - Petal",
+              xlim = c(0.8, 7), ylim = c(0, 2.6))
 
 # 2. 품종별 꽃받침의 평균 길이와 넓이 및 꽃잎의 평균 길이와 넓이를 바 차트로 나타내라
 par(mfrow=c(1,2))
@@ -520,6 +528,8 @@ iris %>% group_by(Species) %>%
                                           names.arg = c("setosa", "versicolor", "virginica"),
                                           main = "품종별 꽃받침의 넓이와 길이 및 꽃잎의 넓이와 길이") 
 legend("topright", names(iris[,1:4]), cex=0.8, fill=colors)
+
+
 
 iris %>% group_by(Species) %>% 
          summarise_each(list(mean), 
@@ -536,9 +546,10 @@ legend("topright", names(iris[,1:4]), cex=0.7, fill=colors)
 
 library(reshape)
 par(mfrow=c(1,3))
+
 iris %>% filter(iris$Species=='setosa') %>% select(-Species) %>% boxplot(col=colors, main = "setosa") 
 iris %>% filter(iris$Species=='versicolor') %>% select(-Species) %>% boxplot(col=colors, main = "versicolor")
-iris %>% filter(iris$Species=='virginica') %>% select(-Species) %>% boxplot(col=colors, main = "vir")
+iris %>% filter(iris$Species=='virginica') %>% select(-Species) %>% boxplot(col=colors, main = "virginica")
 
 
 

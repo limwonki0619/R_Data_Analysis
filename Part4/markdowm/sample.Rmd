@@ -1,0 +1,78 @@
+---
+title: "[과제4] 임원기"
+author: "lim wonki"
+date: '2019. 6. 10 '
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
+## 사전 준비
+```{r}
+library(dplyr)
+library(ggplot2)
+```
+
+
+
+## R 연습문제 
+
+
+
+- **문제 1) 데이터의 cty(도시 연비)와 hwy(고속도로 연비) 간에 어떤 관계가 있는지 알아보려고 합니다. x축은 cty, y축은 hwy로 된 산점도를 만들어 보세요.**
+
+```{r}
+ggplot(mpg,aes(x=cty, y=hwy)) + 
+  geom_point(size=0.9, color="OliveDrab") +
+  theme_bw() +
+  labs(x="도시 연비(cty)", y="고속도로 연비(hwy)") +
+  ggtitle("도시 연비와 고속도로 연비의 산점도") +
+  theme(plot.title = element_text(family = "serif", face = "bold", hjust = 0.5, size = 15, color = "black"))
+```
+
+
+
+
+
+
+
+
+*Italic* <br>
+**Bold** <br>
+***Bold Italic*** <br>
+~~취소선~~  문장 맨뒤에 스페이스가 2개 있어도 줄바꿈 가능 
+[하이퍼링크 이름](https://www.naver.com/)
+
+#### 순서없는 목록(Unordered List)
+  
+* 수박  
+* 참외  
+* 토마토 (*, +, - 동일한 효과)
+    + 완숙토마토(문장 시작에 탭 두번 입력하면 들여쓰기)
+    - 방울 토마토(문장 시작에 탭 두번 입력)
+
+#### 순서있는 목록 (Ordered List)
+
+1. R
+2. Python
+3. Java
+    * Eclipse
+    * Tomcat
+    
+#### 표도 그릴 수 있음
+
+header
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+## Including Plots
+
+You can also embed plots, for example:
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
