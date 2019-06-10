@@ -293,25 +293,35 @@ But let's throw in a tag.
 summary(iris)
 ```
 
+  <br>
+  
 #### *실행코드 없이 결과만 보여주기 {r, echo=FALSE}*
 ```{r, echo=FALSE}
 summary(iris)
 ```
 
+  <br>
+  
 #### *결과 없이 코드드만 보여주기 {r, eval=FALSE}*
 ```{r, eval=FALSE}
 summary(iris)
 ```
 
+  <br>
+  
 #### **테이플 출력 (Table Output) : 'asis" 옵션 주의**
 ```{r, results='asis'}
 knitr::kable(mtcars)
 ```
 
+  <br>
+  
 #### **asis를 쓰면 테두리없이 결과 출력 / 안쓰면 테두리 씌여서 출력**
 ```{r}
 summary(iris)
 ```
+  <br>
+  
 ```{r, results='asis'}
 summary(iris)
 ```
