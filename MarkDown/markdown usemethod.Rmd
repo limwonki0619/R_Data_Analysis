@@ -13,7 +13,12 @@ knitr::opts_chunk$set(echo = TRUE)
     
   [코드 출처](https://heropy.blog/2017/09/30/markdown): Heropy Tech's MarkDown 사용법 총정리 <br>
   [참고자료](https://sergeswin.com/1013)  <br>
-  [Markdown-guide](https://about.gitlab.com/handbook/product/technical-writing/markdown-guide/) <br><br><br>  
+  [Markdown-guide](https://about.gitlab.com/handbook/product/technical-writing/markdown-guide/) <br><br>
+  
+   **Markdown 작업시 작업디렉토리 설정이 중요함** 
+   
+   **설정이 제대로 안된 경우에는 `커넥션을 연결 할 수 없다`는 오류메세시가 출력됨**
+  <br><br><br>  
   
 ### **마크다운의 장점**
 ***

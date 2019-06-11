@@ -255,7 +255,9 @@ h6 {
 </style>
 
 
+</head>
 
+<body>
 
 <style type="text/css">
 .main-container {
@@ -280,92 +282,22 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
-summary {
-  display: list-item;
-}
 </style>
 
 
+
+<div class="container-fluid main-container">
 
 <!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
 });
 </script>
 
 <!-- code folding -->
 
 
-
-
-</head>
-
-<body>
-
-
-<div class="container-fluid main-container">
 
 
 
@@ -375,14 +307,16 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Markdowm 사용방법</h1>
-<h4 class="author">Lim Wonki</h4>
-<h4 class="date">2019. 06. 10.</h4>
+<h4 class="author"><em>Lim Wonki</em></h4>
+<h4 class="date"><em>2019. 06. 10.</em></h4>
 
 </div>
 
 
 <p><br></p>
-<p><a href="https://heropy.blog/2017/09/30/markdown">코드 출처</a>: Heropy Tech’s MarkDown 사용법 총정리 <br> <a href="https://sergeswin.com/1013">참고자료</a> <br> <a href="https://about.gitlab.com/handbook/product/technical-writing/markdown-guide/">Markdown-guide</a> <br><br><br></p>
+<p><a href="https://heropy.blog/2017/09/30/markdown">코드 출처</a>: Heropy Tech’s MarkDown 사용법 총정리 <br> <a href="https://sergeswin.com/1013">참고자료</a> <br> <a href="https://about.gitlab.com/handbook/product/technical-writing/markdown-guide/">Markdown-guide</a> <br><br></p>
+<p><strong>Markdown 작업시 작업디렉토리 설정이 중요함</strong></p>
+<p><strong>설정이 제대로 안된 경우에는 <code>커넥션을 연결 할 수 없다</code>는 오류메세시가 출력됨</strong> <br><br><br></p>
 <div id="section" class="section level3">
 <h3><strong>마크다운의 장점</strong></h3>
 <hr />
