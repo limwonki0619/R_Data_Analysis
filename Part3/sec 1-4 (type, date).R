@@ -15,7 +15,7 @@
 # 1.1 작업용 기본 디렉토리 설정 ---------------------------------------------------------
 
 getwd()
-setwd("D:/limworkspace/R_lecture/Part3/data")
+setwd("D:/limworkspace/R_Data_Analysis/Part3/data")
 
 # 1.2 print와 cat -----------------------------------------------------------------------
 

@@ -1,5 +1,5 @@
 getwd()
-setwd("D:/limworkspace/R_lecture/Part3/data")
+setwd("D:/limworkspace/R_Data_Analysis/Part3/data")
 testfile <- read.csv("학생시험결과_전체점수.csv")
 
 str(testfile)

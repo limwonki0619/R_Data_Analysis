@@ -1,6 +1,6 @@
 getwd()
-setwd("D:/limworkspace/R_lecture/Part3/data")
-setwd("D:/limworkspace/R_lecture/Part3")
+setwd("D:/limworkspace/R_Data_Analysis/Part3/data")
+setwd("D:/limworkspace/R_Data_Analysis/Part3")
 getwd()
 
 #--------------------------------------------------------------#
