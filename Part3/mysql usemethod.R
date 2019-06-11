@@ -13,7 +13,6 @@ getwd()
 # 4. NoSql : Not only sql // sql 뿐만아니라 // monggoDB
 
 # R-DBMS 언어는 크게 세 가지 https://ko.wikipedia.org/wiki/SQL
-
 #        1. Data Control Language (DCL) - DB전문가, DB관리자들이 주로 사용 // DBMS 종류마다 언어가 다름 
 #   ***  2. Data Manipulation Language (DNL) - DMBS 언어끼리 사용언어가 비슷함 // 주로 이 언어를 학습 
 #     *  3. Data Definition Language (DDL) - 비교적 비슷
