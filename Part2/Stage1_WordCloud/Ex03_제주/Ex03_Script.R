@@ -8,6 +8,8 @@ getwd()
 #------------------- Section 1 : Wordcloud2 -------------------#
 #--------------------------------------------------------------#
 
+# 참고자료 : https://kuduz.tistory.com/1090
+
 install.packages("rJava")
 library(rJava)
 install.packages("KoNLP")
@@ -22,7 +24,7 @@ rm(list = ls())
 ###-----------------------------------------------------
 
 useSejongDic() # 세종사전 호출 
-mergeUserDic(data.frame(readLines("제주도여행지.txt"), "ncn"))                      # 추가단어가 많을 때는 따로 파일을 만들어서 실행 
+mergeUserDic(data.frame(readLines("제주도여행지.txt"), "ncn"))                      # 사용자가 원하는 단어를 추가 *** 중요
                                                                                     # buidDictionary() 곧 이 함수를 사용해야함
 # stringr 패키지를 이용한 전처리 -----------------------
 
