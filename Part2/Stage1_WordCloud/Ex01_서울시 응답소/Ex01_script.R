@@ -1,12 +1,16 @@
 getwd()
 setwd("D:/limworkspace/R_Data_Analysis/Part2/Stage1_WordCloud/Ex01_서울시 응답소")
-setwd("D:/limworkspace/R_Data_Analysis/Part2/Stage1_WordCloud/Ex01_서울시 응답소/data")
 getwd()
 
 #--------------------------------------------------------------#
 #--------------------- Part 2 Visualization -------------------#
 #------------------- Section 1 : Wordcloud2 -------------------#
 #--------------------------------------------------------------#
+
+# 참고자료 : https://kuduz.tistory.com/1090
+#            https://junhewk.github.io/text/2017/06/18/single-word-analysis-korean-poem/
+# tidyverse 패키지는 아직 한글을 지원하지 않는것으로 보임.. 다만 영문을 분석할 때는 유용한 툴
+# 쓰고자 할때는 구글 번역 api를 통해 한글을 번역
 
 # 1. 비정형 데이터를 분석 후 워드클라우드 생성하기
 
