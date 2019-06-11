@@ -3,7 +3,6 @@ setwd("D:/limworkspace/R_Data_Analysis/Part2/Stage1_WordCloud/Ex02_여고생 성
 setwd("D:/limworkspace/R_Data_Analysis/Part2/Stage1_WordCloud/Ex02_여고생 성형/data")
 getwd()
 
-
 #--------------------------------------------------------------#
 #--------------------- Part 2 Visualization -------------------#
 #------------------- Section 1 : Wordcloud2 -------------------#
