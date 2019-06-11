@@ -11,6 +11,7 @@ getwd()
 # 1. Anscombe`s Quartet
 # 기술통계량 (평균, 분산, 상관계수, 회귀식)이 동일한 4개의 데이터 셋
 # https://statkclee.github.io/viz/viz.html
+
 library(dplyr)
 
 ans_x_mean <- anscombe %>% 

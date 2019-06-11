@@ -141,6 +141,7 @@ legend(4.15, 9.5, c("v1","v2","v3"),
 # horiz              TRUE : 막대를 옆으로 높힌다         FALSE : 기본 
 
 x <- matrix(c(5,4,3,2), nrow=2)
+
 par(mfrow=c(3,3))
 barplot(x, beside=T, names=c(5,3), col=c("MediumTurquoise","Coral"))    # 막대값 각각 그래프 생성
 barplot(x, beside=F, names=c(5,3), col=c("DeepSkyblue","salmon"))       # 막대값을 중첩해서 생성 

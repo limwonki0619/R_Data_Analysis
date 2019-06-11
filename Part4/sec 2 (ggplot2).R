@@ -11,6 +11,7 @@ getwd()
 
 # https://www.r-graph-gallery.com/all-graphs/ : ggplot2 sample code
 
+
 # 색상 ---------------------------------------------------------
 
 c("MediumTurquoise","Coral","DeepSkyblue","salmon","LightSkyBlue","Pink1",
@@ -18,6 +19,7 @@ c("MediumTurquoise","Coral","DeepSkyblue","salmon","LightSkyBlue","Pink1",
   "CadetBlue2","Mediumpurple1","PaleVioletRed1","Gray40")
 
 colors <- c("MediumTurquoise","Coral","LightGoldenrod1","DeepSkyblue")
+
 
 
 # 2. Welcom to ggplot2 world -------------------------------------------------------------------------------------------------------------
