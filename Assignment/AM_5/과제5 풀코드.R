@@ -1,11 +1,13 @@
 getwd()
-setwd("D:/limworkspace/R_Data_Analysis/Assignment/data/서울시 응답소_2015년전체")
+setwd("D:/limworkspace/R_Data_Analysis/Assignment/AM_5")
 getwd()
 
 # [과제5]
 
 rm(list=ls())
-
+install.packages("rJava")
+install.packages("KoNLP")
+install.packages("wordcloud2")
 library(dplyr)
 library(stringr)
 library(rJava)

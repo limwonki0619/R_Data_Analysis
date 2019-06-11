@@ -1,7 +1,7 @@
 ---
-title: '[과제5] 임원기'
-author: "Lim wonki"
-date: '2019 6 11 '
+title: "[과제5]"
+author: "Lim Wonki"
+date: '2019. 06. 11. '
 output: html_document
 ---
 
@@ -20,8 +20,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ***
   먼저 민원 데이터가 있는 곳으로 작업 디렉토리를 설정
   
-```
-setwd("D:/limworkspace/R_Data_Analysis/Assignment/data/서울시 응답소_2015년전체")
+```{r}
+setwd("D:/limworkspace/R_Data_Analysis/Assignment/AM_5")
 ```
   <br>
 
@@ -35,7 +35,7 @@ setwd("D:/limworkspace/R_Data_Analysis/Assignment/data/서울시 응답소_2015�
 ***
   패키지는 다음과 같은 패키지를 사용함
   
-```{r, eval=FALSE}
+```{r}
 library(rJava)
 library(KoNLP)
 library(dplyr)
@@ -55,15 +55,15 @@ library(wordcloud2)
   ~~코드의 결과가 너무 방대하기 때문에 코드결과를 출력하지 않음~~
 
 
-```{r, eval=FALSE}
-seoul_all_1 <- readLines("응답소_2015_all.txt",encoding="UTF-8") %>% str_remove_all("=")
+```{r}
+seoul_all_1 <- readLines("data/응답소_2015_all.txt") %>% str_remove_all("=")
 ```
   <br>
   
   불러들인 `seoul_all_1`데이터에서 `extractNoun`을 이용하여 한글 명사만 추출 한 후 <br>
   `list`형태로 `seoul_all_2` 데이터에 저장 
 
-```{r, eval=FALSE}
+```{r}
 seoul_all_2 <- sapply(seoul_all_1, extractNoun, USE.NAMES = F)
 ```
   <br>
@@ -71,7 +71,7 @@ seoul_all_2 <- sapply(seoul_all_1, extractNoun, USE.NAMES = F)
   
   `unlist`함수를 이용하여 list 형태인 `seoul_all_2`데이터를 vector 형태로 풀기
 
-```{r, eval=FALSE}
+```{r}
 seoul_all_3 <- unlist(seoul_all_2) 
 ```
   <br>
@@ -80,24 +80,27 @@ seoul_all_3 <- unlist(seoul_all_2)
 ***
 
   한글 또는 영문을 제외한 문자 삭제 
-```{r, eval=FALSE}
+  
+```{r}
 seoul_all_3 <- str_replace_all(seoul_all_3,"[^[:alpha:]]","") 
 ```
   <br>
   빈칸 삭제
-```{r, eval=FALSE}
+  
+```{r}
 seoul_all_3 <- str_replace_all(seoul_all_3," ","")
 ```
   <br>
   비슷한 의미의 단어 통합 
-```{r, eval=FALSE}
+  
+```{r}
 seoul_all_3 <- str_replace_all(seoul_all_3,"동성애자","동성애")
 ```
   <br>
   워킹 디렉토리에 `gsubfile.txt` 파일을 생성하고 <br>
   데이터에서 필요없다고 판단되는 단어를 삭제 
  
-```
+```{r}
 gsub_txt <- readLines("gsubfile.txt")
 
 for (i in 1:length(gsub_txt)) {
@@ -106,7 +109,8 @@ for (i in 1:length(gsub_txt)) {
 ```
   <br>
   마지막으로 문자열의 길이가 2이상인 데이터만 추출
-```{r, eval=FALSE}
+  
+```{r}
 seoul_all_4 <- Filter(function(x) { nchar(x) >= 2 & nchar(x) <= 7 }, seoul_all_3)
 ```
   <br>
@@ -117,23 +121,20 @@ seoul_all_4 <- Filter(function(x) { nchar(x) >= 2 & nchar(x) <= 7 }, seoul_all_3
   `sort`함수와 `decreasing=T`옵션을 이용해 내림차순 정렬 <br>
   빈도가 많은 것부터 45개 단어 출력 
     * 빈도표 결과
-    ![불쇼 사진](D:/limworkspace/R_Data_Analysis/Assignment/data/서울시 응답소_2015년전체/2015 서울시 민원 빈도표.png)
-***  
-```{r, eval=FALSE}
+
+```{r}
 wordcount <- head(sort(table(seoul_all_4), decreasing = T),45)
 ```
   <br>
   `wordcloud2`함수를 이용하면 `wordcloud`보다 시각적으로 나은 워드클라우드 생성 
   
-```{r, eval=FALSE}
+```{r}
 wordcloud2(wordcount, size=0.8, 
            col="random-light", backgroundColor="black",
            fontFamily='나눔바른고딕')
 ```
 
-### **3. 워드클라우드 결과**
-***
-  <br>
-  ![결과](D:/limworkspace/R_Data_Analysis/Assignment/data/서울시 응답소_2015년전체/2015 서울시 민원 워드클라우드.png)
+  
+
 
 
