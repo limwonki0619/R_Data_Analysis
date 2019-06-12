@@ -1,0 +1,323 @@
+---
+title: "More beautifully, ggplot2"
+author: "Lim Wonki"
+date: '2019. 06. 12. '
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+  <br>
+  
+### **사전준비 및 외부글꼴 적용하기** 
+***
+
+  무료배포 글꼴은 [여기](https://brunch.co.kr/@jade/203)에서 다운받아 설치 합니다.
+  <br>
+  폰트를 적용하기 위해서는 다음과 같은 패키지와 라이브러리가 필요합니다.
+```{r, eval=FALSE}
+install.packages("extrafont")
+library(extrafont)
+```
+  <br>
+      아래 코드로 윈도우에 설치된 글꼴을 찾아 R로 가져옵니다. (단, y로 설치 동의)
+```{r, eval=FALSE}
+font_import(pattern = 'TmonMonsori') # 폰트 불러오기 
+font_import(pattern = 'Jalnan')
+font_import(pattern = 'BMDOHYEON')
+font_import(pattern = 'BM') 
+font_import(pattern = 'Binggrae') 
+```
+  <br>
+      이후 글꼴이름을 사용자가 원하는 이름으로 설정합니다.
+```{r, eval=FALSE}
+windowsFonts(hanna=windowsFont("BM HANNA 11yrs old")) # 폰트이름 변경 
+windowsFonts(dohyeon=windowsFont("BM DoHyeon"))
+windowsFonts(jalnan=windowsFont("Jalnan"))
+windowsFonts(tb=windowsFont("TmonMonsori Black"))
+windowsFonts(binggrae=windowsFont("Binggrae Taom"))
+windowsFonts(nbg=windowsFont("나눔바른고딕"))
+```
+  <br>
+  테스트에 필요한 패키지와 라이브러리는 다음과 같습니다.
+```{r, eval=FALSE}
+install.packages("dplyr")
+library(dplyr)
+```
+```{r, eval=FALSE}
+install.packages("ggplot2")
+library(ggplot2)
+```
+  <br>
+  
+  글꼴 적용 확인 코드는 다음과 같습니다.
+```{r, eval=FALSE}
+iris %>% 
+  ggplot(aes(x=Sepal.Length, y=Petal.Length, color=Species)) + # 색상을 Species 별로 설정 
+  geom_point() + # 산점도 
+  theme_bw(base_family = "나눔바른고딕", base_size = 10) + # 그래프의 백그라운드 색상을 흰색으로 바꾸고 기본 글꼴 적용
+  theme(legend.position = "top") + # 범례 위치 설정
+  labs(title="붓꽃 데이터 한글 글꼴 적용", color="붓꽃 종류") + # 타이틀 설정 
+  theme(plot.title = element_text(family = "jalnan", face = "bold", hjust = 0.5, size = 15, color = "grey20")) # 타이틀 서식
+```
+  <br><br>
+  
+### **ggplot2 그래프 커스텀 하기** 
+***
+
+  <br>
+  
+### **목차**  
+***
+  0. 기본 그래프 만들기 <br><br>
+  
+  1. 타이틀(Title) 커스텀 하기 <br><br>
+      1.1 타이틀 입력하고 꾸미기 <br>
+      1.2 타이틀 여러 줄로 나누기 <br><br>
+      
+  2. 축(Axis) 커스텀 하기 <br><br>
+      2.1 축 타이틀 꾸미기 <br>
+      2.2 축 타이틀 바꾸기 <br>
+      2.3 축 타이틀에 수식 넣기 <br>
+      2.4 축 표현 범위 설정하기 <br>
+      2.5 축 라벨 잘게 쪼개기 <br>
+      2.6 축 라벨 바꾸기 <br>
+      2.7 축 라벨 옆으로 눕히기 <br>
+      2.8 축 위치 바꾸기 <br><br>
+      
+  3. 범례(Legend) 커스텀 하기<br><br>
+      3.1 범례 지우기 <br>
+      3.2 범례 꾸미기<br>
+      3.3 범례 테두리 꾸미기 <br>
+      3.4 범례 위치 바꾸기 <br>
+      3.5 범례 위치를 그래프 안으로 넣기 <br>
+      3.6 범례 타이틀만 지우기 <br>
+      3.7 범례 타이틀 바꾸기 <br><br>
+      
+  4. 그래프(Plot) 커스텀 하기 <br><br>
+      4.1 그래프 안에 글자/선/도형 넣기 <br> 
+      4.2 그래프 X축, Y축 바꿔 그리기 <br> 
+      4.3 흑백으로 나타내기 <br>
+      4.4 팔레트 적용하기 <br>
+      4.5 원하는 색상으로 바꾸기 <br>
+      4.6 테마 적용하기 <br><br>
+      
+  [부록] theme() 함수의 elements 설명
+
+  <br><br><br>
+
+####  **0. 기본 그래프 만들기**
+***
+
+  앞으로의 예제에 사용될 기본 그래프를 만듭니다.  
+  그래프에 사용되는 데이터는 "MASS" 패키지의 "Cars93" 데이터입니다.  
+  X축을 차량 가격, Y축을 마력, 색상을 차량 구동계로 설정하여 Jitter Plot을 그리는 기본 그래프를  
+  "Basic_Plot" 변수에 저장하여 반복해서 사용할 예정입니다. <br>
+  기본 그래프를 생성하는 코드와 결과는 다음과 같습니다.  
+  
+```{r,eval=FALSE}
+library(ggplot2)
+library(MASS)    # dplyr 패키지 설치시 같이 설치됩니다.
+```
+```{r, include=FALSE}
+library(ggplot2)
+library(MASS) 
+```
+
+```{r}
+data("Cars93")   # MASS 패키지에서 Cars93 데이터를 가져옵니다.
+
+Basic_Plot <- ggplot(Cars93, aes(x=Price, y=Horsepower)) + # x축: 차량 가격, y축: 마력
+                geom_point(aes(colour=DriveTrain))  # jitter plot을 그립니다. 색상: 차량 구동계
+```
+```{r, echo=FALSE}
+Basic_Plot
+```
+  <br><br><br>
+  
+#### **1. 타이틀(title) 커스텀 하기**
+***
+  제일 처음 해볼 내용은 그래프의 타이틀을 커스텀 하는 부분입니다. <br>
+  <br><br>
+  
+##### **1.1 타이틀 입력하고 꾸미기** 
+  타이틀은 ggtitle() 함수를 통해 쉽게 입력이 가능합니다. <br>
+  타이틀을 꾸미기 위해서는 theme() 함수를 통해서 설정을 해주어야 합니다. <br>
+  (theme() 함수에 사용되는 element에 대한 설명은 부록에 작성되어 있습니다.) <br>
+  
+```{r}
+  Basic_Plot + ggtitle("Jitter Plot for Cars93 Dataset") +   # title 명칭을 입력합니다.
+  theme(plot.title = element_text(family = "serif", face = "bold", hjust = 0.5, size = 15, color = "darkblue"))   # 글씨체(family), 글씨 모양(face), 가운데 정렬(hjust), 크기(size), 색상(color)을 설정합니다.
+```
+  <br><br>
+
+#####  **1.2 타이틀 여러 줄로 나누기**
+  타이틀이 장문일 경우에는 여러 줄로 나눠서 나타내는 것이 필요합니다. <br>
+  문장을 나누는 방법은 ggtitle() 함수 내에서 타이틀을 입력하고 나누고 싶은 부분에서 `\n`을 입력하면 됩니다. <br>
+  
+```{r}
+Basic_Plot + ggtitle("Jitter Plot for Cars93 Dataset \n coloring with Drive Train") + # title 명칭을 두 줄로 입력합니다. 
+  theme(plot.title = element_text(family = "serif", face = "bold", hjust = 0.5, size = 15, color = "darkblue")) 
+```
+  <br><br><br>
+  
+####  **2. 축(Axis) 커스텀 하기**
+***
+  두 번째 내용은 그래프의 X-, Y-축(Axis)을 커스텀 하는 부분입니다. <br>
+  <br><br>
+
+#####  **2.1 축 타이틀 꾸미기**
+  축의 타이틀은 기본 그래프의 "Price", "Horsepower"에 해당합니다. <br>
+  
+```{r}
+Basic_Plot + 
+  theme(axis.title = element_text(face = "bold", size = 13, color = "darkblue"))   # 축의 글자 모양, 크기, 색상을 설정합니다.
+```
+
+  <br>
+  
+#####  **2.2 축 타이틀 바꾸기**
+  기본 그래프의 축 타이틀인 "Price", "Horsepower"를 다른 타이틀로 바꿔봅니다. <br>
+  축의 타이틀을 입력하는 함수는 labs() 함수이며 X축, Y축에 대해 각각 타이틀 수정이 가능합니다. <br>
+```{r}
+Basic_Plot + labs(x="Average of Max and Min Price", y="Maximum Horsepower")   # 축의 타이틀을 변경합니다.
+```
+  
+  <br>
+  
+#####  **2.3 축 타이틀에 수식 넣기**
+  축 타이틀을 입력하는 labs() 함수에는 기본적으로 아래 첨자, 위 첨자, 제곱 표현과 같은 수식의 입력을 제공하고 있지 않습니다. <br>
+  따라서 수식을 입력하기 위해서는 expression() 함수나 bquote() 함수의 사용이 필요합니다. <br>
+  사용 방법은 기존의 labs() 함수 내에서 수식을 입력하는 부분에 해당 함수를 삽입하면 됩니다. <br>
+
+```{r}
+Basic_Plot + labs(x=expression('Average of Price'['Max']*' and Price'['Min']), y="Maximum Horsepower")   # 축의 타이틀을 변경합니다. 아래 첨자 수식을 입력할 수 있도록 bquote 함수를 씁니다.
+```
+
+  <br>
+  
+#####  **2.4 축 표현 범위 설정하기**
+  이번에는 축에서 라벨이 나타나는 범위를 설정하는 예제를 진행합니다. <br>
+  기본 그래프에서는 Price를 0~60까지 표현했지만, <br>
+  이번 예제에서는 0~40까지 제한하여 그래프에 표현합니다. <br><br>
+  
+  이때 사용하는 함수는 lims() 함수이며, 제한하고자 하는 축의 시작과 끝 범위를 입력하면 됩니다. <br>
+  해당 함수를 사용할 때에는 데이터를 표현하는 범위를 제한하기 때문에 범위에 속하지 않는 데이터가 제거된다는 경고 메시지가 뜨게 됩니다. <br>
+  
+```{r}
+Basic_Plot + lims(x=c(0,40))   # x축을 0에서 40까지만 나타냅니다. 데이터를 표현하는 범위를 제한했기 때문에 경고문구가 나타납니다.
+```
+  
+  <br>
+  
+#####  **2.5 축 라벨 잘게 쪼개기**
+  기본 그래프를 살펴보면 X축의 Price에 대해서 라벨이 20, 40, 60만 나타납니다. <br>
+  이러한 라벨을 잘게 쪼개기 위해서는 라벨이 속한 축에 따라 scale_x_continuous() 함수나
+scale_y_continuous()를 사용합니다. <br>
+해당 함수 내부의 argument 중 breaks를 통해 원하는 형태로 라벨을 쪼갤 수 있습니다. <br>
+
+```{r}
+Basic_Plot + scale_x_continuous(breaks = c(10,20,30,40,50,60))   # x축을 10단위로 쪼갭니다.
+```
+
+  <br>
+  
+#####  **2.6 축 라벨 바꾸기**
+  이번에는 X축인 Price를 좀 더 잘 설명하기 위해 라벨에 "$"를 붙여서 바꿔주는 예제를 진행합니다. <br>
+  라벨의 명칭을 바꿀 때도 라벨이 속한 축에 따라 scale_x_continuous() 함수나 scale_y_continuous()를 사용합니다. <br>
+  해당 함수 내부의 argument 중 labels를 통해 원하는 값으로 라벨의 명칭을 변경할 수 있습니다. <br> 
+
+```{r}
+Basic_Plot + scale_x_continuous(breaks = c(10,20,30,40,50,60), labels = paste0("$",c(10,20,30,40,50,60)))   # x축을 10단위로 쪼갭니다. 앞에 $를 붙여서 라벨 명칭을 바꿉니다. 
+```
+  
+  <br>
+    
+#####  **2.7 축 라벨 옆으로 눕히기**
+  축의 라벨을 너무 잘게 쪼개거나 각 라벨의 명칭이 긴 경우에는 라벨끼리 겹쳐서 보이는 문제가 발생합니다. <br>
+  이번에는 이러한 경우에 사용할 수 있는 라벨을 옆으로 눕히는 방법에 대한 예제를 진행합니다. <br>
+  X축인 Price를 좀 더 잘게 쪼개고 "$"를 붙인 후에 이를 90도 회전시켜서 보여줍니다. <br>
+  라벨의 입력이 아닌 형태를 바꾸는 부분에서는 theme() 함수를 사용합니다. <br>
+  
+```{r}
+Basic_Plot + scale_x_continuous(breaks = c(c(1:12)*5), labels = paste0("$",c(c(1:12)*5))) +   # x축을 5단위로 쪼갭니다. 앞에 $를 붙여서 라벨 명칭을 바꿉니다. 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5 ))   # x축 라벨을 옆으로 눕힙니다.
+```
+  
+  <br>
+    
+#####  **2.8 축 위치 바꾸기**
+  기본 그래프에서 X축은 아래, Y축은 좌측에 위치합니다. <br>
+  이러한 축의 위치는 X축은 위로, Y축은 우측으로 변경이 가능합니다. <br> 
+  라벨의 위치를 바꿀 때도 라벨이 속한 축에 따라 scale_x_continuous() 함수나 scale_y_continuous()를 사용합니다. <br>
+
+```{r}
+Basic_Plot + scale_x_continuous(position = "top")   # x축을 위로 옮깁니다.
+```
+
+  <br><br><br>
+  
+####  **3. 범례(Legend) 커스텀 하기**
+***  
+  3.1 범례 지우기
+  
+  <br>
+    
+  3.2 범례 꾸미기
+    
+  <br>
+  
+  3.3 범례 테두리 꾸미기
+    
+  <br>
+  
+  3.4 범례 위치 바꾸기
+    
+  <br>
+  
+  3.5 범례 위치를 그래프 안으로 넣기
+    
+  <br>
+  
+  3.6 범례 타이틀만 지우기
+    
+  <br>
+  
+  3.7 범례 타이틀 바꾸기
+    
+  <br><br><br>
+  
+####  **4. 그래프(plot) 커스텀 하기**
+***   
+  4.1 그래프 안에 글자/선/도형 넣기
+    
+  <br>
+  
+  4.2 그래프X축, Y축 바꿔 그리기
+    
+  <br>
+  
+  4.3 흑백으로 나타내기
+    
+  <br>
+  
+  4.4 팔레트 적용하기
+    
+  <br>
+  
+  4.5 원하는 색상으로 바꾸기
+    
+  <br>
+  
+  4.6 테마 적용하기
+    
+  <br><br><br>
+  
+####  **[부록] theme()함수의 elements 설명**
+***   
+
+#### **참고자료**
+***
+  
+  [ggplot2 그래프 커스텀 하기](http://blog.naver.com/PostView.nhn?blogId=nife0719&logNo=221000580841)
