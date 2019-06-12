@@ -7,8 +7,10 @@ getwd()
 #------------------- Section 1 : Wordcloud2 -------------------#
 #--------------------------------------------------------------#
 
-# 참고자료 : https://kuduz.tistory.com/1090
+# 참고자료 : https://kuduz.tistory.com/1090 : 최대한 친절하게 쓴 R로 낱말구름, 의미연결망 그리기
 #            https://junhewk.github.io/text/2017/06/18/single-word-analysis-korean-poem/
+#            R에서 해보는 한국 일제강점기 시의 단어 분석
+
 # tidyverse 패키지는 아직 한글을 지원하지 않는것으로 보임.. 다만 영문을 분석할 때는 유용한 툴
 # 쓰고자 할때는 구글 번역 api를 통해 한글을 번역
 
