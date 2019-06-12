@@ -2430,9 +2430,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type="text/css">
 .main-container {
@@ -2457,22 +2455,92 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -2482,8 +2550,8 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">[과제5]</h1>
-<h4 class="author"><em>Lim Wonki</em></h4>
-<h4 class="date"><em>2019. 06. 11.</em></h4>
+<h4 class="author">Lim Wonki</h4>
+<h4 class="date">2019. 06. 11.</h4>
 
 </div>
 
@@ -2512,13 +2580,10 @@ $(document).ready(function () {
 <h4><strong>1.3) 패키지 준비</strong></h4>
 <hr />
 <p>패키지는 다음과 같은 패키지를 사용함</p>
-<pre class="r"><code>library(rJava)</code></pre>
-<pre><code>## Warning: package &#39;rJava&#39; was built under R version 3.5.3</code></pre>
-<pre class="r"><code>library(KoNLP)</code></pre>
-<pre><code>## Warning: package &#39;KoNLP&#39; was built under R version 3.5.3</code></pre>
+<pre class="r"><code>library(rJava)
+library(KoNLP)</code></pre>
 <pre><code>## Checking user defined dictionary!</code></pre>
 <pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.5.3</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -2527,12 +2592,10 @@ $(document).ready(function () {
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(stringr)</code></pre>
-<pre><code>## Warning: package &#39;stringr&#39; was built under R version 3.5.3</code></pre>
-<pre class="r"><code>library(wordcloud)</code></pre>
+<pre class="r"><code>library(stringr)
+library(wordcloud)</code></pre>
 <pre><code>## Loading required package: RColorBrewer</code></pre>
 <pre class="r"><code>library(wordcloud2)</code></pre>
-<pre><code>## Warning: package &#39;wordcloud2&#39; was built under R version 3.5.3</code></pre>
 <p><br><br></p>
 </div>
 </div>
@@ -2542,7 +2605,7 @@ $(document).ready(function () {
 <div id="section-6" class="section level4">
 <h4><strong>2.1) 데이터 불러들이기</strong></h4>
 <hr />
-<p>다음의 코드를 통해 2015년 서울시 민원을 모두 불러들이고, 불필요한 <code>=</code>기호를 삭제 <br> <del>코드의 결과가 너무 방대하기 때문에 코드결과를 출력하지 않음</del></p>
+<p>다음의 코드를 통해 2015년 서울시 민원을 모두 불러들이고, 불필요한 <code>=</code>기호를 삭제 <br></p>
 <pre class="r"><code>seoul_all_1 &lt;- readLines(&quot;data/응답소_2015_all.txt&quot;) %&gt;% str_remove_all(&quot;=&quot;)</code></pre>
 <p><br></p>
 <p>불러들인 <code>seoul_all_1</code>데이터에서 <code>extractNoun</code>을 이용하여 한글 명사만 추출 한 후 <br> <code>list</code>형태로 <code>seoul_all_2</code> 데이터에 저장</p>
@@ -2562,6 +2625,137 @@ $(document).ready(function () {
 ## 가왜일어나는지타당한근거와함께설명해주시고인상률을낮춰주시거나인상을하지말
 ## 와주세요저같이가난한직장인은더이상어떻게아껴야이돈을메꿀수있는거죠??버스랑
 ## 지하철안타고다닐수는없잖아요ㅠ&#39;.</code></pre>
+<pre><code>## Warning in value[[3L]](cond): can&#39;t processing &#39;제목 : 서울시장은 청계천에
+## 돌을 던지지 말라공개일 : 2015-05-25상담내용 : Q. 상담내용서울시장은 청계천
+## 에 돌을 던지지 말라민원인은 헌법 제25조와 청원법에 터 잡아 아래와 같은 내
+## 용을 질의 및 진정합니다.1.연등의 오만은 시정되어야 한다.불교신자 박원순 서
+## 울시장이 취임하면서 서울시의 연등굿판 비용이 해마다 증가하고 있다. 2015년에
+## 는 8억이 책정되어 있는데 전액 시민들이 동전을 모아 낸 혈세라는 점이다.종교
+## 가 국민의 가난한 권리와 인권을 챙겨주고 사회의 부정부패를 걱정하던 때도 있
+## 었지만, 현실은 서민들이 정치와 종교의 묵계를 걱정하며 윤리적 도덕적 타락을
+## 염려하는 시대가 되고 있다는 점이다.국민들은 권력위에 군림하려는 종교와 종교
+## 지도자들을 염려하고 있고,윤리와 도덕적 측면에서 타락하고 있는 종교와 종교지
+## 도자들을 걱정하고 있다는 점이다.몇만원이 없어 죽음을 선택하는 절박한 서민들
+## 이 얼마나 많은가 그러나 정치판과 종교판에서는 막판 드라마를 보는 기분이다.
+## 서민들의 혈세가 이렇게 사용이 되어도 되는가2.지금 우리는 오래된 정치적 관
+## 행과 종교적 관습을 깨기위해 땀을 흘리며 긴장하고 있다.박근혜 대통령은 정치
+## 의 오래된 관행을 깨기위해 모험을 하고 있는지도 모른다.재벌들의 오래된 관행
+## 을 깨기위해 통증에 몸부림하고 있는 것이다.몇년 전만해도 상상하지 못했던 무
+## 시 무시한 변화와 개혁을 시도하고 있는 것이니, 우리 국민들은 거부하지 않고
+## 고통을 감수하고 있다 그런데,선도적 위치에 있어야 할 정치인들은 사이비종교집
+## 단의 입법로비 꼼수에 휘말리고 있고,종교지도자들은 실정법(공원법,문화재관리
+## 법,도로법,옥외광고물법 등)에 위배되는 종교관행에 대해 변화를 거부하고 있는
+## 것이니,이유가 무엇인가 하는 점이다.3.청계천은 하천법에 기초하여 운영과 관리
+## 가 되고 있는 것으로 판단하는 바,어떠한 법에 기초하여 운영되고 있는가 의문이
+## 다.법률과 서울시 조례가 충돌하는 경우 무엇이 우선인가 답변을 기대한다.4.청
+## 계천은 하천법의 적용을 받지 않는 곳인가 묻는다. 법률가 답게 임의적 답변보다
+## 는 법률가 답게 법률유보의 원칙을 적용하여 답변해 주시기 바란다.5.현재 청계
+## 천에 게시 설치된 연등공작물이 몇개인가6.청계천에 연등공작물을 게시 및 설치
+## 하므로 받는 수익금은 얼마인가7.상황을 살펴보니 전류가 흐르고 있었는데 전기
+## 요금은 어떻게 어디에서 얼마를 부담하고 있는가 의문이다.8.전기시설이나 공작
+## 물의 안전관리 소홀로 발생하게 될 손해배상 책임은 누가 부담하게 될 것인가 회
+## 신을 기대한다9.불교신자 서울시장은 청계천을 불교에 바치려는가 의문이다.서
+## 울시장이 이렇게 유치한 행정을 하고 있는가 실망이다.소신을 밝혀라10.청계천은
+## 공익이 우선인 바,기독교나 천주교나 불교나 종교장사 정치장사 중단을 촉구한
+## 다.2015년 5월 25일000서울시장 귀하&#39;.</code></pre>
+<pre><code>## Warning in value[[3L]](cond): can&#39;t processing &#39;제목 : 파고다 공원의 연등
+## 공작물 실정법을 비웃고 있다.공개일 : 2015-05-25상담내용 : Q. 상담내용파고다
+## 공원의 연등공작물 실정법을 비웃고 있다.민원인은 헌법 제25조와 청원법에 터
+## 잡아 아래와 같은 내용을 질의 및 진정합니다.1.연등의 오만은 시정되어야 한다.
+## 불교신자 박원순 서울시장이 취임하면서 서울시의 연등굿판 비용이 해마다 증가
+## 하고 있다. 2015년에는 8억이 책정되어 있는데 전액 시민들이 동전을 모아 낸 혈
+## 세라는 점이다.종교가 국민의 가난한 권리와 인권을 챙겨주고 사회의 부정부패를
+## 걱정하던 때도 있었지만, 현실은 서민들이 정치와 종교의 묵계를 걱정하며 윤리
+## 적 도덕적 타락을 염려하는 시대가 되고 있다는 점이다.국민들은 권력위에 군림
+## 하려는 종교와 종교지도자들을 염려하고 있고,윤리와 도덕적 측면에서 타락하고
+## 있는 종교와 종교지도자들을 걱정하고 있다는 점이다.몇만원이 없어 죽음을 선
+## 택하는 절박한 서민들이 얼마나 많은가 그러나 정치판과 종교판에서는 막판 드라
+## 마를 보는 기분이다.서민들의 혈세가 이렇게 사용이 되어도 되는가2.지금 우리는
+## 오래된 정치적 관행과 종교적 관습을 깨기위해 땀을 흘리며 긴장하고 있다.박근
+## 혜 대통령은 정치의 오래된 관행을 깨기위해 모험을 하고 있는지도 모른다.재벌
+## 들의 오래된 관행을 깨기위해 통증에 몸부림하고 있는 것이다.몇년 전만해도 상
+## 상하지 못했던 무시 무시한 변화와 개혁을 시도하고 있는 것이니, 우리 국민들은
+## 거부하지 않고 고통을 감수하고 있다 그런데,선도적 위치에 있어야 할 정치인들
+## 은 사이비종교집단의 입법로비 꼼수에 휘말리고 있고,종교지도자들은 실정법(공
+## 원법,문화재관리법,도로법,옥외광고물법 등)에 위배되는 종교관행에 대해 변화를
+## 거부하고 있는 것이니,이유가 무엇인가 하는 점이다.3.종로구 종로2가 파고다공
+## 원에 게시 및 설치된 전류가 흐르는 연등공작물 이대로 좋은가서울시 관할의 공
+## 원에서 공원법에 터 잡아 연등의 게시 및 설치가 중단된 사실을 파고다 공원의
+## 책임자만 모르고 있었다는 것인가 공원법에 위배가 되어 기소가 되었다는 사실을
+## 모르고 있었다는 말인가4.파고다 공원은 공원법의 적용을 받지 않는 곳인가 묻습
+## 니다.5.파고다 공원은 문화재관리법의 적용응 받지 않는 곳인가 의문입니다.6.파
+## 고다 공원 담장에 설치된 점집 12개의 공작물이 문화재의 이미지를 살인하고 있
+## 다는 사실을 종로구청과 종로구의회와 종로구민들만 모르고 있는지 걱정입니다.
+## 7.실정법이 뭔지 이미지가 뭔지 절대적 가치가 무엇인지 그냥 막가는 막가판행
+## 정 이래서야 되겠습니까점집공작물에 대해 문제를 제기한 것이 몇년입니까종로구
+## 청의 문화재,연등,이미지관리 행정은 졸고 있습니까 점집들과 자매결연이라도 맺
+## 었나요강남구청은 강남역 인근에서 수백개의 점집과 기업형 노점상들에 대해 철
+## 퇴를 가하므로 강남구민들의 눈 높이에 맞는 행정을 펼치고 있다는 점을 배워야
+## 할 것입니다.도로법을 적용하여 안내성 표시의 연등이 아니라, 홍보성 표시의 연
+## 등에 대해 도로점용을 허가하며 점용료를 부과하고 있다는 점에 대해서도 배워
+## 야 할 과제인 것입니다.적용배재는 안내성 표시에 한하여 가능한 것입니다.홍보
+## 성 표시의 경우 적용배재는 아닌 것입니다.8.대구시청에서 있었던 사건입니다.종
+## 교의식이나 학교의 행사알림 홍보물이 적용배재에 이어, 정치적 알림도 적용배재
+## 가 적용됩니다.그런데 법원은 &quot;정치적 현수막 철거가 정당하다&quot;며 적용배재를 주
+## 장하는 정치권력의 주장을 기각했습니다.이유가 뭘까요 적용배재를 아무데나 적
+## 용하려 한다면 위험한 발상인 것입니다.옥외광고물법에서 적용배재가 도로법이나
+## 공원법이나 하천법이나 문화재관리법에서 적용배재는 아닌 것입니다.점용료나 홍
+## 보료를 지불하지 않고 하는 행위까지, 도시의 미관을 해하는 행위까지,시민의 안
+## 전이 걱정되는 행위까지,적용을 배재하는 행위는 불교공화국 연등정부에서나 가
+## 능한 일인 것입니다.2015년 5월 24일000서울시장,종로구청장 귀하&#39;.</code></pre>
+<pre><code>## Warning in value[[3L]](cond): can&#39;t processing &#39;제목 : 동성애합법화절대반
+## 대,동성애시청광장퍼레이드결사반대공개일 : 2015-06-02상담내용 : Q. 상담내용
+## 국민의혈세로타락의동성애축제를허가하는자는대힌민국어린학생과청년들을타락시
+## 키는것이다!에이즈를확산시키려는것인가?그들을막을권한이있으면서왜?허락하는
+## 가?그들의병든영혼의치유를위해노력한다면국민은잘한다박수를보내기꺼이응원할것
+## 이다.그러나타락의광란을허락하고합법화하여나라가어지러워진다면그책임은허락한
+## 자들이질수있는가? 이일로대한민국의 모든대다수의어머니들과아버지들은분노하며
+## 울고있다.왜?국민의눈에서눈물흘리게하는가?상투적인답변은필요없다.동성애축제
+## 를취소시켜라!!!이것이국민의마음이며소리다!동성애축제를취솟키지않느다면우리
+## 는박원순 시장을다시는보지않을것이다!&#39;.</code></pre>
+<pre><code>## Warning in value[[3L]](cond): can&#39;t processing &#39;제목 : 퀴어문화 축제장소롤
+## 서울광장으로 허가한것을 강력반대한다공개일 : 2015-06-02상담내용 : Q. 상담내
+## 용서울시 박원순 시장은 서울 퀴어문화 축제장소롤 서울광장으로 허가 하였지만
+## 아래와 같은 이유로 강력히 반대한다.그동안 동성애자들의 퀴어 축제모습을 보면
+## 국민정서에 반하며 ,선정적이며,음란하고,퇴폐적이다.서울시민뿐만 아니라 대다
+## 수 국민들이 원하지 않음에도 불구하고 서울광장 사용을 허가한것은 매우 잘못된
+## 결정이다.박원순 시장과 서울시가 국민들의 의견을 무시한 전형적인 독선 정치의
+## 모습이다.서울시의 상징인 서울광장에서 동성애자들의 축제를 허용함으로써 많은
+## 청소년들과 국민들에게 동성애의 위험행동 을 확산시키는 결과를 가져올것은 뻔
+## 한일이다.서울시가 동성애 퀴어 축제를 허락하면서 심의위원회 등 적법절차를 거
+## 치지도 않고 이런 중요한 사안을 시청 담당자가 단독으로 결정했다고 말하는것은
+## 눈가리고 아웅하는 처사로 국민들을 우롱하는것이다.따라서, 서울시와 박원순시
+## 장은 동성애 퀴어축제 허락을 즉각 철회하고 시민들에게 사과 할것이며, 다시는
+## 재발되지 않도록 강력히 요청한다.&#39;.</code></pre>
+<pre><code>## Warning in value[[3L]](cond): can&#39;t processing &#39;제목 : 동성애합법화절대반
+## 대,동성애시청광장퍼레이드결사반대공개일 : 2015-06-02상담내용 : Q. 상담내용
+## 국민의혈세로타락의동성애축제를허가하는자는대힌민국어린학생과청년들을타락시
+## 키는것이다!에이즈를확산시키려는것인가?그들을막을권한이있으면서왜?허락하는
+## 가?그들의병든영혼의치유를위해노력한다면국민은잘한다박수를보내기꺼이응원할것
+## 이다.그러나타락의광란을허락하고합법화하여나라가어지러워진다면그책임은허락한
+## 자들이질수있는가? 이일로대한민국의 모든대다수의어머니들과아버지들은분노하며
+## 울고있다.왜?국민의눈에서눈물흘리게하는가?상투적인답변은필요없다.동성애축제
+## 를취소시켜라!!!이것이국민의마음이며소리다!동성애축제를취솟키지않느다면우리
+## 는박원순 시장을다시는보지않을것이다!&#39;.</code></pre>
+<pre><code>## Warning in value[[3L]](cond): can&#39;t processing &#39;제목 : 퀴어문화 축제장소롤
+## 서울광장으로 허가한것을 강력반대한다공개일 : 2015-06-02상담내용 : Q. 상담내
+## 용서울시 박원순 시장은 서울 퀴어문화 축제장소롤 서울광장으로 허가 하였지만
+## 아래와 같은 이유로 강력히 반대한다.그동안 동성애자들의 퀴어 축제모습을 보면
+## 국민정서에 반하며 ,선정적이며,음란하고,퇴폐적이다.서울시민뿐만 아니라 대다
+## 수 국민들이 원하지 않음에도 불구하고 서울광장 사용을 허가한것은 매우 잘못된
+## 결정이다.박원순 시장과 서울시가 국민들의 의견을 무시한 전형적인 독선 정치의
+## 모습이다.서울시의 상징인 서울광장에서 동성애자들의 축제를 허용함으로써 많은
+## 청소년들과 국민들에게 동성애의 위험행동 을 확산시키는 결과를 가져올것은 뻔
+## 한일이다.서울시가 동성애 퀴어 축제를 허락하면서 심의위원회 등 적법절차를 거
+## 치지도 않고 이런 중요한 사안을 시청 담당자가 단독으로 결정했다고 말하는것은
+## 눈가리고 아웅하는 처사로 국민들을 우롱하는것이다.따라서, 서울시와 박원순시
+## 장은 동성애 퀴어축제 허락을 즉각 철회하고 시민들에게 사과 할것이며, 다시는
+## 재발되지 않도록 강력히 요청한다.&#39;.</code></pre>
+<pre><code>## Warning in value[[3L]](cond): can&#39;t processing &#39;제목 : 첫차증편운행공개일 :
+## 2015-10-23상담내용 : Q. 상담내용오늘04:10분경망우사거리서260번버스,첫차를탓
+## 습니다.빈자리가하나잇어맨뒷자리에앉잔는데몇정거장지나니콩나물시루가되어버리
+## 네요,가끔새벽차를이용하는데요~만은분들이새벽일을나가기위함인데,편하게이용할
+## 수잇도록새벽첫차는연속2대를배차하는것이시민편의를위함같습니다&#39;.</code></pre>
 <p><br></p>
 <p><code>unlist</code>함수를 이용하여 list 형태인 <code>seoul_all_2</code>데이터를 vector 형태로 풀기</p>
 <pre class="r"><code>seoul_all_3 &lt;- unlist(seoul_all_2) </code></pre>
@@ -2592,12 +2786,23 @@ for (i in 1:length(gsub_txt)) {
 <hr />
 <p><code>seoul_all_4</code>데이터를 <code>table</code>로 만들어 빈도를 세고, <br> <code>sort</code>함수와 <code>decreasing=T</code>옵션을 이용해 내림차순 정렬 <br> 빈도가 많은 것부터 45개 단어 출력 * 빈도표 결과</p>
 <pre class="r"><code>wordcount &lt;- head(sort(table(seoul_all_4), decreasing = T),45)</code></pre>
+<pre><code>## seoul_all_4
+## 동성애   공사 메르스   광장   안전   전화   주차   차량   때문   인권 
+##   1255    483    450    279    249    247    243    235    212    204 
+##   문화   세금   소음 자전거   교육 에이즈   공원   정책   택시   석면 
+##    179    176    171    171    170    166    165    161    150    144 
+## 지하철   주택   확산 재개발   도로 주차장   병원   개발   거리 장애인 
+##    142    134    134    133    130    130    126    119    119    119 
+##   허용 합법화   환경 재건축   보호   분양   피해   공간 청소년     sh 
+##    119    117    117    116    114    113    112    109    109    107 
+##   무시   치료   시정   도시   얘기 
+##    106    106    105    102    100</code></pre>
 <p><br> <code>wordcloud2</code>함수를 이용하면 <code>wordcloud</code>보다 시각적으로 나은 워드클라우드 생성</p>
 <pre class="r"><code>wordcloud2(wordcount, size=0.8, 
            col=&quot;random-light&quot;, backgroundColor=&quot;black&quot;,
            fontFamily=&#39;나눔바른고딕&#39;)</code></pre>
-<div id="htmlwidget-ef869a65f6ec528b6815" style="width:672px;height:480px;" class="wordcloud2 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ef869a65f6ec528b6815">{"x":{"word":["동성애","공사","안전","대한","주차","민국","차량","전화","메르스","에서","때문","인권","광장","문화","공원","세금","퀴어","소음","자전거","정책","에이즈","석면","택시","교육","지하철","재개발","병원","장애인","확산","보호","거리","주택","국가","도로","합법화","허용","강남","주차장","환경","재건축","개발","무시","피해","공간","분양"],"freq":[1246,471,254,246,243,242,239,238,232,213,209,209,188,177,173,173,169,168,167,165,160,144,142,136,136,132,130,130,126,125,120,120,119,118,118,118,116,116,116,114,113,110,110,107,107],"fontFamily":"나눔바른고딕","fontWeight":"bold","color":"random-light","minSize":0,"weightFactor":0.115569823434992,"backgroundColor":"black","gridSize":0,"minRotation":-0.785398163397448,"maxRotation":0.785398163397448,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
+<div id="htmlwidget-281b16866d46be797c8b" style="width:672px;height:480px;" class="wordcloud2 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-281b16866d46be797c8b">{"x":{"word":["동성애","공사","메르스","광장","안전","전화","주차","차량","때문","인권","문화","세금","소음","자전거","교육","에이즈","공원","정책","택시","석면","지하철","주택","확산","재개발","도로","주차장","병원","개발","거리","장애인","허용","합법화","환경","재건축","보호","분양","피해","공간","청소년","sh","무시","치료","시정","도시","얘기"],"freq":[1255,483,450,279,249,247,243,235,212,204,179,176,171,171,170,166,165,161,150,144,142,134,134,133,130,130,126,119,119,119,119,117,117,116,114,113,112,109,109,107,106,106,105,102,100],"fontFamily":"나눔바른고딕","fontWeight":"bold","color":"random-light","minSize":0,"weightFactor":0.114741035856574,"backgroundColor":"black","gridSize":0,"minRotation":-0.785398163397448,"maxRotation":0.785398163397448,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
 </div>
 </div>
 
