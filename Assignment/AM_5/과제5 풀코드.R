@@ -17,7 +17,7 @@ library(wordcloud2)
 
 rm(list = ls())
 
-seoul_all_1 <- readLines("응답소_2015_all.txt") %>% str_remove_all("=") 
+seoul_all_1 <- readLines("data/응답소_2015_all.txt") %>% str_remove_all("=") 
 seoul_all_2 <- sapply(seoul_all_1, extractNoun, USE.NAMES = F)
 seoul_all_3 <- unlist(seoul_all_2) 
 
