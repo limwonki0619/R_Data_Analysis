@@ -70,10 +70,7 @@ pro %>%
         legend.position = "none")
 
 
-
-
 # 전염병 발병현황 -----------------------------------------------------------------------
-
 
 setwd("D:/limworkspace/R_Data_Analysis/Part2/Stage3_StructuredData/challanging/3.5 전염병")
 getwd()
@@ -135,7 +132,6 @@ data3 %>%
   labs(title = paste0("1군 전염병 발병현황(A형간염 제외)","\n","월별(단위:건수)  출처:통계청")) + 
   theme(plot.title = element_text(family = "jalnan", face="bold", hjust=0.5, size=15, color="grey20"),
         axis.title = element_blank())
-
 
 
 
