@@ -18,7 +18,7 @@ library(dplyr)
 library(ggplot2)
 library(reshape2)
 
-# 도전미션 3-1 프로야구 선수들이 밥값을 하나요? ------------------------------------------------ 
+# 프로야구 선수 분석 ---------------------------------------------------------- 
 
 # 프로야구선수 밥값은 하고 있나?
 pro %>% 
@@ -68,6 +68,11 @@ pro %>%
         axis.text.x = element_text(angle = 45, vjust = 0.5, size=8),
         axis.title = element_blank(), 
         legend.position = "none")
+
+
+
+
+# 전염병 발병현황 -----------------------------------------------------------------------
 
 
 setwd("D:/limworkspace/R_Data_Analysis/Part2/Stage3_StructuredData/challanging/3.5 전염병")
@@ -130,6 +135,12 @@ data3 %>%
   labs(title = paste0("1군 전염병 발병현황(A형간염 제외)","\n","월별(단위:건수)  출처:통계청")) + 
   theme(plot.title = element_text(family = "jalnan", face="bold", hjust=0.5, size=15, color="grey20"),
         axis.title = element_blank())
+
+
+
+
+
+# 3.7 마포 마을버스 이용 현황 분석 -------------------------------------------------------------
 
 setwd("D:/limworkspace/R_Data_Analysis/Part2/Stage3_StructuredData/challanging/3.7 마포")
 getwd()

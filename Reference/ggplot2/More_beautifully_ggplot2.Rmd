@@ -76,7 +76,7 @@ iris %>%
 ***
   0. 기본 그래프 만들기 <br><br>
   
-  1. 타이틀(Title) 커스텀 하기 <br><
+  1. 타이틀(Title) 커스텀 하기 <br>
       1.1 타이틀 입력하고 꾸미기 <br>
       1.2 타이틀 여러 줄로 나누기 <br><br>
       
@@ -132,8 +132,8 @@ library(MASS)
 ```{r}
 data("Cars93")   # MASS 패키지에서 Cars93 데이터를 가져옵니다.
 
-Basic_Plot <- ggplot(Cars93, aes(x=Price, y=Horsepower)) + # x축: 차량 가격, y축: 마력
-                geom_point(aes(colour=DriveTrain))  # jitter plot을 그립니다. 색상: 차량 구동계
+Basic_Plot <- ggplot(Cars93, aes(x=Price, y=Horsepower)) + # x: 가격, y: 마력
+  geom_point(aes(colour=DriveTrain))  # 산점도를 그립니다.  색상은 차량 구동계 별로 그립니다.
 ```
 ```{r, echo=FALSE}
 Basic_Plot
@@ -146,24 +146,27 @@ Basic_Plot
   <br><br>
   
 ##### **1.1 타이틀 입력하고 꾸미기** 
-  타이틀은 ggtitle() 함수를 통해 쉽게 입력이 가능합니다. <br>
+  plottitle, subtitle, axis.title 모두 labs 함수로 쉽게 입력이 가능합니다. <br>
   타이틀을 꾸미기 위해서는 theme() 함수를 통해서 설정을 해주어야 합니다. <br>
   (theme() 함수에 사용되는 element에 대한 설명은 부록에 작성되어 있습니다.) <br>
   
 ```{r}
   Basic_Plot + 
-  ggtitle("Jitter Plot for Cars93 Dataset") +   # title 명칭을 입력합니다.
-  theme(plot.title = element_text(family = "serif", face = "bold", hjust = 0.5, size = 15, color = "darkblue"))   # 글씨체(family), 글씨 모양(face), 가운데 정렬(hjust), 크기(size), 색상(color)을 설정합니다.
+  labs(title="Jitter Plot", # plot 타이틀을 지정합니다.
+       subtitle = "for Cars93 Dataset", # subtitle을 지정합니다.
+       x = "차량 가격",   # x 축 타이틀(axis.title.x)을 변경합니다.
+       y = "마력") +      # y 축 타이틀을 변경합니다.
+  theme(plot.title = element_text(family = "serif", face = "bold", hjust = 0.5, size = 15, color = "darkblue"))   # plot title의 글씨체(family), 글씨 모양(face), 가운데 정렬(hjust), 크기(size), 색상(color)을 설정합니다. plot.subtitle로 서브타이틀 또한 커스텀이 가능합니다.  다만, 축 타이틀은 theme함수로 지정합니다.
 ```
   <br><br>
 
 #####  **1.2 타이틀 여러 줄로 나누기**
   타이틀이 장문일 경우에는 여러 줄로 나눠서 나타내는 것이 필요합니다. <br>
-  문장을 나누는 방법은 ggtitle() 함수 내에서 타이틀을 입력하고 나누고 싶은 부분에서 `\n`을 입력하면 됩니다. <br>
+  문장을 나누는 방법은 labs() 함수 내에서 타이틀을 입력하고 나누고 싶은 부분에서 `\n`을 입력하면 됩니다. <br>
   
 ```{r}
 Basic_Plot + 
-  ggtitle("Jitter Plot for Cars93 Dataset \n coloring with Drive Train") + # title 명칭을 두 줄로 입력합니다. 
+  labs(title="Jitter Plot for Cars93 Dataset \n coloring with Drive Train") + # title 명칭을 두 줄로 입력합니다. 
   theme(plot.title = element_text(family = "serif", face = "bold", hjust = 0.5, size = 15, color = "darkblue")) 
 ```
   <br><br><br>
@@ -175,6 +178,7 @@ Basic_Plot +
 
 #####  **2.1 축 타이틀 꾸미기**
   축의 타이틀은 기본 그래프의 "Price", "Horsepower"에 해당합니다. <br>
+  축의 타이틀은 `element_text(family, face, size, color 등)` 을 통해 꾸밀 수 있습니다. <br>
   
 ```{r}
 Basic_Plot + 
@@ -185,7 +189,7 @@ Basic_Plot +
   
 #####  **2.2 축 타이틀 바꾸기**
   기본 그래프의 축 타이틀인 "Price", "Horsepower"를 다른 타이틀로 바꿔봅니다. <br>
-  축의 타이틀을 입력하는 함수는 labs() 함수이며 X축, Y축에 대해 각각 타이틀 수정이 가능합니다. <br>
+  축의 타이틀을 입력하는 함수는 `labs()` 함수이며 X축, Y축에 대해 각각 타이틀 수정이 가능합니다. <br>
   
 ```{r}
 Basic_Plot + 
