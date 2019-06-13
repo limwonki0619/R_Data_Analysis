@@ -16,6 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
   무료배포 글꼴은 [여기](https://brunch.co.kr/@jade/203)에서 다운받아 설치 합니다.
   <br>
   폰트를 적용하기 위해서는 다음과 같은 패키지와 라이브러리가 필요합니다.
+  
 ```{r, eval=FALSE}
 install.packages("extrafont")
 library(extrafont)
@@ -41,10 +42,12 @@ windowsFonts(nbg=windowsFont("나눔바른고딕"))
 ```
   <br>
   테스트에 필요한 패키지와 라이브러리는 다음과 같습니다.
+  
 ```{r, eval=FALSE}
 install.packages("dplyr")
 library(dplyr)
 ```
+
 ```{r, eval=FALSE}
 install.packages("ggplot2")
 library(ggplot2)
@@ -52,6 +55,7 @@ library(ggplot2)
   <br>
   
   글꼴 적용 확인 코드는 다음과 같습니다.
+  
 ```{r, eval=FALSE}
 iris %>% 
   ggplot(aes(x=Sepal.Length, y=Petal.Length, color=Species)) + # 색상을 Species 별로 설정 
@@ -72,11 +76,11 @@ iris %>%
 ***
   0. 기본 그래프 만들기 <br><br>
   
-  1. 타이틀(Title) 커스텀 하기 <br><br>
+  1. 타이틀(Title) 커스텀 하기 <br><
       1.1 타이틀 입력하고 꾸미기 <br>
       1.2 타이틀 여러 줄로 나누기 <br><br>
       
-  2. 축(Axis) 커스텀 하기 <br><br>
+  2. 축(Axis) 커스텀 하기 <br>
       2.1 축 타이틀 꾸미기 <br>
       2.2 축 타이틀 바꾸기 <br>
       2.3 축 타이틀에 수식 넣기 <br>
@@ -86,7 +90,7 @@ iris %>%
       2.7 축 라벨 옆으로 눕히기 <br>
       2.8 축 위치 바꾸기 <br><br>
       
-  3. 범례(Legend) 커스텀 하기<br><br>
+  3. 범례(Legend) 커스텀 하기<br>
       3.1 범례 지우기 <br>
       3.2 범례 꾸미기<br>
       3.3 범례 테두리 꾸미기 <br>
@@ -95,7 +99,7 @@ iris %>%
       3.6 범례 타이틀만 지우기 <br>
       3.7 범례 타이틀 바꾸기 <br><br>
       
-  4. 그래프(Plot) 커스텀 하기 <br><br>
+  4. 그래프(Plot) 커스텀 하기 <br>
       4.1 그래프 안에 글자/선/도형 넣기 <br> 
       4.2 그래프 X축, Y축 바꿔 그리기 <br> 
       4.3 흑백으로 나타내기 <br>
@@ -182,6 +186,7 @@ Basic_Plot +
 #####  **2.2 축 타이틀 바꾸기**
   기본 그래프의 축 타이틀인 "Price", "Horsepower"를 다른 타이틀로 바꿔봅니다. <br>
   축의 타이틀을 입력하는 함수는 labs() 함수이며 X축, Y축에 대해 각각 타이틀 수정이 가능합니다. <br>
+  
 ```{r}
 Basic_Plot + 
   labs(x="Average of Max and Min Price", y="Maximum Horsepower")   # 축의 타이틀을 변경합니다.
