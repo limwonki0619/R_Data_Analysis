@@ -62,7 +62,7 @@ str(data1)
 data2 <- filter(data1, 경기 > 120 ); data2
 data3 <- filter(data1, 경기 > 120 & 득점 > 80); data3
 data4 <- filter(data1, 포지션 == '1루수' | 포지션 == '3루수'); data4          
-data5 <- filter(data1, 포지션 %in% c('1루수','2루수')); data5            # %in% 포함하고 있는지 묻는 연산자
+data5 <- filter(data1, 포지션 %in% c('1루수','2루수')); data5            # %in% 포함하고 있는지 묻는 연산자, 정확한 값을 입력해야함
 
 # 8.6.2 select(데이터, 컬럼명) - 특정 컬럼만 선택해서 사용하는 기능 ----------------------------------------------------------------------------
 
@@ -120,6 +120,7 @@ data1 %>%
 data1 %>% 
   group_by(팀) %>%
   summarise_each(funs(mean, n()), 경기, 타수)                            # n() 함수로 개수도 포함 // n 함수는 funs로만 사용가능
+
 library(reshape2)
 library(ggplot2)
 
@@ -252,7 +253,7 @@ str_trim('       apple     bananan   berry  \n   ')
 fruits_string <- c('apple','Apple','banana','pineapple')
 
 str_detect(fruits_string, 'A')                                             # 대문자 A가 있는 단어 찾기 (논리값으로 출력)
-str_match(fruits_string, 'A')                                              # 대문자 A가 있는 단어 찾기 (매칭되는 위치의 값만 출력)
+str_match(fruits_string, 'A')                                              # 대문자 A가 있는 단어 찾기 (매칭되는 위치의 값만 출력, 매치가 안될경우 NA로 출력 )
 
 # 8.8.12 원하는 행 추출하기 *** -----------------------------------------------------------------------------------------------------------------
 
