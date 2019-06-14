@@ -7,6 +7,8 @@ getwd()
 #------------------ section 8 : 다양한 함수 -------------------#
 #--------------------------------------------------------------#
 
+# dplyr 참고자료 : https://rfriend.tistory.com/235
+
 # 8.5 데이터 핸들링 - plyr packages ------------------------------------------------------------------------------------------------------------
 
 #                 출력형태  array   data frame   list      nothing
@@ -25,7 +27,7 @@ library(plyr)
 rm(list = ls())
 list.files()
 
-fruits <- read.csv( "fruits_10.csv" ); fruits
+fruits <- read.csv( "data/fruits_10.csv" ); fruits
 
 # ddply(data, 기준컬럼, 적용함수 or 결과물)
 
@@ -52,7 +54,7 @@ install.packages('dplyr')
 library(dplyr)
 list.files()
 
-data1 <- read.csv("2013년_프로야구선수_성적.csv")
+data1 <- read.csv("data/2013년_프로야구선수_성적.csv")
 str(data1)
 
 # 8.6.1 filter(데이터 ,조건) - 조건을 줘서 원하는 데이터만 얻는 기능 ---------------------------------------------------------------------------
@@ -101,23 +103,25 @@ data1 %>%
 
 data1 %>% 
   group_by(팀) %>%
-  summarise_each(funs(mean), 경기, 타수)
+  summarise_each(list(mean), 경기, 타수)
 
 data1 %>% 
   group_by(팀) %>%
   mutate(OPS = 출루율 + 장타율) %>%                                      # summarise_each : 여러개의 변수에 함수를 적용할 때 사용 
-  summarise_each(funs(mean), 장타율, 출루율, 타율, OPS) %>%              # summarise_each(funs(함수), 변수들)
+  summarise_each(list(mean), 장타율, 출루율, 타율, OPS) %>%              # summarise_each(funs(함수), 변수들)
   arrange(desc(OPS))                                                     # deprecated 오류는 앞으로 기능을 변경할 것을 암시
 
 data1 %>% 
   group_by(팀) %>%
   mutate(OPS = 출루율 + 장타율) %>%                                      
-  summarise_each(list(mean), 장타율, 출루율, 타율, OPS) %>%              # 하나 일 떄는 funs 대신 list 사용 
+  summarise_each(list(mean), 장타율, 출루율, 타율, OPS) %>%              # 원하는 변수들의 요약값 출력
   arrange(desc(OPS))     
 
 data1 %>% 
   group_by(팀) %>%
-  summarise_each(funs(mean, n()), 경기, 타수)                            # n() 함수로 개수도 포함 
+  summarise_each(funs(mean, n()), 경기, 타수)                            # n() 함수로 개수도 포함 // n 함수는 funs로만 사용가능
+library(reshape2)
+library(ggplot2)
 
 # dplyr 연습문제 1
 
@@ -152,7 +156,7 @@ rm(list=ls())
 
 install.packages("reshape2")
 library(reshape2)
-fruits <- read.csv( "fruits_10.csv" ); fruits
+fruits <- read.csv("data/fruits_10.csv" ); fruits
 
 melt(fruits, id = 'year')                                                 # melt : 녹이다 // id 값을 기준으로 long format 으로 변환  
 melt(fruits, id = c('year','name'))
@@ -187,11 +191,13 @@ str_detect(fruits_string, '[aA]')                                          # 단
 str_detect(fruits_string, regex('a', ignore_case = T))                     # 대소문자 구분을 안하도록 설정하는 함수 
 
 
-# 8.8.2 str_count(data, '세고자 하는 문자) - 주어진 단어에서 해당 글자가 몇 번 나오는지 센느 함수   ---------------------------------------------
+# 8.8.2 str_count(data, '세고자 하는 문자) - 주어진 단어에서 해당 글자가 몇 번 나오는지 세는 함수   ---------------------------------------------
 
 str_count(fruits_string, 'a')                                              # 'a'가 각각의 데이터에 몇번 포함하는지 출력 
 
-# 8.8.3 str_c('chr1', 'chr2'|data) - 문자열을 합쳐서 출력 // paste 함수와 같은 기능 -------------------------------------------------------------
+# 8.8.3 str_c('chr1', 'chr2'|data) - 문자열을 합쳐서 출력  -------------------------------------------------------------
+#       str_c == paste
+#       str_c(sep="") == paste0
 
 str_c('apple','banana')
 str_c('Fruits : ' ,fruits_string)                                          # 문자에 벡터 데이터도 붙이기 가능 
@@ -204,6 +210,7 @@ str_c(fruits_string, collapse = ', ')
 str_dup(fruits_string, 3)
 
 # 8.8.5 str_length('문자열') - 주어진 문자열의 길이를 출력 --------------------------------------------------------------------------------------
+#       str_length == length
 
 str_length(fruits_string)
 str_length('과일')
@@ -214,7 +221,8 @@ str_locate(fruits_string, 'a')                                             # 대
 str_locate('apple', 'app')                                                 # 타 언어와 인덱스의 구간과 차별이 있음
 
 # 8.8.7 str_repalce('chr1,'old,'new) - 이전 문자를 새로운 문자로 변경 // sub() 함수와 같은 기능 
-#       str_replace_all() = gsub()
+#       str_replace == sub
+#       str_replace_all == gsub
 
 str_replace('apple','p','*')                                               # apple에서 첫번째 p를 *로 변경
 str_replace('apple','p','++')                                              # apple에서 첫번째 p를 ++로 변경
@@ -227,7 +235,7 @@ str_split_fixed(fruits_string2,'/',3)[,2]                                  # '/'
 str_split_fixed(fruits_string2,'/',3)[,1]
 
 # 8.8.9 str_sub(문자열, start, end) - 문자열에서 지정된 길이 만큼의 문자를 잘라내줌 -------------------------------------------------------------
-# substr함수와 같은 기능 
+#       str_sub == substr 
 
 fruits_string2
 str_sub(fruits_string2, start=1, end=3)
@@ -252,3 +260,9 @@ data2[nchar(data2$시간)==3,2] <- paste0(0,data2[nchar(data2$시간)==3,2]); da
 
 data2$새로운시간 <- paste(str_sub(data2[,2],1,2),
                      str_sub(data2[,2],3,4), sep=":"); data2$시간 <- NULL; data2 # 2번 방법
+
+library(googleVis)
+Fruits
+
+Fruits[str_detect(Fruits$Date, "10"),] # Fruits데이터의 Date열에서 "10"이 들어간 행만 추출 
+Fruits[grep("10",Fruits$Date),]        # 같은 기능 
