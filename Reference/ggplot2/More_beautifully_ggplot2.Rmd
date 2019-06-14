@@ -143,6 +143,10 @@ Basic_Plot
 #### **1. 타이틀(title) 커스텀 하기**
 ***
   제일 처음 해볼 내용은 그래프의 타이틀을 커스텀 하는 부분입니다. <br>
+  본격적인 ggplot2를 커스텀하기 전에 먼저 각 부분의 명칭을 알아보고 갑시다.
+  
+  ![Graphic](D:/limworkspace/R_Data_Analysis/Reference/ggplot2/ggplot structure.png)
+  
   <br><br>
   
 ##### **1.1 타이틀 입력하고 꾸미기** 
@@ -151,7 +155,7 @@ Basic_Plot
   (theme() 함수에 사용되는 element에 대한 설명은 부록에 작성되어 있습니다.) <br>
   
 ```{r}
-  Basic_Plot + 
+Basic_Plot + 
   labs(title="Jitter Plot", # plot 타이틀을 지정합니다.
        subtitle = "for Cars93 Dataset", # subtitle을 지정합니다.
        x = "차량 가격",   # x 축 타이틀(axis.title.x)을 변경합니다.
@@ -217,6 +221,7 @@ Basic_Plot +
   
   이때 사용하는 함수는 lims() 함수이며, 제한하고자 하는 축의 시작과 끝 범위를 입력하면 됩니다. <br>
   해당 함수를 사용할 때에는 데이터를 표현하는 범위를 제한하기 때문에 범위에 속하지 않는 데이터가 제거된다는 경고 메시지가 뜨게 됩니다. <br>
+  또한 제한하고자 하는 변수의 형태가 numeric이 아닌 경우에도 에러가 날 수 있습니다. 이럴 경우 y축 변수를 as.numeric을 통해 수치형 변수로 변경이 필요합니다. <br>
   
 ```{r}
 Basic_Plot + 
