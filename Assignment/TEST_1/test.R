@@ -25,23 +25,17 @@ df_score <- data.frame(이름 = c("강경학","김태균","이성열","정은원
 # 2-2)
 df_score$평균 <- apply(df_score[,2:3],1,mean)
 
-
-
 # 문제3
+df_score$등급 <- NULL
+df_score$등급 <- ifelse(df_score$평균 >= 90,"A",
+       ifelse(df_score$평균 < 90 & df_score$평균 >= 80, "B",
+              ifelse(df_score$평균 < 80 & df_score$평균 >= 70,"C",
+                     ifelse(df_score$평균 < 70 & df_score$평균 >= 60,"D","F")
+                     )
+              )
+       )
 
-# df_score$등급 <- ifelse(df_score$평균 >= 90, "A", df_score$평균 >= 80 ,"B",  df_score$평균 >= 70, "C", df_score$평균 >= 60, "D","F")
-# df_score$학점 <- if(df_score$평균 >= 90) {
-#       df_score$학점 <- "A"
-#   } else if(df_score$평균 >= 80) {
-#       df_score$학점 <- "B"
-#   } else if(df_score$평균 >= 70) {
-#       df_score$학점 <- "C"  
-#   } else if (df_score$평균 >= 60) {
-#       df_score$학점 <- "C" 
-#   } df_score$학점 <- "F" 
-
-
-# 문제4
+#0 문제4
 
 sum <- 0
 oddSum <- function(x) {
