@@ -10,7 +10,8 @@ getwd()
 
 # 10.1 정규식에서 사용되는 주요 기호들과 의미 - 검색해보자-----------------------------------------------------------------------------
 
-# 10.2 특정패선만 골라내기 - grep(pattern, a) // str_detect와 기능이 비슷 -------------------------------------------------------------
+# 10.2 특정패선만 골라내기 - grep(pattern, data) // str_detect와 기능이 비슷 -------------------------------------------------------------
+
 char <- c('apple','Apple','APPLE','banana','grape')
 grep('apple',char1)
 
@@ -53,6 +54,8 @@ substr('abc123',3,4)
 # 10.6 문자열을 특정 문자로 분리 - strsplit('문자열', split='기준문자') // list형태로 출력 -------------------------------------------
 
 strsplit('2014/11/22', split = '/')
+str_split_fixed(c("2014-11-23","2019-06-19"),"-",3)[,2] # stringr 패키지의 함수 str_split(string, pattern, n)[,n번째 열]
+                                                        # 해당 string을 "/" 문자를 기준으로 3등분의 메트릭스로 출력 후 2번째 열 값만 가져오기 
 
 # 10.7 특정패턴이 처음 나오는 위치 가져오기 - regexpr('pattern', text) ---------------------------------------
 
@@ -104,12 +107,12 @@ grep(".txt$", list.files(), value = T) # .txt로 끝나는 문자 출력
 
 text2 <- c("a", "ab", "acb", "accb", "acccb", "accccb", "acccpcb")
 
-grep("ac*b", text2, value = T)     # text에서 acb 패턴은 찾는데 c문자는 적어도 0번 매칭 (0번 이상 ~)
-grep("ac+b", text2, value = T)     # acb 패턴 중 c가 적어도 1번 매칭되는 경우 (1번 이상 ~ )
-grep("ac?b", text2, value = T)     # acb 패턴 중 c가 많아요 1번 매칭되는 경우 (0~1번)
-grep("ac{2}b", text2, value = T)   # acb 패턴 중 c가 연속적으로 2번만 매칭되는 경우 
-grep("ac{2,}b", text2, value = T)  # acb 패턴 중 c가 연속적으로 2번 이상 나오는 경우
-grep("ac{2,3}b", text2, value = T) # acb 패턴 중 c가 2~3번 매칭되는 경우
+grep("ac*b", text2, value = T)     # text에서 acb 패턴은 찾는데 c문자는 적어도 0번(*) 매칭 (0번 이상 ~)
+grep("ac+b", text2, value = T)     # acb 패턴 중 c가 적어도 1번(+) 매칭되는 경우 (1번 이상 ~ )
+grep("ac?b", text2, value = T)     # acb 패턴 중 c가 많아도 1번(?) 매칭되는 경우 (0~1번)
+grep("ac{2}b", text2, value = T)   # acb 패턴 중 c가 연속적으로 2번{2}만 매칭되는 경우 
+grep("ac{2,}b", text2, value = T)  # acb 패턴 중 c가 연속적으로 2번 이상{2,} 나오는 경우
+grep("ac{2,3}b", text2, value = T) # acb 패턴 중 c가 2~3번 매칭되는 경우{2,3}
 
 
 # 연산자 ----------------------------------------------------------------------------------------------------

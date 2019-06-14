@@ -1,0 +1,182 @@
+---
+title: "Test1"
+author: "Lim wonki"
+date: '2019 6 14 '
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(extrafont)
+
+loadfonts() # 설치된 폰트 확인 
+
+windowsFonts(hanna=windowsFont("BM HANNA 11yrs old")) # 폰트이름 변경 
+windowsFonts(dohyeon=windowsFont("BM DoHyeon"))
+windowsFonts(jalnan=windowsFont("Jalnan"))
+windowsFonts(binggrae=windowsFont("Binggrae Taom"))
+
+
+# 문제 1
+
+vec1 <- 1:6
+vec2 <- 10:5
+vec3 <- rep(1:3,each=2)
+vec4 <- rep(1:3,time=2)
+vec5 <- seq(1,11,2)
+
+# 문제 2
+# 2-1)
+df_score <- data.frame(이름 = c("강경학","김태균","이성열","정은원"),
+                       중간 = c(90,78,94,70),
+                       기말 = c(50,60,90,92))
+
+# 2-2)
+df_score$평균 <- apply(df_score[,2:3],1,mean)
+
+
+
+# 문제3
+
+#df_score$등급 <- ifelse(df_score$평균 >= 90, "A", df_score$평균 >= 80 ,"B",  df_score$평균 >= 70, "C", df_score$평균 >= 60, "D","F")
+#df_score$학점 <- if(df_score$평균 >= 90) {
+#      df_score$학점 <- "A"
+#  } else if(df_score$평균 >= 80) {
+#      df_score$학점 <- "B"
+#  } else if(df_score$평균 >= 70) {
+#      df_score$학점 <- "C"  
+#  } else if (df_score$평균 >= 60) {
+#      df_score$학점 <- "C" 
+#  } df_score$학점 <- "F" 
+
+
+# 문제4
+
+sum <- 0
+oddSum <- function(x) {
+  for (i in seq(1,x,2)) {
+    sum <- sum + i
+  }
+  return(sum)
+}
+oddSum(100)
+
+
+
+# 문제5
+
+library(dplyr)
+
+setosa <- iris %>% filter(Species=="setosa") %>% select(Sepal.Width) 
+boxplot(setosa$Sepal.Width)
+
+mean(setosa$Sepal.Width); sd(setosa$Sepal.Width) # 이상치 제거 전 평균과 표준편차
+
+setosa2 <- ifelse(setosa$Sepal.Width < boxplot(setosa$Sepal.Width)$stat[1] | 
+                  setosa$Sepal.Width > boxplot(setosa$Sepal.Width)$stat[5], NA, setosa$Sepal.Width)
+
+mean(setosa2, na.rm = T); sd(setosa2, na.rm = T) # 이상치 제거 후 평균과 표준편차
+
+
+# 문제 6 
+library(ggplot2)
+
+mpg %>% 
+  filter(manufacturer=="toyota") %>% 
+  select(manufacturer,model, hwy, cty) %>%
+  group_by(model) %>%
+  summarise(mean_hwy_cty = mean(hwy+cty)) %>%
+  arrange(desc(mean_hwy_cty)) %>% head(3)
+  
+
+
+# 문제 7 
+
+# 7-1)
+mpg %>%
+  filter(class=="suv") %>% 
+  select(manufacturer,class,cty) %>%
+  group_by(manufacturer) %>%
+  summarise(mean_cty = mean(cty)) %>%
+  arrange(desc(mean_cty))
+
+# 7-2)
+mpg %>%
+  filter(class=="suv") %>% 
+  select(manufacturer,class,cty) %>%
+  group_by(manufacturer) %>%
+  summarise(mean_cty = mean(cty)) %>%
+  arrange(desc(mean_cty)) %>% 
+  head(7) %>%
+  ggplot(aes(x=reorder(manufacturer, -mean_cty), y=mean_cty,fill=manufacturer)) +
+    geom_bar(stat = "identity") +
+     geom_text(aes(x=manufacturer,y=mean_cty-0.5, label=round(mean_cty,1), size = 3), color="white", family ="hanna") +
+     theme_bw(base_family = "hanna", base_size = 18) +
+     theme(axis.text.x = element_text(vjust=0.5)) +
+     theme(axis.title.x = element_blank()) +
+     theme(legend.position = "none") +
+     labs(title = "SUV자동차의 시내연비 TOP7", y = "시내 평균연비") +
+     theme(plot.title = element_text(family = "jalnan",face="bold",hjust=0.5,size = 15, color = "grey20"))
+   
+# 문제 8
+library(ggplot2)
+
+# 8-1
+diamonds %>% 
+  select(clarity) %>%
+  group_by(clarity) %>%
+  summarise(count = n()) %>%
+    ggplot(aes(x=reorder(clarity, -count), y=count/1000, fill=clarity)) +
+    geom_bar(stat = "identity",width = 0.8) + 
+    geom_text(aes(x=clarity,y=(count/1000)-0.3, label=round(count/1000,1), size = 3), color="white", family ="hanna") +
+     theme_bw(base_family = "hanna", base_size = 18) +
+     theme(axis.text.x = element_text(vjust=0.5)) +
+     theme(axis.title.x = element_blank()) +
+     theme(legend.position = "none") +
+     labs(title = "Clarity별 도수", y = "갯수(단위: 천 개)") +
+     theme(plot.title = element_text(family = "jalnan",face="bold",hjust=0.5,size = 15, color = "grey20"))
+
+# 8-2
+diamonds %>%
+  select(clarity,price) %>%
+  group_by(clarity) %>%
+  summarise(mean_price = mean(price)) %>%
+    ggplot(aes(x=reorder(clarity, -mean_price),y=mean_price,fill=clarity)) + 
+      geom_col(width = 0.001) +
+      geom_point()
+
+
+
+
+# 문제 9 
+baseball <- read.csv("C:/Users/1pc/Desktop/실습용_데이터/야구성적.csv")
+
+# 9-1)
+baseball %>% 
+  mutate(OPS = 출루율+장타율,
+         연봉대비OPS = OPS/연봉*100)
+
+# 9-2
+baseball %>% 
+  mutate(OPS = 출루율+장타율,
+         연봉대비OPS = OPS/연봉*100) %>% 
+  ggplot(aes(x=선수명,y=연봉대비OPS,group=선수명,color=선수명)) +
+    geom_point(size=4) +
+    geom_segment(aes(x=선수명,xend=선수명,y=0,yend=연봉대비OPS), color="grey50") +
+    geom_text(aes(x=선수명,y=연봉대비OPS+5,label=round(연봉대비OPS,1),family="dohyeon")) +
+      theme_bw(base_family = "hanna", base_size = 18) +
+      theme(axis.text.x = element_text(angle=45, vjust=0.5)) +
+      theme(axis.title.x = element_blank()) +
+      theme(legend.position = "none") +
+      labs(title = "프로야구 선수별 연봉대비OPS") +
+      theme(plot.title = element_text(family = "jalnan",face="bold",hjust=0.5,size = 15, color = "grey20"))
+
+  
+
+```
+
+
