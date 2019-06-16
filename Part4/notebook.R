@@ -14,7 +14,7 @@ colors <- c("MediumTurquoise","Coral","LightGoldenrod1","DeepSkyblue")
 par(mfrow=c(1,3))
 # 이상치를 제거한 boxplot 
 setosa <- iris %>% filter(Species=="setosa") %>% select(-Species)
-boxplot(setosa)$stats
+boxplot(setosa)$stats # boxplot의 stat을 나타냄 (최소(울타리 맨 아래) Q1, median, Q3, 최대(울타리 맨 위) 
 for (i in 1:4) {
   setosa[,i] <- ifelse(setosa[,i] < boxplot(setosa[,i])$stats[1] | setosa[,i] > boxplot(setosa[,i])$stats[5], NA, setosa[,i])
 }
