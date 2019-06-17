@@ -310,7 +310,7 @@ summary(iris)
 
   <br>
   
-#### **결과 없이 코드드만 보여주기 {r, eval=FALSE}**  
+#### **결과 없이 코드만 보여주기 {r, eval=FALSE}**  
 ```{r, eval=FALSE}
 summary(iris)
 ```
@@ -341,6 +341,7 @@ summary(iris)
  차이점은 `뒤에 r의 유무, "r"이 있어야 r 코드로 인식 <br><br>
  
  
+ [기타 추가할 자료](http://blog.naver.com/PostView.nhn?blogId=definitice&logNo=221415805615&parentCategoryNo=&categoryNo=40&viewDate=&isShowPopularPosts=true&from=search)
  
  
  
