@@ -123,7 +123,7 @@ install.packages(c("devtools","RJSONIO", "knitr", "shiny", "httpuv"))
 library(devtools) 
 install_github("mages/googleVis") 
 
-data1 <- read.csv("rchart연습.csv")
+data1 <- read.csv("data/rchart연습.csv")
 data1
 require(googleVis) 
 
@@ -137,7 +137,7 @@ san$html$header <- header
 plot(san)
 
 # 경상남도 2015년 예산 표현하기
-data1 <- read.csv("경상남도_2015_예산.csv")
+data1 <- read.csv("data/경상남도_2015_예산.csv")
 data1 
 san <- gvisSankey(data1, from="총예산", to="세부지출", weight="예산", 
                   options=list(height=550, width=800, 
@@ -148,7 +148,7 @@ san$html$header <- header
 plot(san)
 
 # 영화 배우와 출연 작품 표현
-data1 <- read.csv("영화배우와_출연작품.csv")
+data1 <- read.csv("data/영화배우와_출연작품.csv")
 data1 
 san <- gvisSankey(data1, from="배우명", to="영화명", weight="관객수", 
                   options=list(height=550, width=800,

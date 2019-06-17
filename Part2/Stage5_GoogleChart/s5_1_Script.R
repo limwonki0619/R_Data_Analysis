@@ -12,20 +12,20 @@ Fruits1<- gvisMotionChart(Fruits, idvar="Fruit", timevar="Year")
 plot(Fruits1)       # Google API Key 필요
 
 # 예제 5-3 . 서울 지하철 1,2,3,4 호선 이용승객현황 출력하기
-line <- read.csv("1-4호선승하차승객수.csv",header=T,sep=",")
+line <- read.csv("data/1-4호선승하차승객수.csv",header=T,sep=",")
 line
 t1 <- gvisMotionChart(line, idvar="노선번호", timevar="시간",
                       options=list(width=1000,height=500))
 plot(t1)
 
 # 예제 5-4. 서울 지하철 2호선 강남역 시간대별 이용 현황 수 표현하기
-line_2 <- read.csv("2호선_강남역_시간대별_승하차현황_세로.csv",header=T,sep=",")
+line_2 <- read.csv("data/2호선_강남역_시간대별_승하차현황_세로.csv",header=T,sep=",")
 t1 <- gvisMotionChart(line_2, idvar="line_no", timevar="time",
                       options=list(width=1000,height=500))
 plot(t1)
 
 # 예제 5-5. 서울 지하철 5-8호선 이용승객 현황 표시하기
-sub58 <- read.csv("서울지하철_5-8호선_이용현황_시간대별.csv",header=T)
+sub58 <- read.csv("data/서울지하철_5-8호선_이용현황_시간대별.csv",header=T)
 sub58
 sub58_2 <- gvisMotionChart(sub58,idvar="호선명",timevar="시간")
 plot(sub58_2)
@@ -40,7 +40,7 @@ storm1 <- gvisMap(Andrew, "LatLong" , "Tip",
 plot(storm1)
 
 # 예제 5-7 . Googlemap~서울시 구청 위치를 표시해 줘~
-loc <- read.csv("서울시구청위치정보_new.csv",header=T)
+loc <- read.csv("data/서울시구청위치정보_new.csv",header=T)
 loc
 hoffice <- gvisMap(loc, "LATLON" , "name",
                    options=list(showTip=TRUE, showLine=TRUE, 
@@ -59,7 +59,7 @@ ft_placelst <- function(place) {
   return(df_lst)
 }
 
-df_placelst <- ft_placelst(readLines("제주여행코스.txt"))
+df_placelst <- ft_placelst(readLines("data/제주여행코스.txt"))
 latlon <- paste(df_placelst$lat,":",df_placelst$lon)
 latlon <- gsub(" ","",latlong)
 latlon <- paste(df_placelst$lat,":",df_placelst$lon)
@@ -133,7 +133,7 @@ a <- gvisBubbleChart(Fruits, idvar="Fruit", xvar="Sales", yvar="Expenses",
 plot(a)
 
 # 예제 5-15. Google Column Chart
-korean <- read.csv("학생별회차별성적__국어_new.csv", header=T)
+korean <- read.csv("data/학생별회차별성적__국어_new.csv", header=T)
 korean
 kor <- gvisColumnChart(korean,options=list(title="학생별 성적비교",
                                            height=400,weight=500))
@@ -143,7 +143,7 @@ kor$html$header <- header
 plot(kor)
 
 # 예제 5-16. Google Area Chart 사용하기
-korean <- read.csv("학생별회차별성적__국어_new.csv", header=T)
+korean <- read.csv("data/학생별회차별성적__국어_new.csv", header=T)
 area <- gvisAreaChart(korean,options=list(height=400, weight=500))
 header <- area$html$header
 header <- gsub("charset=utf-8", "charset=euc-kr", header)
@@ -151,7 +151,7 @@ area$html$header <- header
 plot(area)
 
 # 예제 5-17. Google Combo Chart 사용하기
-korean <- read.csv("학생별회차별성적__국어_new.csv", header=T)
+korean <- read.csv("data/학생별회차별성적__국어_new.csv", header=T)
 combo <- gvisComboChart(korean,options=list(seriesType="bars", 
                                             height=400,weight=500,
                                             series='{3: {type:"line"}}'))
