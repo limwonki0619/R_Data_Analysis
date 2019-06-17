@@ -1,7 +1,7 @@
 # 다양한 구글챠트 활용하기
 install.packages('ggmap')
 
-setwd('D:/Workspace/R_Data_Analysis/Part2/Stage5_GoogleChart')
+setwd('D:/limworkspace/R_Data_Analysis/Part2/Stage5_GoogleChart')
 # 예제 5-1. WorldBank 자료로 움직이는 버블챠트 생성하기
 library(googleVis)
 demo(WorldBank)       # 에러 발생
