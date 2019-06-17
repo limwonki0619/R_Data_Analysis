@@ -14,7 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
   [코드 출처](https://heropy.blog/2017/09/30/markdown): Heropy Tech's MarkDown 사용법 총정리 <br>
   [참고자료](https://sergeswin.com/1013)  <br>
   [Markdown-guide](https://about.gitlab.com/handbook/product/technical-writing/markdown-guide/) <br><br>
-  
+   [R Code chunk 옵션 참고자료](http://blog.naver.com/PostView.nhn?blogId=definitice&logNo=221415805615&parentCategoryNo=&categoryNo=40&viewDate=&isShowPopularPosts=true&from=search)
+ 
    **Markdown 작업시 작업디렉토리 설정이 중요함** 
    
    **설정이 제대로 안된 경우에는 `커넥션을 연결 할 수 없다`는 오류메세시가 출력됨**
@@ -294,23 +295,77 @@ But let's throw in a tag.
 
   <br><br>
 
-## **R 에서 코드 실행결과 다루기**
+## **R Markdown에서 R 코드 적용하기**
 ***
-#### **실행코드와 결과 보여주기**
+
+  R Markdown에서 R 코드는 Code Chunk(코드 청크)를 만들어서 일반 텍스트와 구분하여 쓸 수 있고, <br>
+  In line code(인라인 코드)라고 하여 텍스트 부분에서 바로 R 코드 내재하여 쓸 수도 있다. <br>
+
+  - (적용 방법) R Code를 ```{r 청크명}과 ``` 사이에 넣으면 된다. <br>
+  이때 ```{r 청크명, 청크옵션1, 청크옵션2...}과 ```는 줄을 달리 해야 하며, 청크명과 청크옵션들은 기재하지 않아도 된다. 즉 그냥 ```{r} 로만 시작해도 된다는 것. <br>
+  
+  - 여기서 `는 백틱 기호이며, 키보드 왼쪽 위의 ESC 버튼 아래에 물결무늬(~)와 같이 있다. <br>
+  - R Markdown 문서에서 직접 입력해도 되지만, 더 간단히는 RStuio의 R Markdown 문서에서 단축키인 'Ctrl + Alt + i'를 이용할 수도 있다. <br>
+  - R Code Chunk에서는 주석도 #로 표현하는 등, 일반적인 R의 함수와 기능들을 모두 이용 가능하다. 
+
+
+#### **R Code Chunk의 옵션들**
+*** 
+
+  R for Data Science에 따르면 knitr 패키지는 코드 청크와 관련된 60여개의 옵션을 제공하는데 자주 쓰이는 옵션만 알아보자.  <br><br>
+  
+  코드 청크 옵션은 청크명 뒤에 콤마(,)로 구분하여 기재하며, 복수의 옵션을 동시에 적용할 수도 있다. <br>
+  - 유의할 점은, R에서는 FALSE 대신 F는 쓸 수 있으나, False는 쓸 수 없다는 것이다.(error) TRUE의 경우에도 T는 가능하나 True는 안된다. <br><br>
+  
+  - R for Data Science에 정리된 주요한 R 코드 청크의 옵션은 다음과 같다.
+
+
+| Option          | Run Code | Show Code | Output | Plots | Messages | Warnings |
+|:---------------:|:--------:|:---------:|:------:|:-----:|:--------:|:--------:|
+|`eval=FALSE`     | X        |           |  X     | X     | X        | X        |
+|`include=FALSE`  |          |  X        |  X     | X     | X        | X        |
+|`echo=FALSE`     |          |  X        |        |       |          |          | 
+|`results="hide"` |          |           |  X     | X     |          |          |
+|`fig.show="hide"`|          |           |        | X     |          |          |
+|`message=FALSE`  |          |           |        |       | X        |          |
+|`warning=FALSE`  |          |           |        |       |          | X        |
+
+  - 각 옵션에 대한 설명은 다음과 같다 <br><br>
+
+|NO|옵션명|설명|
+|:--|:----|:------|
+|1 | eval     | FALSE이면 코드는 실행되지 않으나, 코드는 출력된다. <br> (코드가 출력되지 않았으므로, 결과도 출력되지 않음) <br>  예시 코드용으로 유용
+|2 | include  | FALSE이면 코드가 실행은 되지만, 코드와 결과가 모두 출력되지 않는다. <br> 보고서를 어수선하게 하지 않는 setup code용으로 유용
+|3 | echo     | FALSE이면 코드가 실행되지만, 코드는 출력되지 않고 결과만 출력된다. <br> 코드 없이 결과물만 보이기를 원하는 보고서 등에 유용 
+|4 | results  | "hide"이면 print 결과물들이 출력되지 않는다.
+|5 | fig.show | "hide"이면 plot 결과물들이 출력되지 않는다. <br> ggplot2 결과물도 포함됨을 확인 
+|6 | message  | FALSE이면 R코드 실행시의 메시지가 표시되지 않는다.
+|7 | warnong  | FALSE이면 R코드 실행시의 경고문이 표시되지 않는다. 
+  
+  <br>
+
+#### **R Chunk 옵션 예제**
 ```{r}
 summary(iris)
 ```
 
   <br>
   
-#### **실행코드 없이 결과만 보여주기 {r, echo=FALSE}**  
+#### **코드는 실행, 코드 출력X 결과만 출력 {r, echo=FALSE}**  
 ```{r, echo=FALSE}
 summary(iris)
 ```
 
   <br>
   
-#### **결과 없이 코드만 보여주기 {r, eval=FALSE}**  
+#### **코드실행X, 코드와 결과모두 출력X {r, include=FALSE}**  
+```{r, eval=FALSE}
+summary(iris)
+```
+
+  <br>
+  
+#### **코드는 실행, 코드만 출력 {r, eval=FALSE}**  
 ```{r, eval=FALSE}
 summary(iris)
 ```
@@ -340,8 +395,6 @@ summary(iris)
 
  차이점은 `뒤에 r의 유무, "r"이 있어야 r 코드로 인식 <br><br>
  
- 
- [기타 추가할 자료](http://blog.naver.com/PostView.nhn?blogId=definitice&logNo=221415805615&parentCategoryNo=&categoryNo=40&viewDate=&isShowPopularPosts=true&from=search)
  
  
  

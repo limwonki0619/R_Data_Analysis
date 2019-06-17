@@ -382,7 +382,7 @@ $(document).ready(function () {
 
 
 <p><br></p>
-<p><a href="https://heropy.blog/2017/09/30/markdown">코드 출처</a>: Heropy Tech’s MarkDown 사용법 총정리 <br> <a href="https://sergeswin.com/1013">참고자료</a> <br> <a href="https://about.gitlab.com/handbook/product/technical-writing/markdown-guide/">Markdown-guide</a> <br><br></p>
+<p><a href="https://heropy.blog/2017/09/30/markdown">코드 출처</a>: Heropy Tech’s MarkDown 사용법 총정리 <br> <a href="https://sergeswin.com/1013">참고자료</a> <br> <a href="https://about.gitlab.com/handbook/product/technical-writing/markdown-guide/">Markdown-guide</a> <br><br> <a href="http://blog.naver.com/PostView.nhn?blogId=definitice&amp;logNo=221415805615&amp;parentCategoryNo=&amp;categoryNo=40&amp;viewDate=&amp;isShowPopularPosts=true&amp;from=search">R Code chunk 옵션 참고자료</a></p>
 <p><strong>Markdown 작업시 작업디렉토리 설정이 중요함</strong></p>
 <p><strong>설정이 제대로 안된 경우에는 <code>커넥션을 연결 할 수 없다</code>는 오류메세시가 출력됨</strong> <br><br><br></p>
 <div id="section" class="section level3">
@@ -631,11 +631,160 @@ But let&#39;s throw in a tag.</code></pre>
 <p><br><br></p>
 </div>
 </div>
-<div id="r----" class="section level2">
-<h2><strong>R 에서 코드 실행결과 다루기</strong></h2>
+<div id="r-markdown-r--" class="section level2">
+<h2><strong>R Markdown에서 R 코드 적용하기</strong></h2>
 <hr />
-<div id="section-3" class="section level4">
-<h4><strong>실행코드와 결과 보여주기</strong></h4>
+<p>R Markdown에서 R 코드는 Code Chunk(코드 청크)를 만들어서 일반 텍스트와 구분하여 쓸 수 있고, <br> In line code(인라인 코드)라고 하여 텍스트 부분에서 바로 R 코드 내재하여 쓸 수도 있다. <br></p>
+<ul>
+<li><p>(적용 방법) R Code를 <code>{r 청크명}과</code> 사이에 넣으면 된다. <br> 이때 <code>{r 청크명, 청크옵션1, 청크옵션2...}과</code>는 줄을 달리 해야 하며, 청크명과 청크옵션들은 기재하지 않아도 된다. 즉 그냥 ```{r} 로만 시작해도 된다는 것. <br></p></li>
+<li>여기서 `는 백틱 기호이며, 키보드 왼쪽 위의 ESC 버튼 아래에 물결무늬(~)와 같이 있다. <br></li>
+<li>R Markdown 문서에서 직접 입력해도 되지만, 더 간단히는 RStuio의 R Markdown 문서에서 단축키인 ’Ctrl + Alt + i’를 이용할 수도 있다. <br></li>
+<li><p>R Code Chunk에서는 주석도 #로 표현하는 등, 일반적인 R의 함수와 기능들을 모두 이용 가능하다.</p></li>
+</ul>
+<div id="r-code-chunk-" class="section level4">
+<h4><strong>R Code Chunk의 옵션들</strong></h4>
+<hr />
+<p>R for Data Science에 따르면 knitr 패키지는 코드 청크와 관련된 60여개의 옵션을 제공하는데 자주 쓰이는 옵션만 알아보자. <br><br></p>
+<p>코드 청크 옵션은 청크명 뒤에 콤마(,)로 구분하여 기재하며, 복수의 옵션을 동시에 적용할 수도 있다. <br> - 유의할 점은, R에서는 FALSE 대신 F는 쓸 수 있으나, False는 쓸 수 없다는 것이다.(error) TRUE의 경우에도 T는 가능하나 True는 안된다. <br><br></p>
+<ul>
+<li>R for Data Science에 정리된 주요한 R 코드 청크의 옵션은 다음과 같다.</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Option</th>
+<th align="center">Run Code</th>
+<th align="center">Show Code</th>
+<th align="center">Output</th>
+<th align="center">Plots</th>
+<th align="center">Messages</th>
+<th align="center">Warnings</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>eval=FALSE</code></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+</tr>
+<tr class="even">
+<td align="center"><code>include=FALSE</code></td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>echo=FALSE</code></td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><code>results=&quot;hide&quot;</code></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>fig.show=&quot;hide&quot;</code></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><code>message=FALSE</code></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>warning=FALSE</code></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">X</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>각 옵션에 대한 설명은 다음과 같다 <br><br></li>
+</ul>
+<table>
+<colgroup>
+<col width="20%"></col>
+<col width="33%"></col>
+<col width="46%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">NO</th>
+<th align="left">옵션명</th>
+<th align="left">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">eval</td>
+<td align="left">FALSE이면 코드는 실행되지 않으나, 코드는 출력된다. <br> (코드가 출력되지 않았으므로, 결과도 출력되지 않음) <br> 예시 코드용으로 유용</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">include</td>
+<td align="left">FALSE이면 코드가 실행은 되지만, 코드와 결과가 모두 출력되지 않는다. <br> 보고서를 어수선하게 하지 않는 setup code용으로 유용</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">echo</td>
+<td align="left">FALSE이면 코드가 실행되지만, 코드는 출력되지 않고 결과만 출력된다. <br> 코드 없이 결과물만 보이기를 원하는 보고서 등에 유용</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="left">results</td>
+<td align="left">“hide”이면 print 결과물들이 출력되지 않는다.</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="left">fig.show</td>
+<td align="left">“hide”이면 plot 결과물들이 출력되지 않는다. <br> ggplot2 결과물도 포함됨을 확인</td>
+</tr>
+<tr class="even">
+<td align="left">6</td>
+<td align="left">message</td>
+<td align="left">FALSE이면 R코드 실행시의 메시지가 표시되지 않는다.</td>
+</tr>
+<tr class="odd">
+<td align="left">7</td>
+<td align="left">warnong</td>
+<td align="left">FALSE이면 R코드 실행시의 경고문이 표시되지 않는다.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+<div id="r-chunk--" class="section level4">
+<h4><strong>R Chunk 옵션 예제</strong></h4>
 <pre class="r"><code>summary(iris)</code></pre>
 <pre><code>##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
 ##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
@@ -653,8 +802,8 @@ But let&#39;s throw in a tag.</code></pre>
 ## </code></pre>
 <p><br></p>
 </div>
-<div id="r-echofalse" class="section level4">
-<h4><strong>실행코드 없이 결과만 보여주기 {r, echo=FALSE}</strong></h4>
+<div id="x---r-echofalse" class="section level4">
+<h4><strong>코드는 실행, 코드 출력X 결과만 출력 {r, echo=FALSE}</strong></h4>
 <pre><code>##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
 ##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
 ##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
@@ -671,8 +820,13 @@ But let&#39;s throw in a tag.</code></pre>
 ## </code></pre>
 <p><br></p>
 </div>
+<div id="x---x-r-includefalse" class="section level4">
+<h4><strong>코드실행X, 코드와 결과모두 출력X {r, include=FALSE}</strong></h4>
+<pre class="r"><code>summary(iris)</code></pre>
+<p><br></p>
+</div>
 <div id="r-evalfalse" class="section level4">
-<h4><strong>결과 없이 코드만 보여주기 {r, eval=FALSE}</strong></h4>
+<h4><strong>코드는 실행, 코드만 출력 {r, eval=FALSE}</strong></h4>
 <pre class="r"><code>summary(iris)</code></pre>
 <p><br></p>
 </div>
@@ -708,14 +862,13 @@ versicolor:50<br />
 virginica :50</p>
 <p><br><br></p>
 </div>
-<div id="section-4" class="section level4">
+<div id="section-3" class="section level4">
 <h4><strong>인라인 코드 추가</strong></h4>
 <hr />
 <pre><code> R 코드 결과 추가 : iris의 dimension은 150, 5 입니다. &lt;br&gt;
  R 코드만 추가 : iris의 dimension은 `dim(iris)` 입니다.</code></pre>
 <p>R 코드 결과 추가 : iris의 dimension은 150, 5 입니다. <br> R 코드만 추가 : iris의 dimension은 <code>dim(iris)</code> 입니다.</p>
 <p>차이점은 `뒤에 r의 유무, “r”이 있어야 r 코드로 인식 <br><br></p>
-<p><a href="http://blog.naver.com/PostView.nhn?blogId=definitice&amp;logNo=221415805615&amp;parentCategoryNo=&amp;categoryNo=40&amp;viewDate=&amp;isShowPopularPosts=true&amp;from=search">기타 추가할 자료</a></p>
 </div>
 </div>
 
