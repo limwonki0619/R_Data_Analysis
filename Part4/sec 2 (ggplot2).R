@@ -144,8 +144,8 @@ library(reshape2)
 
 mapo <- read.csv("data/마포09번이용현황.csv")
 mapo$정류소명 <- paste0(1:length(mapo$정류소명),". ",mapo$정류소명)
-mapo$정류소명 <- factor(mapo$정류소명, levels=unique(mapo$정류소명)) # 버스정류장 순서정하기 *** 
-
+mapo$정류소명 <- factor(mapo$정류소명, levels=unique(mapo$정류소명))     # 버스정류장 순서정하기 *** 
+mapo$정류소명 <- factor(mapo$정류소명, levels=c("내가원하는 정소 순서")) # 원하는 순서로 정렬도 가능 
 mapo %>% 
   melt(id=c("정류소명"),variable.name = "승ㆍ하차인원") %>% 
     ggplot(aes(x=정류소명, y=value/10000,fill=승ㆍ하차인원)) +
