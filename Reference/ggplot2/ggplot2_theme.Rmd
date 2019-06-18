@@ -1,5 +1,5 @@
 ---
-title: "More beautifully, ggplot2"
+title: "ggplot2 - theme"
 author: "Lim Wonki"
 date: '2019. 06. 12. '
 output: html_document
@@ -88,11 +88,12 @@ iris %>%
       2.5 축 라벨 잘게 쪼개기 <br>
       2.6 축 라벨 바꾸기 <br>
       2.7 축 라벨 옆으로 눕히기 <br>
-      2.8 축 위치 바꾸기 <br><br>
+      2.8 축 위치 바꾸기 <br>
+      2.9 축 2개 만들기 (추가예정) <br>
       
   3. 범례(Legend) 커스텀 하기<br>
       3.1 범례 지우기 <br>
-      3.2 범례 꾸미기<br>
+      3.2 범례 꾸미기 <br>
       3.3 범례 테두리 꾸미기 <br>
       3.4 범례 위치 바꾸기 <br>
       3.5 범례 위치를 그래프 안으로 넣기 <br>
@@ -106,6 +107,14 @@ iris %>%
       4.4 팔레트 적용하기 <br>
       4.5 원하는 색상으로 바꾸기 <br>
       4.6 테마 적용하기 <br><br>
+
+  5. 좌표계(coordinate) 커스텀 하기 <br>
+      5.1 좌표계란 <br>
+      5.2 coord_cartesian 함수 <br>
+          5.2.1 xlim과 ylim <br>
+          5.2.2 expand <br>
+          5.3.3 scale_x_continuous와 차이점 <br><br> 
+      
       
   [부록] theme() 함수의 elements 설명
 
@@ -462,6 +471,137 @@ Basic_Plot +
   
   <br><br><br>
   
+#### **5. 좌표계(coordinate) 커스텀 하기**
+***
+
+#####  **5.1 좌표계란** 
+  좌표계(座標系, coordinate system)는 하나 이상의 숫자 또는 좌표를 사용하여 유클리드 공간과 같은 다양체에서 <br>
+  점 또는 기타 기하학적 요소의 위치를 고유하게 결정하는 시스템입니다. <br>
+  <br>
+  
+  가장 단순한 좌표계는 직교 좌표로 알려진 서로 수직으로 향한 좌표축(아래 그림)입니다. 여러 좌표계가 있지만, 그 중에서 우리는 직교 좌표계(카테시안 좌표계)를 알아보겠습니다. <br>
+
+  ![ggplot2를 사용해 만든 일반적인 직교좌표계](D:/limworkspace/R_Data_Analysis/Reference/ggplot2/직교좌표계.png)
+  
+  <br><br>
+  
+#####  **5.2 coord_cartesian 함수**
+  
+  *"저 파리의 위치를 어떻게 하면 표현 할 수 있을까?"*
+  
+  <br>
+  
+  우리가 흔히 알고 있는 좌표계는 프랑스의 수학자 르네 데카르트가 발명했습니다. <br> 
+  특이하게도 데카르트는 30년 전쟁 당시 병상에 누워 있던 중 천장에 붙어있는 파리의 위치를 설명할 일반적인 방법을 고민하다 직교좌표계를 발명했다고 합니다. <br
+  <br>
+  
+  ggplot2에서는 여러가지 좌표계를 지원합니다. <br>
+  그중에서 앞서 설명한, 흔히 직교 좌표계라고 부르는 데카르트 좌표계의 설정을 변경하는 함수를 알아보겠습니다. <br>
+  ggplot2에서는 coord_cartesian 함수를 통해 데카르트 좌표계의 X, Y축을 변경할 수 있으며 xlim, ylim, expand 세가지 인자를 가지고 있습니다. <br>
+  
+  <br>
+  
+#####    **5.2.1 xlim과 ylim**
+  x축과 y축의 범위를 제한 할 때 사용합니다. <br>
+  x축과 y축에 들어가는 데이터를 제한하는 것이 아니라 돋보기를 쓰고 축을 확대하는 개념입니다. <br>
+  설명을 위해 R 내장 데이터인 faithful데이터를 사용하겠습니다. faithful 데이터는 미국 옐로스톤 국립공원의 올드 페이스 풀 간헐천의 분화와 분화 사이의 대기시간을 기록한 데이터입니다. <br>
+
+```{r}
+library(ggplot2)
+
+ggplot(faithful, aes(waiting, eruptions))+
+  geom_point()+
+  coord_cartesian(xlim = c(60, 80), ylim = c(2:4))
+```
+
+  <br>
+  
+  xlim과 ylim을 통해서 x축은 60에서 80까지, y축은 2에서 4까지의 범위를 지정했습니다. <br>
+  위의 사례처럼 절대값(직접 숫자 지정)을 지정해서 범위를 제한 할 수도 있지만 아래와 같이 상대값(min, max)을 활용하여 지정해 줄 수도 있습니다. <br>
+  
+  <br>
+  
+```{r}
+library(ggplot2)
+
+ggplot(faithful, aes(waiting, eruptions))+
+  geom_point()+
+  coord_cartesian(xlim = c(min(faithful$waiting)-5, max(faithful$waiting)+5))
+```
+  
+  <br>
+  
+  위의 그래프에서 x축의 범위를 상대값으로 지정해 주었습니다. <br>
+  위의 코드를 살펴보면 x축은 faithful데이터의 waiting열의 최소값에서 5만큼 뺀 값에서 faithful데이터의 waiting열의 최대값에서 5만큼 더한 값까지로 설정되어있습니다. <br>
+  이렇듯 상대값으로 지정되면 데이터가 수정되더라도 언제나 안정적인 범위를 출력 할 수 있습니다. <br>
+  
+  <br>
+  
+#####    **5.2.2 expand**
+  축과 데이터의 겹침을 방지하여 데이터를 플롯에 온전히 표기하기 위해 약간의 여백을 주는 인자입니다. <br>
+  디폴트값(초기값)은 TRUE로 설정되어 있으며  FALSE로 설정 시 그래프의 여백이 사라지게 됩니다. <br>
+  
+```{r}
+library(ggplot2)
+
+ggplot(faithful, aes(waiting, eruptions))+
+  geom_point()+
+  coord_cartesian(expand = TRUE)
+```
+
+```{r}
+library(ggplot2)
+
+ggplot(faithful, aes(waiting, eruptions))+
+  geom_point()+
+  coord_cartesian(expand = FALSE)
+```
+  <br>
+  
+  위의 첫 번째 그래프는 expand를 TRUE로 설정한 그래프입니다. 데이터와 축 사이의 여백이 있음을 알 수 있습니다. <br>
+  그러나 두 번째 그래프는 여백이 없음을 알 수 있습니다. <br>
+
+  <br><br>
+
+#####    **5.3.3 scale_x_continuous와 차이점**
+  ggplot2에서 축을 설정하는 함수는 scale_x_continuous, xlim 등 여러가지가 있습니다. <br>
+  그러나 이들과 coord_cartesian 사이에는 차이점이 있습니다. 우선 coord_cartesian은 데카르트 좌표계를 설정합니다. <br>
+  그래서 coord_cartesian함수를 사용하여 x와 y값을 지정하면 단순히 출력되는 좌표계의 범위를 지정하는 것을 의미합니다. <br>
+  일종의 좌표평면 확대로 생각하면 이해하기 쉽습니다. 그러나 scale_x_continuous에서 limit으로 수정하거나 xlim을 사용하면 지정 범위 밖에 있는 데이터를 관측에서 제외합니다. <br>
+  이해를 돕기 위해 히스토그램 그래프로 예시를 들겠습니다. 두 그래프 다 x축의 범위를 60에서 80으로 설정하였습니다. <br>
+  
+  <br>
+
+```{r}
+library(ggplot2)
+
+ggplot(faithful, aes(waiting, eruptions))+
+  geom_bin2d()+
+  coord_cartesian(xlim = c(60, 80))+
+  geom_smooth(method = lm)
+```
+  
+  coord_cartesian함수를 사용하여 x축의 범위를 지정했습니다. 앞서 설명한 것처럼 단순히 좌표축을 확대한 것에 불가하기에 히스토그램의 모양 잡아 당긴 것처럼 변형되었습니다. <br>
+  그리고 faithful전체 데이터를 대상으로 하기 때문에 count의 최대값이 6으로 지정되어있습니다. 
+ 
+```{r}
+library(ggplot2)
+
+ggplot(faithful, aes(waiting, eruptions))+
+  geom_bin2d()+
+  scale_x_continuous(limits = c(60, 80))+
+  geom_smooth(method = lm)
+```
+  
+  그러나 scale_x_continuous를 사용한 두 번째 그래프를 보면 확연한 차이를 보입니다. <br>
+  지정한 x축 범위를 초과하는 값은 계산에서 배제되어 히스토그램의 모양이 온전합니다. <br>
+  또한 범위에 속해있는 데이터만 분석하기 때문에 count의 최대값이 3에 머물러 있는 것을 알 수 있습니다.  <br>
+  
+단순히 그래프의 축을 확대하려면 coord_cartesian 함수를 사용하면 되지만, 그래프에 출력되는 데이터 자체를 수정하려면 scale_x_continuous 함수를 사용하면 됩니다. <br>
+      
+      
+  <br><br><br>
+  
 ####  **[부록] them 함수의 elements 설명**
 ***   
 
@@ -476,4 +616,10 @@ Basic_Plot +
 ### **참고자료**
 ***
   
-  [ggplot2 그래프 커스텀 하기](http://blog.naver.com/PostView.nhn?blogId=nife0719&logNo=221000580841)
+  [ggplot2 그래프 커스텀 하기](http://blog.naver.com/PostView.nhn?blogId=nife0719&logNo=221000580841) 
+  
+  <br>
+  
+  [R - ggplot2(coder1252님의 블로그)](https://m.blog.naver.com/coder1252/220931262683)
+  
+  
