@@ -89,7 +89,7 @@ iris %>%
       2.6 축 텍스트 바꾸기 <br>
       2.7 축 텍스트 옆으로 눕히기 <br>
       2.8 축 위치 바꾸기 <br>
-      2.9 축 2개 만들기 (추가예정) <br>
+      2.9 Y축 2개 만들기 <br>
       
   3. 범례(Legend) 커스텀 하기<br>
       3.1 범례 지우기 <br>
@@ -287,7 +287,26 @@ Basic_Plot +
 Basic_Plot + 
   scale_x_continuous(position = "top")   # x축을 위로 옮깁니다.
 ```
+  <br>
+  
+##### **2.9 Y축 두 개 만들기**  
+  이번엔 `basic_plot`이 아닌 `Cars93`데이터에서 두 개의 Y축을 만들기 위해 <br>
+  가격에 따른 Wheelbase와 Rear.seat.room의 선 그래프를 그려보겠습니다. <br>
+  새로운 Y2축을 만들기 위해서는 각 축의 최대값을 비율을 구해 Y2축에 곱해줘야 합니다. 
+  Y2축은 기존 Y1축을 모방해 만들기 때문입니다. <br>
+  Y2축을 만드는 방법은 아래와 같습니다. <br>
+  
+```{r}
+max_ratio <- max(Cars93$Wheelbase)/max(Cars93$Rear.seat.room,na.rm = T) # 새로만들 축에 곱할 y1과 y2의 최대치의 비율 
 
+str(Cars93)
+ggplot(Cars93, aes(x=Price)) +
+  geom_line(aes(y=Wheelbase, color="Coral1")) +
+  geom_line(aes(y=Rear.seat.room*max_ratio), color="Royalblue") + # Rear.seat.room에 max_ratio를 곱해 y2 그리그 
+  scale_y_continuous(sec.axis = sec_axis(~.*(max_ratio/10), name = "Rear.seat.room")) # sec_axis는 첫번째 축을 기준으로 만듦 
+                                                                                      # 10으로 나눈 이유는 y1과 y2의 단위를 맞춰주기 위함 
+```
+  
   <br><br><br>
   
 ####  **3. 범례(Legend) 커스텀 하기**
