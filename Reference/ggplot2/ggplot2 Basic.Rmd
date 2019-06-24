@@ -32,12 +32,8 @@ knitr::opts_chunk$set(echo = TRUE)
           2.2.4 데이터의 종류를 비율로 표시해주는 bar 그래프 <br>
           2.2.5 가로로 눕힌 bar 그래프 <br>
           2.2.6 복수의  데이터를 나란히 표현해주는 가로 그래프 <br>
-      <br>
-      
-  3. geom_col <br>
-      3.1 기본 막대그래프
-      3.2 파이 차트 응용
-      3.3 도넛 차트 응용 
+          2.2.7 음수와 양수 막대 다르게 색상 입히기 <br>
+          2.2.8 막대 그래프를 이용한 파이-도넛 차트 <br>
       <br>
       
   4. geom_point / jitter <br>
@@ -134,9 +130,9 @@ ggplot(data=pressure, aes(x=temperature, y=pressure))+
   
   point를 가리지 않기 위해 함수에서 geom_point와 geom_line의 순서를 바꿔주었습니다. <br>
   line을 먼저 그린 뒤 그 위에 point를 그려주었기 때문에 point가 더 이상 가려지지 않습니다. <br>
-  ggplot2 함수의 특징인 레이어 추가 방식을 잘 보여주는 좋은 예 입니다.
+  ggplot2 함수의 특징인 레이어 추가 방식을 잘 보여주는 좋은 예 입니다. <br>
   
-  <br><br><br>
+  <br><br>
   
 ## **2. geom_bar 그래프 그리기**  
   
@@ -165,11 +161,11 @@ ggplot(diamonds, aes(cut))+
 ```
   
   x축 값을 지정하지 않으면 ggplot은 자동적으로  x축 데이터의 '빈도'를 y값으로 나타내줍니다. <br>
-  즉, diamonds 자료의 cut이란 칼럼 안에 존재하는 데이터들(Fair, Good, ..)의 빈도를 계산하여 y축에 'count'로 나타내 준 것입니다. <br><br>
+  즉, diamonds 자료의 cut이란 칼럼 안에 존재하는 데이터들(Fair, Good, ..)의 빈도를 계산하여 y축에 'count'로 나타내 준 것입니다. <br>
 
   aes()안에는 x축 값만 입력하고, geom_bar()에 stat을 설정해주지 않습니다. <br>
   사실 빈도수가 계산되도록 하기 위해선 geom_bar()에 stat='count'를 입력해주어야 합니다. <br>
-  stat='count'는 y축의 높이를 데이터의 빈도(count)로 표시하는 bar그래프 형식으로 나타내라는 뜻입니다. <br><br>
+  stat='count'는 y축의 높이를 데이터의 빈도(count)로 표시하는 bar그래프 형식으로 나타내라는 뜻입니다. <br>
 
   하지만 이를 지정하지 않고도 자동으로 y축의 값이 빈도로 표시되는 이유는, stat='count'가 bar그래프의 default 값이기 때문입니다. <br>
   default 값이란 미리 정해져 있는 값이나 설정치를 의미하며, 특정한 값이나 설정치를 지정되지 않았을 때 이 defaut(디폴트)값을 사용합니다. <br>
@@ -189,23 +185,14 @@ ggplot(sleep, aes(ID, extra))+
   
   그래프를 그리기 위한 코드는 크게 두 부분으로 구성돼있습니다. 데이터를 바탕으로 그래프의 틀을 정해주는 ggplot과, 그래프의 형태를 정해주는 함수입니다. 그래프의 형태를 지정해주는 부분은 앞서 말한 레이어 추가 방식(+)을 통해 계속해서 지정해줄 수 있습니다. <br>
   
-  <br>
-  
   가장 먼저 자료명을 입력하여 ggplot을 통해 그릴 그래프가 어떤 자료의 데이터를 기반으로 그릴 것인지를 정해줍니다. <br>
   aes는 지정한 자료의 데이터를 바탕으로 그래프의 틀을 정해주는 함수입니다. 따라서 aes에서 데이터를 기반으로 하는 x축과 y축, 데이터 색상을 지정해줍니다. <br>
-  
-  <br>
 
   그래프의 틀을 지정해주었으면 어떤 형식으로 그릴 것인지 정해주어야 합니다. <br>
   bar그래프는 geom_bar()로 그릴 수 있습니다. 여기서 주의해야 할 점은 geom_bar() 안에 반드시 stat='identity'를 입력해주어야 한다는 것입니다. <br>
   stat은 ‘통계’의 뜻을 가진 ‘Statistic’의 약자로, bar 그래프의 형태에 대해 지정해줍니다. <br>
   identity는 y축 값의 높이를 데이터를 기반으로 정해줄 때 사용해줍니다. 즉, stat='identity'는 y축의 높이를 데이터의 값으로 하는 bar그래프의 형태로 지정한다는 것입니다. <br>
-  
-  <br>
 
-  한가지 더, sleep자료를 보면 같은 ID여도 group이 다름을 알 수 있습니다. ggplot은 따로 지정해주지 않는다면 데이터를 합쳐서 나타냅니다. 즉, 저희 그래프는 group별 extra 값을 더해서 나타내 준 것이기 때문에, ID 1의 extra값은 1.7 혹은 0.8이 아닌 2.5인 것입니다.
-  <br>
-  
   <br>
 
 #####  **2.2.2 데이터의 종류를 한 그래프 안에 나눠서 표시해주는 bar 그래프**
@@ -285,5 +272,134 @@ ggplot(sleep, aes(ID, extra, fill=group))+
   단, position은 한 가지만 설정할 수 있습니다. position='dodge', position=fill 은 불가능합니다. <br>
   <br>
 
-  ggplot를 이용하여 다양한 형태의 Bar그래프를 그리는 방식을 살펴보았습니다. <br>
-  다음 포스팅부터는 레이어 추가 방식(증분방식)을 통해 그래프를 꾸미는 법을 다루겠습니다.  
+##### **2.2.7 음수와 양수 막대 다르게 색상 입히기**
+  데이터 준비 :  gcookbook 패키지의 데이터 <br> 
+
+```{r}
+library(gcookbook)
+csub <- subset(climate, Source == "Berkeley" & Year >= 1900)
+csub$pos <- csub$Anomaly10y >= 0
+ggplot(csub, aes(x = Year, y = Anomaly10y, fill = pos)) +
+  geom_col()
+```
+
+  <br>
+
+  scale_fill_manual() 을 사용해 색깔을 바꾸고, guide=FALSE 로 범례를 지운 그래프 입니다. <br>
+
+```{r}
+ggplot(csub, aes(x = Year, y = Anomaly10y, fill = pos)) +
+  geom_col(colour = "black", size = .25) +
+  scale_fill_manual(values = c("#CCEEFF", "#FFDDDD"), guide = FALSE)
+```
+
+##### **2.2.8 막대 그래프를 이용한 파이-도넛 차트**
+  일반적으로 파이그래프는 자료를 표현하는데 있어 그리 좋은 방법은 아닌 것으로 알려져 있다. <br>
+  특히 자료의 갯수가 많아 질 경우 파이 그래프보다 도넛 그래프가 더 좋은 것으로 알려져 있다. <br>
+  이번 목표는 파이그래프와 donut plot을 결합하여 보기 좋은 그래프를 만드는 것이다.    
+  다음과 같은 자료가 있다고 하자. <br> 
+  
+```{r}
+data <- data.frame(browser = c("MSIE","MSIE","MSIE","MSIE","Firefox","Firefox","Firefox","Chrome","Safari","Safari","Opera"),
+                   version = c("MSIE 6.0","MSIE 7.0","MSIE 8.0","MSIE 9.0","Firefox 3.5","Firefox 3.6","Firefox 4.0","Chrome 10.0","Safari 4.0","Safari 5.0","Opera 11.x"),
+                   share = c(10.35, 7.35, 33.06, 2.81, 1.58, 13.12, 5.43, 9.91, 1.42, 4.55, 1.65))
+```
+
+  먼저 Pie plot과 Donut plot을 비교해보자. ggplot2의 geom_rect()및 coord_polar()를 이용하면 간단하게 파이차트와 도넛차트를 그릴 수 있다. <br>  
+  geom_rect()를 이용하려면 ymin, ymax, xmin, xmax 좌표를 지정해주어야 한다. *단, geom_bar 함수로는 불가능하다..* <br>
+  
+  차트를 그리기 위하여 먼저 다음과 같이 자료를 전처리한다. <br> 
+  
+```{r}
+library(dplyr)
+data1 <- data %>%
+  mutate(ymax = cumsum(share),
+         ymin = cumsum(share)-share,
+         ypos = ymin + (share/2),
+         ratio = share / sum(share) * 100)
+```
+
+  먼저 geom_rect()를 이용하여 막대그래프를 만들어보자. <br> 
+
+```{r}
+p <- ggplot(data1)+
+  geom_rect(aes(xmin=3,xmax=4,ymin=ymin,ymax=ymax, fill=browser, alpha=0.7))
+p
+```
+
+  이제 coord_polar()를 이용하여 좌표계를 원형좌표계로 변환한다. 양궁에서 쓰이는 과녁과 비슷한 Buul’s eye plot이 그려진다. <br>
+  
+```{r}
+p1 <- p + 
+  coord_polar()
+```
+
+
+```{r}
+p1
+```
+
+  이를 Pie plot으로 변환하려면 coord_polar의 theta옵션을 “y”로 주면 된다. <br>
+
+```{r}
+p1 <- p + 
+  coord_polar(theta = "y") 
+p1
+```
+
+  이 그래프를 Donut plot으로 바꾸는 것은 x축의 좌표의 범위만 바꾸어 주면 된다. <br>
+  
+```{r}
+p1 <- p +
+  coord_polar(theta = "y") +
+  xlim(0,4)
+p1
+```
+
+  범례와 불필요한 축을 없애고, 대신 browser version을 각 모형에 표시하면 다음과 같다.
+
+```{r}
+p2 <- p1 + 
+  geom_text(aes(x=3.5,y=ypos+1,label=version))+
+  guides(fill=FALSE) + 
+  theme(axis.title = element_blank(),       # 축 타이틀 삭제
+        axis.text = element_blank(),        # 축 텍스트 삭제 
+        axis.ticks = element_blank(),       # 축 ticks  삭제
+        panel.background = element_blank(), # 패널 배경 삭제 
+        legend.position = "neon"            # 범례삭제
+        )
+
+p2
+```
+
+  다음으로 Donut plot에 Pie plot을 다음과 같이 결합할 수 있다. 먼저 pie plot을 그리기 위한 데이타 전처리가 필요하다. 
+  
+```{r}
+data2 <- data1 %>%  
+  group_by(browser) %>% 
+  summarise_each(list(sum), sum = share) %>% 
+  arrange(desc(sum)) %>%
+  mutate(cumsum = cumsum(sum),
+         pos = cumsum - (sum/2),
+         ymin = cumsum - sum,
+         ratio = sum/sum(sum)*100)
+```
+
+  이제 이렇게 만들어진 data2를 이용하여 기존의 plot에 파이그래프를 덧그린다. <br>
+  
+```{r}
+p3 <- p2 + 
+  geom_rect(data=data2, aes(xmin=0, xmax=3, ymin=ymin, ymax=cumsum,fill=browser, alpha=0.7)) +
+  geom_text(data=data2, aes(x=1.5, y=pos, label=browser))
+p3
+```
+
+  <br><br>
+  
+
+        
+  
+
+
+
+
