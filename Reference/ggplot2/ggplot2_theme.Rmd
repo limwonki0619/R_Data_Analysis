@@ -114,7 +114,19 @@ iris %>%
           5.2.1 xlim과 ylim <br>
           5.2.2 expand <br>
           5.3.3 scale_x_continuous와 차이점 <br><br> 
-      
+  
+  6. 패널(panel) 커스텀 하기 <br>
+      6.1 하나의 패널(One-panel) <br>
+          6.1.1 Background <br>
+          6.1.2 grid <br>
+                (1) major <br>
+                (2) minor <br>
+          6.1.3 blank <br><br>
+          
+      6.2 두개의 패널 (Strip) <br>
+          6.2.1 Background <br>
+          6.2.2 text <br>
+          6.2.3 blank <br><br>
       
   [부록] theme() 함수의 elements 설명
 
@@ -441,7 +453,7 @@ Basic_Plot +
 #####  **4.4 팔레트 적용하기**
   기본으로 부여되는 색상이 마음에 들지 않는 경우에는 ggplot2에서 제공하는 팔레트를 사용하여 변경할 수 있습니다. <br>
   이때에는 scale_color_brewer() 함수에서 palette 입력을 통해 쉽게 색상의 변경이 가능합니다. <br>
-  사용이 가능한 팔레트의 종류는 매우 다양하며 [여기](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette) 에서 확인이 가능합니다. <br><br>
+  사용이 가능한 팔레트의 종류는 매우 다양하며 [여기](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette) 에서 확인이 가능합니다. <br>
   
 
 ```{r}
@@ -511,7 +523,7 @@ Basic_Plot +
   <br>
   
   우리가 흔히 알고 있는 좌표계는 프랑스의 수학자 르네 데카르트가 발명했습니다. <br> 
-  특이하게도 데카르트는 30년 전쟁 당시 병상에 누워 있던 중 천장에 붙어있는 파리의 위치를 설명할 일반적인 방법을 고민하다 직교좌표계를 발명했다고 합니다. <br
+  특이하게도 데카르트는 30년 전쟁 당시 병상에 누워 있던 중 천장에 붙어있는 파리의 위치를 설명할 일반적인 방법을 고민하다 직교좌표계를 발명했다고 합니다. <br>
   <br>
   
   ggplot2에서는 여러가지 좌표계를 지원합니다. <br>
@@ -578,6 +590,7 @@ ggplot(faithful, aes(waiting, eruptions))+
   <br>
   
   위의 첫 번째 그래프는 expand를 TRUE로 설정한 그래프입니다. 데이터와 축 사이의 여백이 있음을 알 수 있습니다. <br>
+  
   그러나 두 번째 그래프는 여백이 없음을 알 수 있습니다. <br>
 
   <br><br>
@@ -616,9 +629,141 @@ ggplot(faithful, aes(waiting, eruptions))+
   지정한 x축 범위를 초과하는 값은 계산에서 배제되어 히스토그램의 모양이 온전합니다. <br>
   또한 범위에 속해있는 데이터만 분석하기 때문에 count의 최대값이 3에 머물러 있는 것을 알 수 있습니다.  <br>
   
-단순히 그래프의 축을 확대하려면 coord_cartesian 함수를 사용하면 되지만, 그래프에 출력되는 데이터 자체를 수정하려면 scale_x_continuous 함수를 사용하면 됩니다. <br>
+  단순히 그래프의 축을 확대하려면 coord_cartesian 함수를 사용하면 되지만, 그래프에 출력되는 데이터 자체를 수정하려면 scale_x_continuous 함수를 사용하면 됩니다. <br>
       
-      
+  <br><br><br>
+
+#### **6. 패널(panel) 커스텀 하기** 
+***
+  
+#####  **6.1 하나의 패널(One-panel)** 
+  패널 커스텀 하기의 기본 데이터는 ggplot의 내장데이터인 Orange를 이용해 그린 나무의 <br>
+  나이별 성장의 분포를 나타낸 그래프입니다. 이번에는 theme으로 panel의 디자인을 변경해보겠습니다. <br>
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+g1 <- ggplot(Orange, aes(age,circumference))+
+       geom_point()+
+       ggtitle('Orange')
+```
+
+  빨간 색으로 표시된 영역을 panel이라 부릅니다. panel은 대표적으로 background와 grid의 디자인을 변경할 수 있습니다. <br>
+  
+  <br>
+
+#####  **6.1.1 Background** 
+  background는 line이나 text가 아닌 사각형이므로 element_rect를 적용합니다. rect은 '사각형의' 란 뜻을 가진 rectangular의 약자입니다. <br>
+  
+```{r}
+g1 + theme(panel.background = element_rect(fill = 'white', 
+                                           colour = "red",
+                                           linetype = 'dashed',
+                                           size = 2))
+```
+
+  <br>
+
+#####  **6.1.2 grid** 
+  grid는 그래프를 구성하는 눈금을 의미합니다. grid는 major와 minor로 나뉩니다. <br>
+  
+  <br>
+
+###### **(1) major** 
+  grid.major는 x축과 y축의 값이 위치한 grid를 의미합니다. grid는 보시는 바와 같이 선의 형태이기 때문에 element_line을 적용합니다. <br>
+  
+  line에 적용할 수 있는 linetype, color, size 등 모든 값을 적용할 수 있습니다. <br>
+
+```{r}
+g1 + theme(panel.grid.major = element_line(color = "black"))
+```
+  
+  <br>
+
+###### **(2) minor** 
+  grid.minor는 x, y 값에 위치하지 않은 눈금을 의미합니다. <br>
+  
+```{r}
+g1 + theme(panel.grid.minor = element_line(colour = "black"))
+```
+  
+```{r}
+g1 + theme(panel.grid.major.x = element_line(color='red'))
+```
+
+```{r}
+g1 + theme(panel.grid.major.y = element_line(color='red'))
+```
+
+  pannel.grid는 x축과 y축의 grid를 따로 설정해줄 수도 있습니다. <br>
+
+  <br>
+
+#####  **6.1.3 blank**
+  blank는 '빈, 공백의'을 의미하며, 공백을 적용할 때 사용합니다. <br>
+
+```{r}
+g1 + theme(panel.background = element_blank())
+```
+
+```{r}
+g1 + theme(panel.grid = element_blank())
+```
+  
+  <br>
+          
+##### **6.2 두개의 패널 (Strip)** 
+  strip은 한 plot내 둘 이상의 panel을 가진 그래프의 디자인을 변경할 때 활용합니다. <br>
+  
+  기본 데이터로 3가지 종류의 꽃의 꽃받침(Sepal)의 길이와 넓이, 꽃잎(Petal)의 길이와 넓이를 나타낸 iris를 사용하겠습니다. <br>
+  iris는 ggplot 내장 데이터이며, 위 그래프는 꽃의 종류에 따른 꽃잎의 길이와  너비를 나타낸 그래프입니다. <br>
+  
+  <br>
+  
+```{r}
+d2 <- ggplot(iris, aes(Petal.Length, Petal.Width))+
+       geom_point()+
+        facet_wrap(~Species)
+```
+
+  <br>
+
+##### **6.2.1 Background**
+
+```{r}
+d2 + theme(strip.background = element_rect(colour = "red", 
+                                           fill = "white"))
+```
+  <br>
+
+##### **6.2.2 text** 
+
+```{r}
+d2 + theme(strip.text.x = element_text(colour = "red", 
+                                       face = "bold"))
+```
+
+  <br>
+
+##### **6.2.3 blank** 
+  blank는 '빈, 공백의'을 의미하며, 공백을 적용할 때 사용합니다. <br>
+  
+```{r}
+d2 + theme(strip.background = element_blank())
+```
+
+  <br>
+
+  theme의 다른 함수들과 함께 적용할 수 있습니다. <br>
+
+```{r}
+d2 + theme(strip.background = element_rect(colour = "red", 
+                                           fill = "white"),
+           panel.background= element_blank())
+```
+  
   <br><br><br>
   
 ####  **[부록] them 함수의 elements 설명**
