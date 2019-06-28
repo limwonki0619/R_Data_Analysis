@@ -1,0 +1,101 @@
+### 시작하기 전에
+
+Git을 사용하기 전에 Java 설치 및 환경변수 설정이 필요하다. 
+
+환경변수는 1. JAVA_HOME 설정과 2. path 설정이 필요하다.
+
+JAVA_HOME 설정은 JAVA의 jdk파일이 저장된 경로를 지정해준다. 
+
+path 설정은 편집란에 ;%JAVA_HOMEbin 을 추가해준다.
+
+cmd 창에서 javac 명령어를 통해 설치가 잘 되었는지 확인한다.
+
+----------------------------------------------------------------------------------------
+
+### Git 설치하기
+
+Git을 설치하기 위해서는 Git 공식사이트(https://git-scm.com/download/)에서 운영체제에 맞는 버전을 설치해준다.
+
+### 처음으로 해보는 Git 
+
+1. Git.exe를 받은 후 디폴트값으로 설치를 해준다. (단, console window로 설정을 바꾸는게 있다)
+2. cmd 창에서 다음과 같은 초기 세팅을 해준다
+
+   git --version                                            # git 설치확인
+   git config --global user.name "limwonki0619"             # github에 회원등록
+   git config --global user.email "limwk0619@naver.com"     # github에 메일등록
+   
+3. 작업디렉토리(Working Directory) 생성과 로컬저장소(Local Repositiory) 지정을 위해 cmd 창에서 다음을 실행한다.
+
+   d:
+   (mkdir <name>)                                 # 작업디렉토리 생성
+   cd \작업디렉토리명
+   git init                                       # 여기서 init는 (initialize : 초기화)를 뜻하며, 이는 작업디렉토리를 로컬 깃 저장소라고 말해주는 것이다
+
+4. 다음을 통해 작업을 마친 파일을 준비상태(Staging Area)로 보낸다. 
+
+   git add <파일명.확장자>
+   git add .                                      # 작업디렉토리에 있는 모든 파일을 추가할 수 있다.
+   
+   git commit -m "변경내용"                        # 커밋을 통해 파일을 확정하고, 변경내용 작성 후 스냅샷을 찍는다.
+                                                  # git log로 결과확인이 가능하다
+
+5. Github에서 원하는 원격저장소를 새로 생성한다.  
+6. 로컬 저장소(Local Rpository)와 원격 저장소(Remote Rpository를 연결한다.
+   
+   git remote add origin <Remote Rpos url>        # 새로운 Repo remote 추가
+   (git remote -v)                                # local repository에 연결된 remote repository를 확인
+   
+7. 스테이징된 파일을 깃허브로 푸시한다.
+
+   git push -u origin master                      # 첫 설정떄만 사용하면 된다. 
+   git push origin master
+
+--------------------------------------------------------------------------------------
+
+### 원격저장소에서 파일 가져오는 방법 
+
+1. zip 파일                             # .git 폴더가 없는채로 소스만 받을 수 있으므로, local에서 git을 새롭게 설정해야된다.
+2. git clone  <remote Repo url>         # .git 폴더까지 포함해서 소스를 받을 수 있다.
+   git clone -b <branch name> <Repo url>
+
+3. git pull                             # remote repository에 저장된 파일을 가져와 local repository의 내용을 갱신한다.
+                                        # 단, 병합(merge) 과정이 발생하며 해당 remote repository에 권한이 있어야 pull 명령이 가능하다.
+                                        # git pull = git fetch + git merge
+                                        
+                                  
+ ref) git pull vs git clone 
+  
+      git clone은 github의 모든 파일을 가져오기만 함
+      git pull은 local repository와 비교하여 병합을 하고, local repository에 저장(git add)까지 수행
+                 또한 주로 협업과정에서 프로젝트의 최신코드를 local로 가져오는 역할로 많이 사용함
+  
+      git fetch는 local에 연결된 remote repository의 브랜치 목록과 그 파일 내용을 최슨으로 업데이트 하는 명령어, 즉 local과 remote의 싱크를 맞추는 새로고침 역할
+      git merge는 두 개의 branch를 병합하는 명령어
+  
+-------------------------------------------------------------------------------------
+
+### 자주 사용하는 git 명령어
+    
+    git status                           # git 상태를 확인한다 (
+    git remote remove origin             # 기존 Repo remote를 제거한다. (Repo를 변경할 때 사용하는 것 같다)
+    git diff                             # 수정된 내용을 확인할 수 있다. 
+    git config --list                    # config 관련 
+    git config credential.helper store   # 이 옵션을 주게 되면 해당 git directory에선 반영구적으로 인증 절차가 
+   
+
+## github에 100mb 이상 파일을 올리는 방법 
+
+https://medium.com/@stargt/github%EC%97%90-100mb-%EC%9D%B4%EC%83%81%EC%9D%98-%ED%8C%8C%EC%9D%BC%EC%9D%84-%EC%98%AC%EB%A6%AC%EB%8A%94-%EB%B0%A9%EB%B2%95-9d9e6e3b94ef
+
+참고자료 : https://emflant.tistory.com/123 github에 처음 파일 올리기 
+          생활코팅 : git 
+          [이젠컴퓨터학원 강사클럽](http::dj.ezenac.co.kr/ezen/club/)
+          바로 사용하는 초간단 GITHUB(깃허브) 사용법(https://www.youtube.com/watch?v=tC8Xj_Bf8Fw)
+          마크다운 https://gist.github.com/ihoneymon/652be052a0727ad59601
+          Git의-기초-수정하고-저장소에-저장하기 https://git-scm.com/book/ko/v1/Git%EC%9D%98-%EA%B8%B0%EC%B4%88-%EC%88%98%EC%A0%95%ED%95%98%EA%B3%A0-%EC%A0%80%EC%9E%A5%EC%86%8C%EC%97%90-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0
+          https://nolboo.kim/blog/2013/10/06/github-for-beginner/
+          로그인 오류시 https://www.hahwul.com/2018/08/git-credential-helper.html
+          각종 정리가 잘되어있음 https://victorydntmd.tistory.com/74
+          좋은 git 커밋 메시지를 작성하기 위한 7가지 약속 https://meetup.toast.com/posts/106
+          깃 튜토리얼 https://backlog.com/git-tutorial/kr/stepup/stepup7_1.html
