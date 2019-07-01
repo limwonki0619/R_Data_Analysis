@@ -27,7 +27,7 @@ library(ggplot2)
 iris %>% 
   ggplot(aes(x=Sepal.Length, y=Petal.Length, color=Species)) +
   geom_point() +
-  theme_bw(base_family = "나눔바른고딕", base_size = 10) + # 그래프 기본 글꼴 설정
+  theme_bw(base_family = "jalnan", base_size = 10) + # 그래프 기본 글꼴 설정
   theme(legend.position = "top") + # 범례위치
   labs(title="붓꽃 데이터 한글 글꼴 적용", color="붓꽃 종류") + # 타이틀 입력
   theme(plot.title = element_text(family = "jalnan", face = "bold", hjust = 0.5, size = 15, color = "grey20")) # 타이틀 서식
